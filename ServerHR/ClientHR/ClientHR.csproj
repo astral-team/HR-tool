@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A34184A0-F1DB-43F0-B058-BF39FB8050DA}</ProjectGuid>
+    <ProjectGuid>{603CA43D-8345-407C-BC69-C14EBDA909A4}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>ServerHR</RootNamespace>
-    <AssemblyName>ServerHR</AssemblyName>
+    <RootNamespace>ClientHR</RootNamespace>
+    <AssemblyName>ClientHR</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

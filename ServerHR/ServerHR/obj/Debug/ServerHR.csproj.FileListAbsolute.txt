@@ -1,0 +1,7 @@
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ServerHR.exe.config
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ServerHR.exe
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ServerHR.pdb
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.csprojResolveAssemblyReference.cache
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.csproj.CoreCompileInputs.cache
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.exe
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.pdb
