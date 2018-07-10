@@ -1,0 +1,11 @@
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\netcoreapp2.0\ServerHR.deps.json
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\netcoreapp2.0\ServerHR.runtimeconfig.json
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\netcoreapp2.0\ServerHR.runtimeconfig.dev.json
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\netcoreapp2.0\ServerHR.dll
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\netcoreapp2.0\ServerHR.pdb
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\netcoreapp2.0\ServerHR.csprojResolveAssemblyReference.cache
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\netcoreapp2.0\ServerHR.csproj.CoreCompileInputs.cache
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\netcoreapp2.0\ServerHR.AssemblyInfoInputs.cache
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\netcoreapp2.0\ServerHR.AssemblyInfo.cs
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\netcoreapp2.0\ServerHR.dll
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\netcoreapp2.0\ServerHR.pdb
