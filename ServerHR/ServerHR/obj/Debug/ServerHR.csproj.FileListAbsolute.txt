@@ -23,3 +23,8 @@ C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.c
 C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.csproj.CoreCompileInputs.cache
 C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.exe
 C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.pdb
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.dll
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.xml
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ru\EntityFramework.resources.dll

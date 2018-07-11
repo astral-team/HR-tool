@@ -13,7 +13,7 @@ namespace FinanceServer
         {
             try
             {
-                listener = new TcpListener(IPAddress.Parse("127.0.0.1"), PORT);
+                listener = new TcpListener(IPAddress.Any, PORT);
                 listener.Start();
                 Console.WriteLine("Ожидание подключений...");
 
