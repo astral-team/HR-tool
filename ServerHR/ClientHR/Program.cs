@@ -1,67 +1,54 @@
-﻿// SocketClient.cs
-using System;
-using System.Text;
-using System.Net;
+﻿using System;
 using System.Net.Sockets;
+using System.IO;
 
-namespace SocketClient
+namespace FinanceClient
 {
     class Program
     {
+        const int PORT = 5006;
+        const string ADDRESS = "127.0.0.1";
+
         static void Main(string[] args)
         {
+            TcpClient client = null;
             try
             {
-                SendMessageFromSocket(11000);
+                Console.WriteLine("Для регистрации вклада введите данные!");
+                Console.Write("Укажите ваше имя: ");
+                string userName = Console.ReadLine();
+
+                Console.Write("Укажите сумму вклада: ");
+                decimal sum = Decimal.Parse(Console.ReadLine());
+
+                Console.Write("Укажите период вклада в месяцах: ");
+                int period = Int32.Parse(Console.ReadLine());
+
+                client = new TcpClient(ADDRESS, PORT);
+                NetworkStream stream = client.GetStream();
+
+                BinaryWriter writer = new BinaryWriter(stream);
+                writer.Write(userName);
+                writer.Write(sum);
+                writer.Write(period);
+                writer.Flush();
+
+                BinaryReader reader = new BinaryReader(stream);
+                string accountNumber = reader.ReadString();
+                Console.WriteLine("Номер вашего счета " + accountNumber);
+
+                reader.Close();
+                writer.Close();
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
             finally
             {
-                Console.ReadLine();
+                client.Close();
             }
-        }
-
-        static void SendMessageFromSocket(int port)
-        {
-            // Буфер для входящих данных
-            byte[] bytes = new byte[1024];
-
-            // Соединяемся с удаленным устройством
-
-            // Устанавливаем удаленную точку для сокета
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, port);
-
-            Socket sender = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            // Соединяем сокет с удаленной точкой
-            sender.Connect(ipEndPoint);
-
-            Console.Write("Введите сообщение: ");
-            string message = Console.ReadLine();
-
-            Console.WriteLine("Сокет соединяется с {0} ", sender.RemoteEndPoint.ToString());
-            byte[] msg = Encoding.UTF8.GetBytes(message);
-
-            // Отправляем данные через сокет
-            int bytesSent = sender.Send(msg);
-
-            // Получаем ответ от сервера
-            int bytesRec = sender.Receive(bytes);
-
-            Console.WriteLine("\nОтвет от сервера: {0}\n\n", Encoding.UTF8.GetString(bytes, 0, bytesRec));
-
-            // Используем рекурсию для неоднократного вызова SendMessageFromSocket()
-            if (message.IndexOf("<TheEnd>") == -1)
-                SendMessageFromSocket(port);
-
-            // Освобождаем сокет
-            sender.Shutdown(SocketShutdown.Both);
-            sender.Close();
+            Console.Read();
         }
     }
 }

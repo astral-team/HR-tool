@@ -1,71 +1,40 @@
-﻿// SocketServer.cs
-using System;
-using System.Text;
+﻿using System;
 using System.Net;
 using System.Net.Sockets;
+using System.Threading.Tasks;
 
-namespace SocketServer
+namespace FinanceServer
 {
     class Program
     {
+        const int PORT = 5006; // порт для прослушивания подключений
+        static TcpListener listener;
         static void Main(string[] args)
         {
-            // Устанавливаем для сокета локальную конечную точку
-            IPHostEntry ipHost = Dns.GetHostEntry("localhost");
-            IPAddress ipAddr = ipHost.AddressList[0];
-            IPEndPoint ipEndPoint = new IPEndPoint(ipAddr, 11000);
-
-            // Создаем сокет Tcp/Ip
-            Socket sListener = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-            // Назначаем сокет локальной конечной точке и слушаем входящие сокеты
             try
             {
-                sListener.Bind(ipEndPoint);
-                sListener.Listen(10);
+                listener = new TcpListener(IPAddress.Parse("127.0.0.1"), PORT);
+                listener.Start();
+                Console.WriteLine("Ожидание подключений...");
 
-                // Начинаем слушать соединения
                 while (true)
                 {
-                    Console.WriteLine("Ожидаем соединение через порт {0}", ipEndPoint);
+                    TcpClient client = listener.AcceptTcpClient();
+                    ClientObject clientObject = new ClientObject(client);
 
-                    // Программа приостанавливается, ожидая входящее соединение
-                    Socket handler = sListener.Accept();
-                    string data = null;
-
-                    // Мы дождались клиента, пытающегося с нами соединиться
-
-                    byte[] bytes = new byte[1024];
-                    int bytesRec = handler.Receive(bytes);
-
-                    data += Encoding.UTF8.GetString(bytes, 0, bytesRec);
-
-                    // Показываем данные на консоли
-                    Console.Write("Полученный текст: " + data + "\n\n");
-
-                    // Отправляем ответ клиенту\
-                    string reply = "Спасибо за запрос в " + data.Length.ToString()
-                            + " символов";
-                    byte[] msg = Encoding.UTF8.GetBytes(reply);
-                    handler.Send(msg);
-
-                    if (data.IndexOf("<TheEnd>") > -1)
-                    {
-                        Console.WriteLine("Сервер завершил соединение с клиентом.");
-                        break;
-                    }
-
-                    handler.Shutdown(SocketShutdown.Both);
-                    handler.Close();
+                    // создаем новый поток для обслуживания нового клиента
+                    Task clientTask = new Task(clientObject.Process);
+                    clientTask.Start();
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                Console.WriteLine(ex.Message);
             }
             finally
             {
-                Console.ReadLine();
+                if (listener != null)
+                    listener.Stop();
             }
         }
     }
