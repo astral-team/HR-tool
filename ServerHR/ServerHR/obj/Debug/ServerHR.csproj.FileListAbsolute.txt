@@ -11,3 +11,15 @@ C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ServerHR
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.exe
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.pdb
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ServerHR.exe.config
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ServerHR.exe
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ServerHR.pdb
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.dll
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.xml
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.csproj.CoreCompileInputs.cache
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.exe
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ServerHR\obj\Debug\ServerHR.pdb

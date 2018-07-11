@@ -11,3 +11,10 @@ C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ClientHR\bin\Debug\ClientHR
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ClientHR\obj\Debug\ClientHR.csprojResolveAssemblyReference.cache
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ClientHR\obj\Debug\ClientHR.exe
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ClientHR\obj\Debug\ClientHR.pdb
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ClientHR\bin\Debug\ClientHR.exe.config
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ClientHR\bin\Debug\ClientHR.exe
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ClientHR\bin\Debug\ClientHR.pdb
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ClientHR\obj\Debug\ClientHR.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ClientHR\obj\Debug\ClientHR.csproj.CoreCompileInputs.cache
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ClientHR\obj\Debug\ClientHR.exe
+C:\Users\Student\Documents\GitHub\HR-tool\ServerHR\ClientHR\obj\Debug\ClientHR.pdb
