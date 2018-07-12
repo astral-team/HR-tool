@@ -12,6 +12,9 @@ namespace ServerHR
         // В этом поле хранится информация о базе данных
         static UserDBContainer dbContext = new UserDBContainer();
 
+        /// <summary>
+        /// Получение пользователя из базы данных, если его нет возвращается null
+        /// </summary>
         public static UserDB GetUser(UserDB user)
         {
             //return dbContext.UserDBSet.AsQueryable<UserDB>();
@@ -26,6 +29,9 @@ namespace ServerHR
             }
         }
 
+        /// <summary>
+        /// Занесение кэша в базу данных
+        /// </summary>
         public static void SetHash(UserDB user)
         {
             // Обновить данные в БД с помощью Entity Framework
@@ -50,10 +56,14 @@ namespace ServerHR
             }
         }
 
-        /*public RemoveUserDb()
+        /// <summary>
+        /// Удаление базы данных
+        /// </summary>
+        public static void RemoveUserDB()
         {
-
-        }*/
+            dbContext.UserDBSet.RemoveRange(dbContext.UserDBSet.AsEnumerable());
+            dbContext.SaveChanges();
+        }
 
     }
 }

@@ -14,7 +14,7 @@ namespace FinanceClient
             TcpClient client = null;
             try
             {
-                Console.WriteLine("Log - войти в систему\nReg - регистрация");
+                Console.WriteLine("Log - войти в систему\nReg - регистрация\nDel - удаление базы");
                 Console.Write("Команда: ");
                 string command = Console.ReadLine();
                 Console.Write("Логин: ");

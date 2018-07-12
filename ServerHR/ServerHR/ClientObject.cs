@@ -12,6 +12,14 @@ public class ClientObject
         client = tcpClient;
     }
 
+    public void SendResponse(string message, string errMessage, BinaryWriter writer, BinaryReader reader)
+    {
+        writer.Write(message + "\nВозможные ошибки:" + errMessage);
+        writer.Flush();
+        reader.Close();
+        writer.Close();
+    }
+
     public void Process()
     {
         NetworkStream stream = null;
@@ -19,13 +27,15 @@ public class ClientObject
         {
             stream = client.GetStream();
             BinaryReader reader = new BinaryReader(stream);
+            BinaryWriter writer = new BinaryWriter(stream);
+            string message = "";
+            string errMessage = "";
             // считываем данные из потока
 
             string command = reader.ReadString();
             UserDB userdb = new UserDB();
             userdb.Login = reader.ReadString();
             userdb.Password = reader.ReadString();
-            string ErrMessage = "";
 
             switch (command)
             {
@@ -40,22 +50,13 @@ public class ClientObject
                         CRUD.SetHash(userdb);
 
                         Console.WriteLine("{0} получил хэш {1}", user.Login, user.Hash);
-                        
-                        BinaryWriter writer = new BinaryWriter(stream);
-                        string message = "Пользователь вошел, хэш:" + user.Hash;
-                        writer.Write(message);
-                        writer.Flush();
-                        reader.Close();
-                        writer.Close();
+                        writer = new BinaryWriter(stream);
+                        message = "Пользователь вошел, хэш:" + user.Hash;
+
                     }
                     else
                     {
-                        BinaryWriter writer = new BinaryWriter(stream);
-                        string message = "Неправильные логин или пароль";
-                        writer.Write(message);
-                        writer.Flush();
-                        writer.Close();
-                        reader.Close();
+                        errMessage += "\nНеправильные логин или пароль";
                     }
                     break;
 
@@ -63,31 +64,30 @@ public class ClientObject
 
                     userdb.Hash = "";
                     userdb.DateOff = "";
+
                     if (CRUD.CreateUser(userdb))
                     {
-                        Console.WriteLine("Пользователь {0} добавлен в базу", userdb.Login);
-                        BinaryWriter writer = new BinaryWriter(stream);
-                        string message = "Регистрация прошла успешно";
-                        writer.Write(message);
-                        writer.Flush();
-                        writer.Close();
-                        reader.Close();
+                        message = "Пользователь {0} добавлен в базу" + userdb.Login;
                     }
                     else
                     {
-                        BinaryWriter writer = new BinaryWriter(stream);
-                        string message = "Пользователь уже существует";
-                        writer.Write(message);
-                        writer.Flush();
-                        writer.Close();
-                        reader.Close();
+                        errMessage += "\nПользователь уже существует";
                     }
                     break;
 
+                case "Del":
+
+                    CRUD.RemoveUserDB();
+                    message = "База данных удалена";
+
+                    break;
+
                 default:
-                    reader.Close();
+                    errMessage += "\nНеизвестная команда";
                     break;
             }
+
+            SendResponse(message, errMessage, writer, reader);
             
             /*UserDB userdb = new UserDB();
             userdb.Login = reader.ReadString();
