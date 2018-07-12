@@ -14,6 +14,7 @@ public class ClientObject
 
     public void SendResponse(string message, string errMessage, BinaryWriter writer, BinaryReader reader)
     {
+        Console.WriteLine(message + "\nВозможные ошибки:" + errMessage);
         writer.Write(message + "\nВозможные ошибки:" + errMessage);
         writer.Flush();
         reader.Close();
@@ -33,20 +34,20 @@ public class ClientObject
             // считываем данные из потока
 
             string command = reader.ReadString();
-            UserDB userdb = new UserDB();
-            userdb.Login = reader.ReadString();
-            userdb.Password = reader.ReadString();
+            AuthorizedUser user = new AuthorizedUser(reader.ReadString(), reader.ReadString());
+
 
             switch (command)
             {
                 case "Log":
                     
-                    var dbResponse = CRUD.GetUser(userdb);
+                    var dbResponse = CRUD.GetUser(user);
 
-                    if (dbResponse != null) //Проверка авторизации
+                    if (dbResponse != null && Validator.ConfirmPassword(dbResponse, user)) //Проверка авторизации
                     {
+
+                        UserDB userdb = new UserDB();
                         userdb = dbResponse;
-                        AuthorizedUser user = new AuthorizedUser(userdb);
                         CRUD.SetHash(userdb);
 
                         Console.WriteLine("{0} получил хэш {1}", user.Login, user.Hash);
@@ -62,12 +63,9 @@ public class ClientObject
 
                 case "Reg":
 
-                    userdb.Hash = "";
-                    userdb.DateOff = "";
-
-                    if (CRUD.CreateUser(userdb))
+                    if (CRUD.CreateUser(user))
                     {
-                        message = "Пользователь {0} добавлен в базу" + userdb.Login;
+                        message = $"Пользователь {user.Login} добавлен в базу";
                     }
                     else
                     {
@@ -76,7 +74,7 @@ public class ClientObject
                     break;
 
                 case "Del":
-
+                    
                     CRUD.RemoveUserDB();
                     message = "База данных удалена";
 
