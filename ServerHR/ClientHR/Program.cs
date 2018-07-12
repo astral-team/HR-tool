@@ -14,23 +14,26 @@ namespace FinanceClient
             TcpClient client = null;
             try
             {
-                Console.WriteLine("Для входа в систему введите логин и пароль");
+                Console.WriteLine("Log - войти в систему\nReg - регистрация");
+                Console.Write("Команда: ");
+                string command = Console.ReadLine();
                 Console.Write("Логин: ");
-                string login = Console.ReadLine();
+                string Login = Console.ReadLine();
                 Console.Write("Пароль: ");
-                string password = Console.ReadLine();
+                string Password = Console.ReadLine();
 
                 client = new TcpClient(ADDRESS, PORT);
                 NetworkStream stream = client.GetStream();
 
                 BinaryWriter writer = new BinaryWriter(stream);
-                writer.Write(login);
-                writer.Write(password);
+                writer.Write(command);
+                writer.Write(Login);
+                writer.Write(Password);
                 writer.Flush();
 
                 BinaryReader reader = new BinaryReader(stream);
-                string hash = reader.ReadString();
-                Console.WriteLine("Хэш: " + hash);
+                string message = reader.ReadString();
+                Console.WriteLine("Message: " + message);
 
                 reader.Close();
                 writer.Close();

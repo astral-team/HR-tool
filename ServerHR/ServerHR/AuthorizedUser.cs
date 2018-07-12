@@ -1,12 +1,14 @@
 ﻿using System;
+using ServerHR;
 
-public class Account
+public class AuthorizedUser
 {
-    public Account(string login, string password)
+    public AuthorizedUser(UserDB user)
     {
         this.Hash = Guid.NewGuid().ToString(); // генерируем номер счета
-        this.Login = login;
-        this.Password = password;
+        user.Hash = this.Hash;
+        this.Login = user.Login;
+        this.Password = user.Password;
     }
     public string Hash { get; private set; } // id - номер счета
     public string Login { get; private set; } // имя владельца
