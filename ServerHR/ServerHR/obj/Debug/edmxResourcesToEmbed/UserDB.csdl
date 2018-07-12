@@ -12,6 +12,6 @@
     <Property Name="Password" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="Hash" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
     <Property Name="DateOff" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
-    <Property Name="Root" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" DefaultValue="" />
+    <Property Name="Root" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" DefaultValue="" />
   </EntityType>
 </Schema>

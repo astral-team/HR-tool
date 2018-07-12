@@ -4,12 +4,12 @@
     <EntitySetMapping Name="UserDBSet">
       <EntityTypeMapping TypeName="IsTypeOf(UserDB.UserDB)">
         <MappingFragment StoreEntitySet="UserDBSet">
-          <ScalarProperty Name="Root" ColumnName="Root" />
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="Login" ColumnName="Login" />
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Hash" ColumnName="Hash" />
           <ScalarProperty Name="DateOff" ColumnName="DateOff" />
+          <ScalarProperty Name="Root" ColumnName="Root" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

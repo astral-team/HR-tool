@@ -36,7 +36,6 @@ public class ClientObject
             string command = reader.ReadString();
             AuthorizedUser user = new AuthorizedUser(reader.ReadString(), reader.ReadString());
 
-
             switch (command)
             {
                 case "Log":

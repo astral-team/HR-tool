@@ -17,5 +17,16 @@ public class AuthorizedUser : UserDB
         this.Hash = Guid.NewGuid().ToString(); // генерируем номер счета
         this.Login = login;
         this.Password = password;
+
+
+    }
+
+    public UserDB ToUserDB()
+    {
+        var user = new UserDB();
+        user.Login = this.Login;
+        user.Password = this.Password;
+        user.Hash = this.Hash;
+        return user;
     }
 }
