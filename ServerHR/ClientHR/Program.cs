@@ -14,21 +14,33 @@ namespace FinanceClient
             TcpClient client = null;
             try
             {
+                string Login = "";
+                string Password = "";
+                string Hash = "";
                 bool exit = true;
                 while (exit)
                 {
                     Console.WriteLine("Log - войти в систему\nReg - регистрация\nDel - удаление базы\nExit - закрыть программу");
                     Console.Write("Команда: ");
                     string command = Console.ReadLine();
-                    Console.Write("Логин: ");
-                    string Login = Console.ReadLine();
-                    Console.Write("Пароль: ");
-                    string Password = Console.ReadLine();
 
                     if (command == "Exit")
                     {
                         exit = false;
                         break;
+                    }
+
+                    if (command != "Del")
+                    {
+                        Console.Write("Логин: ");
+                        Login = Console.ReadLine();
+                        Console.Write("Пароль: ");
+                        Password = Console.ReadLine();
+                    }
+
+                    if(command == "Log")
+                    {
+                        Hash = "";
                     }
 
                     client = new TcpClient(ADDRESS, PORT);
@@ -38,9 +50,14 @@ namespace FinanceClient
                     writer.Write(command);
                     writer.Write(Login);
                     writer.Write(Password);
+                    writer.Write(Hash);
                     writer.Flush();
 
                     BinaryReader reader = new BinaryReader(stream);
+                    if (command == "Log")
+                    {
+                        Hash = reader.ReadString();
+                    }
                     string message = reader.ReadString();
                     Console.WriteLine("Message: " + message);
 

@@ -12,9 +12,16 @@ public class AuthorizedUser : UserDB
         this.Root = user.Root;
     }
 
-    public AuthorizedUser(string login, string password)
+    public AuthorizedUser(string login, string password, string hash)
     {
-        this.Hash = Guid.NewGuid().ToString(); // генерируем номер счета
+        if (hash == "")
+        {
+            this.Hash = Guid.NewGuid().ToString(); // генерируем номер счета
+        }
+        else
+        {
+            this.Hash = hash;
+        }
         this.Login = login;
         this.Password = password;
 

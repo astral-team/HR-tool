@@ -12,5 +12,10 @@ namespace ServerHR
         {
             return userdb.Password == user.Password;
         }
+
+        public static bool ConfirmLogIn(UserDB userdb, AuthorizedUser user)
+        {
+            return ConfirmPassword(userdb,user) &&(userdb.Login == user.Login) && userdb.Hash == user.Hash;
+        }
     }
 }

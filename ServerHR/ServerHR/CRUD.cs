@@ -46,12 +46,16 @@ namespace ServerHR
         {
             if(GetUser(user) == null)
             {
-                /*UserDB userdb = new UserDB();
+                UserDB userdb = new UserDB();
                 userdb.Login = user.Login;
                 userdb.Password = user.Password;
-                userdb.Hash = user.Hash;*/
-   
-                dbContext.UserDBSet.Add(user.ToUserDB());
+                userdb.Id = 100;
+                userdb.Hash = "";
+                userdb.DateOff = "";
+                userdb.Root = "";
+
+                //dbContext.UserDBSet.Add(user.ToUserDB());
+                dbContext.UserDBSet.Add(userdb);
                 dbContext.SaveChanges();
                 return true;
             }

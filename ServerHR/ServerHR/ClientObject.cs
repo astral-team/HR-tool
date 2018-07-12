@@ -24,17 +24,21 @@ public class ClientObject
     public void Process()
     {
         NetworkStream stream = null;
+        BinaryReader reader = null;
+        BinaryWriter writer = null;
+        string message = "";
+        string errMessage = "";
         try
         {
+
             stream = client.GetStream();
-            BinaryReader reader = new BinaryReader(stream);
-            BinaryWriter writer = new BinaryWriter(stream);
-            string message = "";
-            string errMessage = "";
+            reader = new BinaryReader(stream);
+            writer = new BinaryWriter(stream);
             // считываем данные из потока
 
             string command = reader.ReadString();
-            AuthorizedUser user = new AuthorizedUser(reader.ReadString(), reader.ReadString());
+            AuthorizedUser user = new AuthorizedUser(reader.ReadString(), reader.ReadString(), reader.ReadString());
+
 
             switch (command)
             {
@@ -46,11 +50,14 @@ public class ClientObject
                     {
 
                         UserDB userdb = new UserDB();
+
                         userdb = dbResponse;
+                        userdb.Hash = user.Hash;
                         CRUD.SetHash(userdb);
 
                         Console.WriteLine("{0} получил хэш {1}", user.Login, user.Hash);
                         writer = new BinaryWriter(stream);
+                        writer.Write(user.Hash);
                         message = "Пользователь вошел, хэш:" + user.Hash;
 
                     }
@@ -64,6 +71,7 @@ public class ClientObject
 
                     if (CRUD.CreateUser(user))
                     {
+
                         message = $"Пользователь {user.Login} добавлен в базу";
                     }
                     else
@@ -73,10 +81,18 @@ public class ClientObject
                     break;
 
                 case "Del":
-                    
-                    CRUD.RemoveUserDB();
-                    message = "База данных удалена";
 
+                    dbResponse = CRUD.GetUser(user);
+
+                    if (dbResponse != null && Validator.ConfirmLogIn(dbResponse, user))
+                    {
+                        CRUD.RemoveUserDB();
+                        message = $"База данных удалена пользователем {user.Login}";
+                    }
+                    else
+                    {
+                        errMessage += "\nОшибка, пользователь не авторизирован";
+                    }
                     break;
 
                 default:
@@ -84,7 +100,7 @@ public class ClientObject
                     break;
             }
 
-            SendResponse(message, errMessage, writer, reader);
+           
             
             /*UserDB userdb = new UserDB();
             userdb.Login = reader.ReadString();
@@ -127,6 +143,7 @@ public class ClientObject
         }
         finally
         {
+            SendResponse(message, errMessage, writer, reader);
             if (stream != null)
                 stream.Close();
             if (client != null)
