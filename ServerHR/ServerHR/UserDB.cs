@@ -14,10 +14,19 @@ namespace ServerHR
     
     public partial class UserDB
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public UserDB()
+        {
+            this.Hash = "";
+            this.DateOff = "";
+            this.Root = "";
+        }
+    
         public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
         public string Hash { get; set; }
         public string DateOff { get; set; }
+        public string Root { get; set; }
     }
 }

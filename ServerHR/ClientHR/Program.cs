@@ -14,29 +14,39 @@ namespace FinanceClient
             TcpClient client = null;
             try
             {
-                Console.WriteLine("Log - войти в систему\nReg - регистрация");
-                Console.Write("Команда: ");
-                string command = Console.ReadLine();
-                Console.Write("Логин: ");
-                string Login = Console.ReadLine();
-                Console.Write("Пароль: ");
-                string Password = Console.ReadLine();
+                bool exit = true;
+                while (exit)
+                {
+                    Console.WriteLine("Log - войти в систему\nReg - регистрация\nDel - удаление базы\nExit - закрыть программу");
+                    Console.Write("Команда: ");
+                    string command = Console.ReadLine();
+                    Console.Write("Логин: ");
+                    string Login = Console.ReadLine();
+                    Console.Write("Пароль: ");
+                    string Password = Console.ReadLine();
 
-                client = new TcpClient(ADDRESS, PORT);
-                NetworkStream stream = client.GetStream();
+                    if (command == "Exit")
+                    {
+                        exit = false;
+                        break;
+                    }
 
-                BinaryWriter writer = new BinaryWriter(stream);
-                writer.Write(command);
-                writer.Write(Login);
-                writer.Write(Password);
-                writer.Flush();
+                    client = new TcpClient(ADDRESS, PORT);
+                    NetworkStream stream = client.GetStream();
 
-                BinaryReader reader = new BinaryReader(stream);
-                string message = reader.ReadString();
-                Console.WriteLine("Message: " + message);
+                    BinaryWriter writer = new BinaryWriter(stream);
+                    writer.Write(command);
+                    writer.Write(Login);
+                    writer.Write(Password);
+                    writer.Flush();
 
-                reader.Close();
-                writer.Close();
+                    BinaryReader reader = new BinaryReader(stream);
+                    string message = reader.ReadString();
+                    Console.WriteLine("Message: " + message);
+
+                    reader.Close();
+                    writer.Close();
+                }
             }
             catch (Exception ex)
             {
@@ -46,7 +56,6 @@ namespace FinanceClient
             {
                 client.Close();
             }
-            Console.Read();
         }
     }
 }

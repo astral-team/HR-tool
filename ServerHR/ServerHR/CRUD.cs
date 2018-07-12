@@ -12,13 +12,16 @@ namespace ServerHR
         // В этом поле хранится информация о базе данных
         static UserDBContainer dbContext = new UserDBContainer();
 
-        public static UserDB GetUser(UserDB user)
+        /// <summary>
+        /// Получение пользователя из базы данных, если его нет возвращается null
+        /// </summary>
+        public static UserDB GetUser(AuthorizedUser user)
         {
             //return dbContext.UserDBSet.AsQueryable<UserDB>();
             // Используем LINQ-запрос для извлечения данных
             try
             {
-                return dbContext.UserDBSet.AsQueryable().Where(x => x.Login == user.Login).Where(p => p.Password == user.Password).First();
+                return dbContext.UserDBSet.AsQueryable().Where(x => x.Login == user.Login).First();
             }
             catch
             {
@@ -26,6 +29,9 @@ namespace ServerHR
             }
         }
 
+        /// <summary>
+        /// Занесение кэша в базу данных
+        /// </summary>
         public static void SetHash(UserDB user)
         {
             // Обновить данные в БД с помощью Entity Framework
@@ -36,11 +42,11 @@ namespace ServerHR
         /// <summary>
         /// Создание нового пользователя
         /// </summary>
-        public static bool CreateUser(UserDB user)
+        public static bool CreateUser(AuthorizedUser user)
         {
             if(GetUser(user) == null)
             {
-                dbContext.UserDBSet.Add(user);
+                dbContext.UserDBSet.Add(user as UserDB);
                 dbContext.SaveChanges();
                 return true;
             }
@@ -50,10 +56,14 @@ namespace ServerHR
             }
         }
 
-        /*public RemoveUserDb()
+        /// <summary>
+        /// Удаление базы данных
+        /// </summary>
+        public static void RemoveUserDB()
         {
-
-        }*/
+            dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [UserDBSet]");
+            dbContext.SaveChanges();
+        }
 
     }
 }

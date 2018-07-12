@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="UserDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="UserDBStoreContainer">
-    <EntitySet Name="UserDBSet" EntityType="UserDB.Store.UserDBSet" store:Type="Tables" Schema="dbo" />
-  </EntityContainer>
+<Schema Namespace="UserDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityType Name="UserDBSet">
     <Key>
       <PropertyRef Name="Id" />
@@ -12,5 +9,9 @@
     <Property Name="Password" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DateOff" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Root" Type="text" />
   </EntityType>
+  <EntityContainer Name="UserDBStoreContainer">
+    <EntitySet Name="UserDBSet" EntityType="Self.UserDBSet" Schema="dbo" store:Type="Tables" />
+  </EntityContainer>
 </Schema>
