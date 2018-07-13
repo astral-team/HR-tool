@@ -1,0 +1,6 @@
+C:\Users\home.PTIZ\Desktop\httpListener\HRClient\bin\Debug\HRClient.exe.config
+C:\Users\home.PTIZ\Desktop\httpListener\HRClient\bin\Debug\HRClient.exe
+C:\Users\home.PTIZ\Desktop\httpListener\HRClient\bin\Debug\HRClient.pdb
+C:\Users\home.PTIZ\Desktop\httpListener\HRClient\obj\Debug\HRClient.csprojResolveAssemblyReference.cache
+C:\Users\home.PTIZ\Desktop\httpListener\HRClient\obj\Debug\HRClient.exe
+C:\Users\home.PTIZ\Desktop\httpListener\HRClient\obj\Debug\HRClient.pdb

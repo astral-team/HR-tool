@@ -28,3 +28,8 @@ C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug
 C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.xml
 C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Александр\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.xml
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\ServerHR\ServerHR\bin\Debug\ru\EntityFramework.resources.dll

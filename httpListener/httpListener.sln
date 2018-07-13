@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26430.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRServer", "httpListener\HRServer.csproj", "{192FCDD6-795A-4E70-AF64-6B6940DDECFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRClient", "HRClient\HRClient.csproj", "{8C2A219E-6183-4AFE-8269-D68D0B6928E4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{192FCDD6-795A-4E70-AF64-6B6940DDECFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{192FCDD6-795A-4E70-AF64-6B6940DDECFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{192FCDD6-795A-4E70-AF64-6B6940DDECFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{192FCDD6-795A-4E70-AF64-6B6940DDECFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C2A219E-6183-4AFE-8269-D68D0B6928E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C2A219E-6183-4AFE-8269-D68D0B6928E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C2A219E-6183-4AFE-8269-D68D0B6928E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C2A219E-6183-4AFE-8269-D68D0B6928E4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CA9823CA-7190-4F93-B420-6B724B710883}
+	EndGlobalSection
+EndGlobal

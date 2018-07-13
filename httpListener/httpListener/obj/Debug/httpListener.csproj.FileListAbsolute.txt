@@ -1,0 +1,13 @@
+c:\users\user\source\repos\httpListener\httpListener\bin\Debug\httpListener.exe.config
+c:\users\user\source\repos\httpListener\httpListener\bin\Debug\httpListener.exe
+c:\users\user\source\repos\httpListener\httpListener\bin\Debug\httpListener.pdb
+c:\users\user\source\repos\httpListener\httpListener\obj\Debug\httpListener.csprojAssemblyReference.cache
+c:\users\user\source\repos\httpListener\httpListener\obj\Debug\httpListener.csproj.CoreCompileInputs.cache
+c:\users\user\source\repos\httpListener\httpListener\obj\Debug\httpListener.exe
+c:\users\user\source\repos\httpListener\httpListener\obj\Debug\httpListener.pdb
+C:\Users\home.PTIZ\Desktop\httpListener\httpListener\bin\Debug\httpListener.exe.config
+C:\Users\home.PTIZ\Desktop\httpListener\httpListener\bin\Debug\httpListener.exe
+C:\Users\home.PTIZ\Desktop\httpListener\httpListener\bin\Debug\httpListener.pdb
+C:\Users\home.PTIZ\Desktop\httpListener\httpListener\obj\Debug\httpListener.csprojResolveAssemblyReference.cache
+C:\Users\home.PTIZ\Desktop\httpListener\httpListener\obj\Debug\httpListener.exe
+C:\Users\home.PTIZ\Desktop\httpListener\httpListener\obj\Debug\httpListener.pdb
