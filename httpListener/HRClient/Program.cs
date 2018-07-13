@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,7 +10,10 @@ namespace HRClient
 {
     class Program
     {
-        public static HttpClient client = new HttpClient();
+
+        public static string login = "pag";
+        public static string password = "1234";
+        public static HttpClient client = ClientHelper.GetClient(login, password);
         static void Main(string[] args)
         {
             //Task.Run(async () => { await GetProductAsync(); }).Wait();

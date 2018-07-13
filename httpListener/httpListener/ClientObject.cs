@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Net.Http;
@@ -26,16 +27,25 @@ public class ClientObject
     {
         HttpListenerRequest request = context.Request;
         HttpListenerResponse response = context.Response;
+        
 
-        HttpListenerRequest req = context.Request;
+
         Stream streamBody = request.InputStream;
-        Encoding encoding = req.ContentEncoding;
+        Encoding encoding = request.ContentEncoding;
+        //BinaryReader breader = new BinaryReader(streamBody, encoding);
         StreamReader streamReader = new StreamReader(streamBody, encoding);
-        string sRequest = streamReader.ReadToEnd();
+        var sRequest = streamReader.ReadLine();
 
-
+       
         string responseString = $"{request.HttpMethod}";
-        Console.WriteLine($"{request.HttpMethod} {sRequest}");
+        //  Console.WriteLine($"{request.HttpMethod} {sRequest} {request.Headers} {request.UserAgent}");
+        foreach (var k in request.Headers.Keys)
+        {
+            Console.WriteLine($"{k}");
+        }
+        Console.WriteLine("-----------------------");
+        Console.WriteLine($"{request.Headers.Keys}");
+
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
         response.ContentLength64 = buffer.Length;
         Stream output = response.OutputStream;
