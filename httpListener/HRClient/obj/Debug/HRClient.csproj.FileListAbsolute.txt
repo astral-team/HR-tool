@@ -4,3 +4,15 @@ C:\Users\home.PTIZ\Desktop\httpListener\HRClient\bin\Debug\HRClient.pdb
 C:\Users\home.PTIZ\Desktop\httpListener\HRClient\obj\Debug\HRClient.csprojResolveAssemblyReference.cache
 C:\Users\home.PTIZ\Desktop\httpListener\HRClient\obj\Debug\HRClient.exe
 C:\Users\home.PTIZ\Desktop\httpListener\HRClient\obj\Debug\HRClient.pdb
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\obj\Debug\HRClient.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\obj\Debug\HRClient.csproj.CoreCompileInputs.cache
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\obj\Debug\HRClient.pdb
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\HRClient.exe.config
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\HRClient.exe
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\HRClient.pdb
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\obj\Debug\HRClient.exe
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\obj\Debug\HRClient.csproj.App.config
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\System.Net.Http.Extensions.dll
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\System.Net.Http.Primitives.dll
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\System.Net.Http.Extensions.xml
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\System.Net.Http.Primitives.xml

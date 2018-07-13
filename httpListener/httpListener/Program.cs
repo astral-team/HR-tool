@@ -21,7 +21,7 @@ namespace httpListener
         private static async Task Listen()
         {
             HttpListener listener = new HttpListener();
-            listener.Prefixes.Add("http://10.254.4.116:8888/");
+            listener.Prefixes.Add("http://localhost:8888/");
             listener.Start();
             Console.WriteLine("Ожидание подключений...");
 

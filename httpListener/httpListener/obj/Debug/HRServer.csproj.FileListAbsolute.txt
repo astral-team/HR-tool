@@ -4,3 +4,10 @@ C:\Users\home.PTIZ\Desktop\httpListener\httpListener\bin\Debug\httpListener.pdb
 C:\Users\home.PTIZ\Desktop\httpListener\httpListener\obj\Debug\HRServer.csprojResolveAssemblyReference.cache
 C:\Users\home.PTIZ\Desktop\httpListener\httpListener\obj\Debug\httpListener.exe
 C:\Users\home.PTIZ\Desktop\httpListener\httpListener\obj\Debug\httpListener.pdb
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\httpListener.exe.config
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\httpListener.exe
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\httpListener.pdb
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\HRServer.csprojResolveAssemblyReference.cache
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\HRServer.csproj.CoreCompileInputs.cache
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\httpListener.exe
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\httpListener.pdb

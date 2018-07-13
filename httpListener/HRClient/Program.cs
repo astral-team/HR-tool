@@ -12,32 +12,27 @@ namespace HRClient
         public static HttpClient client = new HttpClient();
         static void Main(string[] args)
         {
-            
-            Uri uri = new Uri("http://10.254.4.116:8888?ololo=xyu");
-
-            client.BaseAddress = uri;
-            Task.Run(async () => { await GetProductAsync(); }).Wait();
-            //Task.Run(async () => { await PostProductAsync(); }).Wait();
-
+            //Task.Run(async () => { await GetProductAsync(); }).Wait();
+            Task.Run(async () => { await PostProductAsync(); }).Wait();
         }
 
-        static async Task GetProductAsync()
+        /*static async Task GetProductAsync()
         {
-            var responseString = await client.GetStringAsync("http://10.254.4.116:8888?ololo=xyu");
+            var responseString = await client.GetStringAsync("http://10.254.4.213:8888");
             
-        }
+        }*/
 
         static async Task PostProductAsync()
         {
             var values = new Dictionary<string, string>
-            {
-             { "thing1", "hello" },
-             { "thing2", "world" }
+            { 
+                { "thing1", "hello" },
+                { "thing2", "world" }
             };
 
             var content = new FormUrlEncodedContent(values);
 
-            var response = await client.PostAsync("http://10.254.4.116:8888/", content);
+            var response = await client.PostAsync("http://localhost:8888",content);
 
             var responseString = await response.Content.ReadAsStringAsync();
         }

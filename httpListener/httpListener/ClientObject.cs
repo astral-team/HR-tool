@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net;
 using System.Net.Http;
+using System.Text;
 
 public class ClientObject
 {
@@ -26,9 +27,15 @@ public class ClientObject
         HttpListenerRequest request = context.Request;
         HttpListenerResponse response = context.Response;
 
-        
+        HttpListenerRequest req = context.Request;
+        Stream streamBody = request.InputStream;
+        Encoding encoding = req.ContentEncoding;
+        StreamReader streamReader = new StreamReader(streamBody, encoding);
+        string sRequest = streamReader.ReadToEnd();
+
+
         string responseString = $"{request.HttpMethod}";
-        Console.WriteLine($"{request.HttpMethod} {request.Headers}");
+        Console.WriteLine($"{request.HttpMethod} {sRequest}");
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
         response.ContentLength64 = buffer.Length;
         Stream output = response.OutputStream;
