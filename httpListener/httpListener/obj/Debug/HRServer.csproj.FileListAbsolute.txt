@@ -12,3 +12,8 @@ C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\HR
 C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\httpListener.exe
 C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\httpListener.pdb
 C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\RestSharp.dll
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.dll
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.xml
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\ru\EntityFramework.resources.dll

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="UserDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="UserDBContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="LoginsSet" EntityType="UserDB.Logins" />
+    <EntitySet Name="SessionSet" EntityType="UserDB.Session" />
+    <AssociationSet Name="LoginsSession" Association="UserDB.LoginsSession">
+      <End Role="Logins" EntitySet="LoginsSet" />
+      <End Role="Session" EntitySet="SessionSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Logins">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="Login" Nullable="false" Type="String" />
+    <Property Name="DateOff" Type="String" Nullable="false" />
+    <Property Name="Hash" Type="String" Nullable="false" />
+    <NavigationProperty Name="Session" Relationship="UserDB.LoginsSession" FromRole="Logins" ToRole="Session" />
+  </EntityType>
+  <EntityType Name="Session">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="LoginId" Type="Guid" Nullable="false" />
+    <Property Name="SessionKey" Type="String" Nullable="false" />
+    <Property Name="ExpTime" Type="String" Nullable="false" />
+    <NavigationProperty Name="Logins" Relationship="UserDB.LoginsSession" FromRole="Session" ToRole="Logins" />
+  </EntityType>
+  <Association Name="LoginsSession">
+    <End Type="UserDB.Logins" Role="Logins" Multiplicity="1" />
+    <End Type="UserDB.Session" Role="Session" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Logins">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Session">
+        <PropertyRef Name="LoginId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

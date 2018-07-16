@@ -73,6 +73,5 @@ namespace ServerHR
             dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [UserDBSet]");
             dbContext.SaveChanges();
         }
-
     }
 }
