@@ -16,7 +16,7 @@ namespace httpListener
     {
         public System.Guid Id { get; set; }
         public System.Guid LoginId { get; set; }
-        public string SessionKey { get; set; }
+        public System.Guid SessionKey { get; set; }
         public string ExpTime { get; set; }
     
         public virtual Logins Logins { get; set; }

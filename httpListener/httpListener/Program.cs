@@ -17,10 +17,6 @@ namespace httpListener
         
             Console.WriteLine("Обработка подключений завершена");
             Console.Read();
-
-
-           
-
         }
 
         private static Task Listen()

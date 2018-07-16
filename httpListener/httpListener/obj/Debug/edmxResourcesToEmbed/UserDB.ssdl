@@ -23,7 +23,7 @@
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="SessionKey" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SessionKey" Type="uniqueidentifier" Nullable="false" />
     <Property Name="ExpTime" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <Association Name="LoginsSession">

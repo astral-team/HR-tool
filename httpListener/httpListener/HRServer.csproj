@@ -57,7 +57,10 @@
   <ItemGroup>
     <Compile Include="AuthorizedUser.cs" />
     <Compile Include="ClientLogin.cs" />
+    <Compile Include="ClientUsers.cs" />
     <Compile Include="CRUD.cs" />
+    <Compile Include="ILogin.cs" />
+    <Compile Include="ISession.cs" />
     <Compile Include="Logins.cs">
       <DependentUpon>UserDB.tt</DependentUpon>
     </Compile>

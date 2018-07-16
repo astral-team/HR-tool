@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/16/2018 11:56:12
+-- Date Created: 07/16/2018 14:30:16
 -- Generated from EDMX file: C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\UserDB.edmx
 -- --------------------------------------------------
 
@@ -49,7 +49,7 @@ GO
 CREATE TABLE [dbo].[SessionSet] (
     [Id] uniqueidentifier  NOT NULL,
     [LoginId] uniqueidentifier  NOT NULL,
-    [SessionKey] nvarchar(max)  NOT NULL,
+    [SessionKey] uniqueidentifier  NOT NULL,
     [ExpTime] nvarchar(max)  NOT NULL
 );
 GO

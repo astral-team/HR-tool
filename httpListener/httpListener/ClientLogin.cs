@@ -39,9 +39,33 @@ public class ClientLogin
         StreamReader streamReader = new StreamReader(streamBody, encoding);
         var sRequest = streamReader.ReadToEnd();
 
-        string responseString = "Вызвана функция ---- Логин";
+        AuthorizedUser user = new AuthorizedUser(request.Headers["login"], request.Headers["Authorization"]);
+        //Logins userDb = null;
+        /*try
+        {
+            userDb = CRUD.GetUser(user);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }*/
+        var userDb = CRUD.GetUser(user);
+        string responseString = "";
 
-        Console.WriteLine($"Вызвана функция ---- Логин");
+        if (userDb != null)
+        {
+            user.Id = userDb.Id;
+            var sessionDb = CRUD.GetSession(user);
+            sessionDb.SessionKey = user.GetSessionKey();
+            CRUD.SetSession(sessionDb);
+            responseString = $"Пользователь вошел Логин={user.Login}, Hash={user.Hash}, Session={user.SessionKey}";
+        }
+        else
+        {
+            responseString = $"Ошибка авторизации Логин={user.Login}, Hash={user.Hash}";
+        }
+
+        Console.WriteLine(responseString);
 
 
         //Console.WriteLine($"{request.HttpMethod} {sRequest} {request.Headers} {request.UserAgent}");

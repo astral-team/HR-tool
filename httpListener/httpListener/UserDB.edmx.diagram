@@ -6,7 +6,7 @@
     <edmx:Diagrams>
       <Diagram DiagramId="aae0f241d39a441f98d888da5ee5a632" Name="Diagram1" >
         <EntityTypeShape EntityType="UserDB.Logins" Width="1.5" PointX="0.625" PointY="1.25" />
-        <EntityTypeShape EntityType="UserDB.Session" Width="1.5" PointX="2.625" PointY="1.25" />
+        <EntityTypeShape EntityType="UserDB.Session" Width="1.5" PointX="2.625" PointY="1.25" FillColor="Yellow" />
         <AssociationConnector Association="UserDB.LoginsSession" />
       </Diagram>
     </edmx:Diagrams>
