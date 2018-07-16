@@ -4,11 +4,15 @@ using System.IO;
 using System.Net;
 using System.Net.Http;
 using System.Text;
+using RestSharp;
+using RestSharp.Authenticators;
 
 public class ClientObject
 {
     private HttpListenerContext context;
     
+
+
     public ClientObject(HttpListenerContext context)
     {
         this.context = context;
@@ -34,18 +38,13 @@ public class ClientObject
         Encoding encoding = request.ContentEncoding;
         //BinaryReader breader = new BinaryReader(streamBody, encoding);
         StreamReader streamReader = new StreamReader(streamBody, encoding);
-        var sRequest = streamReader.ReadLine();
+        var sRequest = streamReader.ReadToEnd();
 
-       
-        string responseString = $"{request.HttpMethod}";
-        //  Console.WriteLine($"{request.HttpMethod} {sRequest} {request.Headers} {request.UserAgent}");
-        foreach (var k in request.Headers.Keys)
-        {
-            Console.WriteLine($"{k}");
-        }
-        Console.WriteLine("-----------------------");
-        Console.WriteLine($"{request.Headers.Keys}");
 
+        string responseString = $"{request.Headers["Authorization"]}";
+
+        Console.WriteLine($"{request.HttpMethod} {sRequest} {request.Headers} {request.UserAgent}");
+        
         byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
         response.ContentLength64 = buffer.Length;
         Stream output = response.OutputStream;

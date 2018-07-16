@@ -1,4 +1,6 @@
-﻿using System;
+﻿using RestSharp;
+using RestSharp.Authenticators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -13,32 +15,23 @@ namespace HRClient
 
         public static string login = "pag";
         public static string password = "1234";
-        public static HttpClient client = ClientHelper.GetClient(login, password);
+        //public static HttpClient client = ClientHelper.GetClient(login, password);
+        public static RestClient client = new RestClient();
+        public static Uri uri = new Uri("http://localhost:8888");
+
+
+
         static void Main(string[] args)
         {
-            //Task.Run(async () => { await GetProductAsync(); }).Wait();
-            Task.Run(async () => { await PostProductAsync(); }).Wait();
-        }
-
-        /*static async Task GetProductAsync()
-        {
-            var responseString = await client.GetStringAsync("http://10.254.4.213:8888");
+            client.BaseUrl = uri;
+            client.Authenticator = new HttpBasicAuthenticator(login, password);
+            var request = new RestRequest("resource", Method.POST);
+            var response = client.Execute(request);
+            Console.WriteLine(response.Content);
             
-        }*/
+            //Task.Run(async () => { await GetProductAsync(); }).Wait();
+            //Task.Run(async () => { await PostProductAsync(); }).Wait();
 
-        static async Task PostProductAsync()
-        {
-            var values = new Dictionary<string, string>
-            { 
-                { "thing1", "hello" },
-                { "thing2", "world" }
-            };
-
-            var content = new FormUrlEncodedContent(values);
-
-            var response = await client.PostAsync("http://localhost:8888",content);
-
-            var responseString = await response.Content.ReadAsStringAsync();
         }
     }
 }

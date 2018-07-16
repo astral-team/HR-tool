@@ -16,3 +16,4 @@ C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\System
 C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\System.Net.Http.Primitives.dll
 C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\System.Net.Http.Extensions.xml
 C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\System.Net.Http.Primitives.xml
+C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\RestSharp.dll
