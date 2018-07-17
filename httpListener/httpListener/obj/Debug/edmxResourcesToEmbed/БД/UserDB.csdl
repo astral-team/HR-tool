@@ -14,7 +14,7 @@
     </Key>
     <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="Login" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-    <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" />
+    <Property Name="DateOff" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
     <Property Name="Hash" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="Session" Relationship="UserDB.LoginsSession" FromRole="Logins" ToRole="Session" />
   </EntityType>
@@ -25,7 +25,7 @@
     <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="LoginId" Type="Guid" Nullable="false" />
     <Property Name="SessionKey" Type="Guid" Nullable="false" />
-    <Property Name="ExpTime" Type="DateTimeOffset" Nullable="false" />
+    <Property Name="ExpTime" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
     <NavigationProperty Name="Logins" Relationship="UserDB.LoginsSession" FromRole="Session" ToRole="Logins" />
   </EntityType>
   <Association Name="LoginsSession">

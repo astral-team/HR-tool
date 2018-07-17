@@ -23,7 +23,7 @@ namespace httpListener
         {
             //HttpListener usersListener = new HttpListener();
             loginListener.Prefixes.Add("http://localhost:8888/login/");
-            regListener.Prefixes.Add("http://localhost:8888/reg/");
+            regListener.Prefixes.Add("http://localhost:8888/regg/");
 
           
 
