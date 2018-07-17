@@ -30,3 +30,15 @@ C:\Users\Александр\Documents\GitHub\HR-tool\httpListener\httpListener\b
 C:\Users\Александр\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.xml
 C:\Users\Александр\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\Александр\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\ru\EntityFramework.resources.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\HRServer.csprojResolveAssemblyReference.cache
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\httpListener.exe
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\httpListener.pdb
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\httpListener.exe.config
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\httpListener.exe
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\httpListener.pdb
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\RestSharp.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.xml
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\ru\EntityFramework.resources.dll
