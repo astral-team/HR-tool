@@ -55,31 +55,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AuthorizedUser.cs" />
-    <Compile Include="ClientLogin.cs" />
-    <Compile Include="ClientUsers.cs" />
-    <Compile Include="CRUD.cs" />
-    <Compile Include="ILogin.cs" />
-    <Compile Include="ISession.cs" />
-    <Compile Include="Logins.cs">
+    <Compile Include="Classes\AuthorizedUser.cs" />
+    <Compile Include="Прослушка\ClientLogin.cs" />
+    <Compile Include="Прослушка\ClientUsers.cs" />
+    <Compile Include="Classes\CRUD.cs" />
+    <Compile Include="Interface\ILogin.cs" />
+    <Compile Include="Interface\ISession.cs" />
+    <Compile Include="БД\Logins.cs">
       <DependentUpon>UserDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Session.cs">
+    <Compile Include="БД\Session.cs">
       <DependentUpon>UserDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserDB.Context.cs">
+    <Compile Include="БД\UserDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UserDB.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserDB.cs">
+    <Compile Include="БД\UserDB.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UserDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="UserDB.Designer.cs">
+    <Compile Include="БД\UserDB.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>UserDB.edmx</DependentUpon>
@@ -88,22 +88,22 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <EntityDeploy Include="UserDB.edmx">
+    <EntityDeploy Include="БД\UserDB.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>UserDB.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="UserDB.edmx.diagram">
+    <None Include="БД\UserDB.edmx.diagram">
       <DependentUpon>UserDB.edmx</DependentUpon>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="UserDB.Context.tt">
+    <Content Include="БД\UserDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UserDB.Context.cs</LastGenOutput>
       <DependentUpon>UserDB.edmx</DependentUpon>
     </Content>
-    <Content Include="UserDB.edmx.sql" />
-    <Content Include="UserDB.tt">
+    <Content Include="БД\UserDB.edmx.sql" />
+    <Content Include="БД\UserDB.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UserDB.cs</LastGenOutput>
       <DependentUpon>UserDB.edmx</DependentUpon>
