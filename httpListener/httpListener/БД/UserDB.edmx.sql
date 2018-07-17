@@ -2,8 +2,13 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
+<<<<<<< HEAD
 -- Date Created: 07/17/2018 12:17:14
 -- Generated from EDMX file: C:\Users\Александр\Documents\GitHub\HR-tool\httpListener\httpListener\БД\UserDB.edmx
+=======
+-- Date Created: 07/17/2018 11:40:09
+-- Generated from EDMX file: C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\БД\UserDB.edmx
+>>>>>>> 7df88fb850b6dfdf3de1c8325b3f068d7d6235f7
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -40,7 +45,7 @@ GO
 CREATE TABLE [dbo].[LoginsSet] (
     [Id] uniqueidentifier  NOT NULL,
     [Login] nvarchar(max)  NOT NULL,
-    [DateOff] nvarchar(max)  NOT NULL,
+    [DateOff] datetimeoffset  NOT NULL,
     [Hash] nvarchar(max)  NOT NULL
 );
 GO
@@ -50,7 +55,7 @@ CREATE TABLE [dbo].[SessionSet] (
     [Id] uniqueidentifier  NOT NULL,
     [LoginId] uniqueidentifier  NOT NULL,
     [SessionKey] uniqueidentifier  NOT NULL,
-    [ExpTime] nvarchar(max)  NOT NULL
+    [ExpTime] datetimeoffset  NOT NULL
 );
 GO
 

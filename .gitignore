@@ -7,3 +7,8 @@ ServerHR/ServerHR/bin/Debug/ServerHR.exe
 *.exe
 *.exe
 *.exe
+httpListener/.vs/httpListener/v15/.suo
+httpListener/.vs/httpListener/v15/.suo
+httpListener/httpListener/bin/Debug/httpListener.exe.config
+httpListener/httpListener/bin/Debug/httpListener.pdb
+httpListener/httpListener/obj/Debug/httpListener.pdb
