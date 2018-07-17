@@ -22,10 +22,9 @@ namespace httpListener
         private static Task Listen()
         {
             //HttpListener usersListener = new HttpListener();
-            loginListener.Prefixes.Add("http://localhost:8888/login/");
-            regListener.Prefixes.Add("http://localhost:8888/regg/");
-
-          
+            string address = "http://10.254.5.199:8888/";
+            loginListener.Prefixes.Add(address+"login/");
+            regListener.Prefixes.Add(address+"regg/");          
 
             regListener.Start();
             loginListener.Start();
