@@ -17,6 +17,7 @@ namespace httpListener
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Logins()
         {
+            this.DateOff = "";
             this.Session = new HashSet<Session>();
         }
     

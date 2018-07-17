@@ -8,7 +8,7 @@ namespace httpListener
     class Program
     {
         //public static object AsyncContext { get; private set; }
-        public static HttpListener usersListener = new HttpListener();
+        public static HttpListener regListener = new HttpListener();
         public static HttpListener loginListener = new HttpListener();
         static void Main(string[] args)
         {
@@ -23,11 +23,11 @@ namespace httpListener
         {
             //HttpListener usersListener = new HttpListener();
             loginListener.Prefixes.Add("http://localhost:8888/login/");
-            usersListener.Prefixes.Add("http://localhost:8888/users/");
+            regListener.Prefixes.Add("http://localhost:8888/regg/");
 
           
 
-            usersListener.Start();
+            regListener.Start();
             loginListener.Start();
 
             Console.WriteLine("Ожидание подключений...");
@@ -35,7 +35,7 @@ namespace httpListener
             while (true)
             {
 
-                Task.WhenAny(Program.AwaitLogin(), Program.AwaitUsers());
+                Task.WhenAny(Program.AwaitLogin(), Program.AwaitReg());
                 //HttpListenerContext context = await usersListener.GetContextAsync();
                 //Task.Run(async () => { await Program.AwaitUsers(); }).Wait();
                 //Task.Run(async () => { await Program.AwaitLogin(); }).Wait();
@@ -49,16 +49,6 @@ namespace httpListener
             }
         }
 
-        public static async Task AwaitUsers()
-        {
-            HttpListenerContext context = await usersListener.GetContextAsync();
-            ClientLogin clientObject = new ClientLogin(context);
-
-            // создаем новый поток для обслуживания нового клиента
-            Task clientTask = new Task(clientObject.Process);
-            clientTask.Start();
-        }
-
         public static async Task AwaitLogin()
         {
             HttpListenerContext context = await loginListener.GetContextAsync();
@@ -69,7 +59,15 @@ namespace httpListener
             clientTask.Start();
         }
 
+        public static async Task AwaitReg()
+        {
+            HttpListenerContext context = await regListener.GetContextAsync();
+            Console.WriteLine("Подключился регистрирующийся");
+            ClientReg clientObject = new ClientReg(context);
 
-
+            // создаем новый поток для обслуживания нового клиента
+            Task clientTask = new Task(clientObject.Process);
+            clientTask.Start();
+        }
     }
 }

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="Classes\AuthorizedUser.cs" />
     <Compile Include="Прослушка\ClientLogin.cs" />
+    <Compile Include="Прослушка\ClientReg.cs" />
     <Compile Include="Прослушка\ClientUsers.cs" />
     <Compile Include="Classes\CRUD.cs" />
     <Compile Include="Interface\ILogin.cs" />

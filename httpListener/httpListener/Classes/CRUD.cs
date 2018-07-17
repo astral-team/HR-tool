@@ -58,27 +58,27 @@ namespace httpListener
         /// <summary>
         /// Создание нового пользователя
         /// </summary>
-       /* public static bool CreateUser(AuthorizedUser user)
+        public static bool CreateUser(AuthorizedUser user)
         {
-            if (GetUser(user) == null)
-            {
-                UserDB userdb = new UserDB();
-                userdb.Login = user.Login;
-                userdb.Password = user.Password;
-                userdb.Id = 100;
-                userdb.Hash = "";
-                userdb.DateOff = "";
-                userdb.Root = "";
+            Logins userdb = new Logins();
+            userdb.Id = Guid.NewGuid();
+            CreateSession(userdb.Id);
+            userdb.Login = user.Login;
+            userdb.Hash = user.Hash;
 
-                //dbContext.UserDBSet.Add(user.ToUserDB());
-                dbContext.UserDBSet.Add(userdb);
-                dbContext.SaveChanges();
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            //dbContext.UserDBSet.Add(user.ToUserDB());
+            dbContext.LoginsSet.Add(userdb);
+            dbContext.SaveChanges();
+            return true;
+        }
+
+        public static void CreateSession(Guid logId)
+        {
+            Session session = new Session();
+            session.Id = Guid.NewGuid();
+            session.LoginId = logId;
+            dbContext.SessionSet.Add(session);
+            //dbContext.SaveChanges();
         }
 
         /// <summary>
@@ -88,7 +88,7 @@ namespace httpListener
         {
             dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [UserDBSet]");
             dbContext.SaveChanges();
-        }*/
+        }
 
     }
 }
