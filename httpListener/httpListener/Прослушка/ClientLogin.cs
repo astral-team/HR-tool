@@ -40,15 +40,7 @@ public class ClientLogin
         var sRequest = streamReader.ReadToEnd();
 
         AuthorizedUser user = new AuthorizedUser(request.Headers["login"], request.Headers["Authorization"]);
-        //Logins userDb = null;
-        /*try
-        {
-            userDb = CRUD.GetUser(user);
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.Message);
-        }*/
+ 
         var userDb = CRUD.GetUser(user);
         string responseString = "";
 
@@ -57,8 +49,9 @@ public class ClientLogin
             user.Id = userDb.Id;
             var sessionDb = CRUD.GetSession(user);
             sessionDb.SessionKey = user.GetSessionKey();
+            sessionDb.ExpTime = DateTime.Now.AddHours(2);
             CRUD.SetSession(sessionDb);
-            responseString = $"Пользователь вошел Логин={user.Login}, Hash={user.Hash}, Session={user.SessionKey}";
+            responseString = $"Пользователь вошел Логин={user.Login}, Hash={user.Hash}, Session={user.SessionKey}, время={sessionDb.ExpTime}";
         }
         else
         {

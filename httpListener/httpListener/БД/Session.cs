@@ -14,16 +14,10 @@ namespace httpListener
     
     public partial class Session
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Session()
-        {
-            this.ExpTime = "";
-        }
-    
         public System.Guid Id { get; set; }
         public System.Guid LoginId { get; set; }
         public System.Guid SessionKey { get; set; }
-        public string ExpTime { get; set; }
+        public System.DateTimeOffset ExpTime { get; set; }
     
         public virtual Logins Logins { get; set; }
     }
