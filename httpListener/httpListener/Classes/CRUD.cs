@@ -82,9 +82,18 @@ namespace httpListener
         }
 
         /// <summary>
+        /// Удаление из базы данных
+        /// </summary>
+        public static void RemoveUser(Logins user)
+        {
+            dbContext.Entry(user).State = EntityState.Modified;
+            dbContext.SaveChanges();
+        }
+
+        /// <summary>
         /// Удаление базы данных
         /// </summary>
-        public static void RemoveUserDB()
+        public static void RemoveDB()
         {
             dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [UserDBSet]");
             dbContext.SaveChanges();

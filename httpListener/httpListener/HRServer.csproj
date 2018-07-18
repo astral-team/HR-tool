@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AuthorizedUser.cs" />
+    <Compile Include="Classes\Validator.cs" />
     <Compile Include="Прослушка\ClientLogin.cs" />
     <Compile Include="Прослушка\ClientReg.cs" />
     <Compile Include="Прослушка\ClientUsers.cs" />

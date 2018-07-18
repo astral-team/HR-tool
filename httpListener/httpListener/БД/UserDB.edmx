@@ -4,46 +4,46 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="UserDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="UserDBStoreContainer">
-    <EntitySet Name="LoginsSet" EntityType="UserDB.Store.LoginsSet" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="SessionSet" EntityType="UserDB.Store.SessionSet" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="LoginsSession" Association="UserDB.Store.LoginsSession">
-      <End Role="Logins" EntitySet="LoginsSet" />
-      <End Role="Session" EntitySet="SessionSet" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="LoginsSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateOff" Type="datetimeoffset" Nullable="false" />
-    <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
-  </EntityType>
-  <EntityType Name="SessionSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="SessionKey" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="ExpTime" Type="datetimeoffset" Nullable="false" />
-  </EntityType>
-  <Association Name="LoginsSession">
-    <End Role="Logins" Type="UserDB.Store.LoginsSet" Multiplicity="1" />
-    <End Role="Session" Type="UserDB.Store.SessionSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Logins">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="Session">
-        <PropertyRef Name="LoginId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="UserDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LoginsSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="SessionSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="SessionKey" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="ExpTime" Type="datetimeoffset" Precision="7" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_LoginsSession">
+          <End Role="LoginsSet" Type="Self.LoginsSet" Multiplicity="1" />
+          <End Role="SessionSet" Type="Self.SessionSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoginsSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="SessionSet">
+              <PropertyRef Name="LoginId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="UserDBStoreContainer">
+          <EntitySet Name="LoginsSet" EntityType="Self.LoginsSet" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SessionSet" EntityType="Self.SessionSet" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LoginsSession" Association="Self.FK_LoginsSession">
+            <End Role="LoginsSet" EntitySet="LoginsSet" />
+            <End Role="SessionSet" EntitySet="SessionSet" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="UserDB" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
@@ -61,7 +61,7 @@
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="Login" Nullable="false" Type="String" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" />
+          <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
           <Property Name="Hash" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
           <NavigationProperty Name="Session" Relationship="UserDB.LoginsSession" FromRole="Logins" ToRole="Session" />
         </EntityType>
@@ -72,7 +72,7 @@
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
           <Property Name="LoginId" Type="Guid" Nullable="false" />
           <Property Name="SessionKey" Type="Guid" Nullable="false" />
-          <Property Name="ExpTime" Type="DateTimeOffset" Nullable="false" />
+          <Property Name="ExpTime" Type="DateTimeOffset" Nullable="false" Precision="7" />
           <NavigationProperty Name="Logins" Relationship="UserDB.LoginsSession" FromRole="Session" ToRole="Logins" />
         </EntityType>
         <Association Name="LoginsSession">

@@ -21,22 +21,24 @@ namespace httpListener
 
         private static Task Listen()
         {
-            string ip = "http://10.254.5.199:8888/";
+            string ip = "http://localhost:8888/";
             //HttpListener usersListener = new HttpListener();
             loginListener.Prefixes.Add(ip+"login/");
             regListener.Prefixes.Add(ip+"reg/");
 
-          
-
+            
             regListener.Start();
             loginListener.Start();
 
             Console.WriteLine("Ожидание подключений...");
 
+            HttpListenerContext context = null;
+
             while (true)
             {
-
-                Task.WhenAny(Program.AwaitLogin(), Program.AwaitReg());
+                
+                Task.WhenAny(Program.AwaitLogin(context), Program.AwaitReg(context));
+                
                 //HttpListenerContext context = await usersListener.GetContextAsync();
                 //Task.Run(async () => { await Program.AwaitUsers(); }).Wait();
                 //Task.Run(async () => { await Program.AwaitLogin(); }).Wait();
@@ -50,9 +52,9 @@ namespace httpListener
             }
         }
 
-        public static async Task AwaitLogin()
+        public static async Task AwaitLogin(HttpListenerContext context)
         {
-            HttpListenerContext context = await loginListener.GetContextAsync();
+            context = await loginListener.GetContextAsync();
             ClientLogin clientObject = new ClientLogin(context);
 
             // создаем новый поток для обслуживания нового клиента
@@ -60,9 +62,9 @@ namespace httpListener
             clientTask.Start();
         }
 
-        public static async Task AwaitReg()
+        public static async Task AwaitReg(HttpListenerContext context)
         {
-            HttpListenerContext context = await regListener.GetContextAsync();
+            context = await regListener.GetContextAsync();
             Console.WriteLine("Подключился регистрирующийся");
             ClientReg clientObject = new ClientReg(context);
 
