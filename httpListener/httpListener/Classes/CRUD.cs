@@ -23,7 +23,7 @@ namespace httpListener
             // Используем LINQ-запрос для извлечения данных
             try
             {
-                return dbContext.LoginsSet.AsQueryable().Where(x => x.Hash == user.Hash).First();
+                return dbContext.LoginsSet.AsQueryable().Where(x => x.Login == user.Login).Where(x => x.Hash == user.Hash).Where(x => x.DateOff == DateTime.Parse("0001-01-01 00:00:00.0000000 +00:00")).First();
             }
             catch
             {

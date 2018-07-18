@@ -10,7 +10,6 @@ namespace httpListener
         //public static object AsyncContext { get; private set; }
         public static HttpListener regListener = new HttpListener();
         public static HttpListener loginListener = new HttpListener();
-        public static HttpListener deleteListener = new HttpListener();
         static void Main(string[] args)
         {
             Task.Run(async () => { await Listen(); }).Wait();
@@ -22,14 +21,12 @@ namespace httpListener
 
         private static Task Listen()
         {
-            string ip = "http://localhost:8888/";
+            string ip = "http://10.254.4.116:8888/";
             //HttpListener usersListener = new HttpListener();
             loginListener.Prefixes.Add(ip+"login/");
             regListener.Prefixes.Add(ip+"reg/");
-            deleteListener.Prefixes.Add(ip + "delete/");
 
-
-            deleteListener.Start();
+            
             regListener.Start();
             loginListener.Start();
 

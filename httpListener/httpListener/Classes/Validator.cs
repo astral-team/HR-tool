@@ -4,7 +4,7 @@ namespace httpListener.Classes
 {
     class Validator
     {
-        public static void CheckingTimeOfSession(Session session)
+        public static void CheckTimeOfSession(Session session)
         {
             if (session.ExpTime <= DateTime.Now)
             {
