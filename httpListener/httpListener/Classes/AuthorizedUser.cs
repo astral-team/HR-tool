@@ -25,12 +25,12 @@ namespace httpListener
 
         public Guid Id { get; set; }
         public string Login { get; set; }
-        public string DateOff { get; set; }
+        public DateTimeOffset DateOff { get; set; }
         public string Hash { get; set; }
         public ICollection<Session> Session { get; set; }
         public Guid LoginId { get; set; }
         public System.Guid SessionKey { get; set; }
-        public string ExpTime { get; set; }
+        public DateTimeOffset ExpTime { get; set; }
         public Logins Logins { get; set; }
 
         /*public UserDB ToUserDB()

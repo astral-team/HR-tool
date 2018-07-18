@@ -11,7 +11,7 @@ namespace httpListener
         System.Guid Id { get; set; }
         System.Guid LoginId { get; set; }
         System.Guid SessionKey { get; set; }
-        string ExpTime { get; set; }
+        DateTimeOffset ExpTime { get; set; }
 
         Logins Logins { get; set; }
     }

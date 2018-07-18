@@ -29,6 +29,7 @@ namespace httpListener
             AuthorizedUser user = new AuthorizedUser(request.Headers["login"], request.Headers["Authorization"]);
             var userDb = CRUD.GetUser(user);
             string responseString = "";
+            string stateString = "";
 
             //if (userDb == null)
             //{
@@ -58,8 +59,9 @@ namespace httpListener
                     responseString = $"Ошибка, не распознан HTTP метод, Логин={user.Login}, Hash={user.Hash}";
                     break;
             }
+            stateString = $"Login = {user.Login}\nHash = {user.Hash}\nSession = {user.SessionKey}\nDateOff = {user.DateOff}\nSessionExpTime = {user.ExpTime}\n\n";
+            Console.WriteLine(stateString);
 
-            Console.WriteLine(responseString);
             
             //Console.WriteLine($"{request.HttpMethod} {sRequest} {request.Headers} {request.UserAgent}");
 
@@ -75,11 +77,11 @@ namespace httpListener
             if (userDb == null)
             {
                 CRUD.CreateUser(user);
-                responseString = $"Пользователь зарегистрирован Логин={user.Login}, Hash={user.Hash}, Session={user.SessionKey}";
+                responseString = "200";
             }
             else
             {
-                responseString = $"Ошибка регистрации, пользователь уже зарегистрирован Логин={user.Login}, Hash={user.Hash}";
+                responseString = "404";
             }
         }
 
@@ -91,12 +93,13 @@ namespace httpListener
                 var sessionDb = CRUD.GetSession(user);
                 sessionDb.SessionKey = user.GetSessionKey();
                 sessionDb.ExpTime = DateTime.Now.AddHours(2);
+                user.ExpTime = sessionDb.ExpTime;
                 CRUD.SetSession(sessionDb);
-                responseString = $"Пользователь вошел Логин={user.Login}, Hash={user.Hash}, Session={user.SessionKey}, время={sessionDb.ExpTime}";
+                responseString = $"{user.SessionKey}";
             }
             else
             {
-                responseString = $"Ошибка авторизации Логин={user.Login}, Hash={user.Hash}";
+                responseString = "404";
             }
         }
 
@@ -106,11 +109,11 @@ namespace httpListener
             {
                 userDb.DateOff = DateTime.Now;
                 CRUD.RemoveUser(userDb);
-                responseString = $"Пользователь удалён Логин={user.Login}, Hash={user.Hash}, Session={user.SessionKey}, Дата удаления= {userDb.DateOff}";
+                responseString = "200";
             }
             else
             {
-                responseString = $"Ошибка удаления Логин={user.Login}, Hash={user.Hash}";
+                responseString = "404";
             }
         }
     }

@@ -21,7 +21,7 @@ namespace httpListener
 
         private static Task Listen()
         {
-            string ip = "http://10.254.4.116:8888/";
+            string ip = "http://localhost:8888/";
             //HttpListener usersListener = new HttpListener();
             loginListener.Prefixes.Add(ip+"login/");
             regListener.Prefixes.Add(ip+"reg/");

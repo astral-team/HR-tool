@@ -10,7 +10,7 @@ namespace httpListener
     {
         System.Guid Id { get; set; }
         string Login { get; set; }
-        string DateOff { get; set; }
+        DateTimeOffset DateOff { get; set; }
         string Hash { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
