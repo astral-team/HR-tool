@@ -35,7 +35,7 @@ namespace httpListener
             while (true)
             {
 
-                Task.WaitAny(Program.AwaitLogin(), Program.AwaitReg());
+                Task.WaitAny(AwaitReg());
                 //HttpListenerContext context = await usersListener.GetContextAsync();
                 //Task.Run(async () => { await Program.AwaitUsers(); }).Wait();
                 //Task.Run(async () => { await Program.AwaitLogin(); }).Wait();
@@ -49,25 +49,29 @@ namespace httpListener
             }
         }
 
-        public static async Task AwaitLogin()
-        {
-            HttpListenerContext context = await loginListener.GetContextAsync();
-            ClientLogin clientObject = new ClientLogin(context);
+        //public static async Task AwaitLogin()
+        //{
+        //    HttpListenerContext context = await loginListener.GetContextAsync();
+        //    ClientLogin clientObject = new ClientLogin(context);
 
-            // создаем новый поток для обслуживания нового клиента
-            Task clientTask = new Task(clientObject.Process);
-            clientTask.Start();
-        }
+        //    // создаем новый поток для обслуживания нового клиента
+        //    Task clientTask = new Task(clientObject.Process);
+        //    clientTask.Start();
+        //}
 
         public static async Task AwaitReg()
         {
             HttpListenerContext context = await regListener.GetContextAsync();
             Console.WriteLine("Подключился регистрирующийся");
+            DateTime BeginTime = DateTime.Now;
             ClientReg clientObject = new ClientReg(context);
 
             // создаем новый поток для обслуживания нового клиента
             Task clientTask = new Task(clientObject.Process);
             clientTask.Start();
+            Task.WaitAny(clientTask);
+            TimeSpan rez = DateTime.Now - BeginTime;
+            Console.WriteLine($"Время выполнения = {rez}\n");
         }
     }
 }

@@ -2,3 +2,8 @@
 *.config
 *.config
 *.exe
+httpListener/httpListener/bin/Debug/httpListener.exe
+*.exe
+*.pdb
+httpListener/httpListener/bin/Debug/httpListener.exe
+*.exe

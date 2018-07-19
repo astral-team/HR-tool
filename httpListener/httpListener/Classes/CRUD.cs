@@ -17,8 +17,6 @@ namespace httpListener
         /// </summary>
         public static Logins GetUser(AuthorizedUser user)
         {
-
-            
             //return dbContext.UserDBSet.AsQueryable<UserDB>();
             // Используем LINQ-запрос для извлечения данных
             try
@@ -51,7 +49,7 @@ namespace httpListener
         public static void SetSession(Session user)
         {
             // Обновить данные в БД с помощью Entity Framework
-            dbContext.Entry<Session>(user).State = EntityState.Modified;
+            dbContext.Entry(user).State = EntityState.Modified;
             dbContext.SaveChanges();
         }
 
@@ -60,8 +58,10 @@ namespace httpListener
         /// </summary>
         public static bool CreateUser(AuthorizedUser user)
         {
-            Logins userdb = new Logins();
-            userdb.Id = Guid.NewGuid();
+            Logins userdb = new Logins()
+            {
+                Id = Guid.NewGuid()
+            };
             CreateSession(userdb.Id);
             userdb.Login = user.Login;
             userdb.Hash = user.Hash;
@@ -74,9 +74,11 @@ namespace httpListener
 
         public static void CreateSession(Guid logId)
         {
-            Session session = new Session();
-            session.Id = Guid.NewGuid();
-            session.LoginId = logId;
+            Session session = new Session()
+            {
+                Id = Guid.NewGuid(),
+                LoginId = logId
+            };
             dbContext.SessionSet.Add(session);
             //dbContext.SaveChanges();
         }
@@ -98,6 +100,5 @@ namespace httpListener
             dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [UserDBSet]");
             dbContext.SaveChanges();
         }
-
     }
 }

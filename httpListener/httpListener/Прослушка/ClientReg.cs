@@ -44,6 +44,7 @@ namespace httpListener
             //{
             //    responseString = $"Ошибка регистрации, пользователь уже зарегистрирован Логин={user.Login}, Hash={user.Hash}";
             //}
+
             switch (request.HttpMethod)
             {
                 case "GET":

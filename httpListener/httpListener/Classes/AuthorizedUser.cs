@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace httpListener
 {
@@ -29,7 +26,7 @@ namespace httpListener
         public string Hash { get; set; }
         public ICollection<Session> Session { get; set; }
         public Guid LoginId { get; set; }
-        public System.Guid SessionKey { get; set; }
+        public Guid SessionKey { get; set; }
         public DateTimeOffset ExpTime { get; set; }
         public Logins Logins { get; set; }
 
