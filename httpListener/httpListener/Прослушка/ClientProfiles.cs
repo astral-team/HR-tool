@@ -1,15 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace httpListener
 {
-    class ClientReg
+    class ClientProfiles
     {
         private HttpListenerContext context;
 
-        public ClientReg(HttpListenerContext context)
+        public ClientProfiles(HttpListenerContext context)
         {
             this.context = context;
         }
@@ -29,20 +32,6 @@ namespace httpListener
             string responseString = "";
             string stateString = "";
 
-            //if (userDb == null)
-            //{
-            //    /*user.Id = userDb.Id;
-            //    var sessionDb = CRUD.GetSession(user);
-            //    sessionDb.SessionKey = user.GetSessionKey();
-            //    CRUD.SetSession(sessionDb);*/
-            //    CRUD.CreateUser(user);
-            //    responseString = $"Пользователь зарегистрирован Логин={user.Login}, Hash={user.Hash}, Session={user.SessionKey}";
-            //}
-            //else
-            //{
-            //    responseString = $"Ошибка регистрации, пользователь уже зарегистрирован Логин={user.Login}, Hash={user.Hash}";
-            //}
-
             switch (request.HttpMethod)
             {
                 case "GET":
@@ -60,11 +49,8 @@ namespace httpListener
             }
             stateString = $"Login = {user.Login}\nHash = {user.Hash}\nSession = {user.SessionKey}\nDateOff = {user.DateOff}\nSessionExpTime = {user.ExpTime}\n\n";
             Console.WriteLine(stateString);
-
             
-            //Console.WriteLine($"{request.HttpMethod} {sRequest} {request.Headers} {request.UserAgent}");
-
-            byte[] buffer = System.Text.Encoding.UTF8.GetBytes(responseString);
+            byte[] buffer = Encoding.UTF8.GetBytes(responseString);
             response.ContentLength64 = buffer.Length;
             Stream output = response.OutputStream;
             output.Write(buffer, 0, buffer.Length);
@@ -75,7 +61,7 @@ namespace httpListener
         {
             if (userDb == null)
             {
-                CRUD.CreateUser(user);
+                //CRUD.CreateUser(user);
                 responseString = "200";
             }
             else
@@ -88,13 +74,14 @@ namespace httpListener
         {
             if (userDb != null)
             {
-                user.Id = userDb.Id;
-                var sessionDb = CRUD.GetSession(user);
-                sessionDb.SessionKey = user.GetSessionKey();
-                sessionDb.ExpTime = DateTime.Now.AddHours(2);
-                user.ExpTime = sessionDb.ExpTime;
-                CRUD.SetSession(sessionDb);
-                responseString = $"{user.SessionKey}";
+                //user.Id = userDb.Id;
+                //var sessionDb = CRUD.GetSession(user);
+                //sessionDb.SessionKey = user.GetSessionKey();
+                //sessionDb.ExpTime = DateTime.Now.AddHours(2);
+                //user.ExpTime = sessionDb.ExpTime;
+                //CRUD.SetSession(sessionDb);
+                //responseString = $"{user.SessionKey}";
+                responseString = "200";
             }
             else
             {
@@ -106,8 +93,8 @@ namespace httpListener
         {
             if (userDb != null)
             {
-                userDb.DateOff = DateTime.Now;
-                CRUD.RemoveUser(userDb);
+                //userDb.DateOff = DateTime.Now;
+                //CRUD.RemoveUser(userDb);
                 responseString = "200";
             }
             else

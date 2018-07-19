@@ -1,12 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="UserDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+<Schema Namespace="UserDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="UserDBStoreContainer">
+    <EntitySet Name="LoginsSet" EntityType="UserDB.Store.LoginsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SessionSet" EntityType="UserDB.Store.SessionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PositionSet" EntityType="UserDB.Store.PositionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProfileSet" EntityType="UserDB.Store.ProfileSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProfileToPositionSet" EntityType="UserDB.Store.ProfileToPositionSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="LoginsSession" Association="UserDB.Store.LoginsSession">
+      <End Role="Logins" EntitySet="LoginsSet" />
+      <End Role="Session" EntitySet="SessionSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProfileProfileToPosition" Association="UserDB.Store.ProfileProfileToPosition">
+      <End Role="Profile" EntitySet="ProfileSet" />
+      <End Role="ProfileToPosition" EntitySet="ProfileToPositionSet" />
+    </AssociationSet>
+    <AssociationSet Name="PositionProfileToPosition" Association="UserDB.Store.PositionProfileToPosition">
+      <End Role="Position" EntitySet="PositionSet" />
+      <End Role="ProfileToPosition" EntitySet="ProfileToPositionSet" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="LoginsSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="DateOff" Type="datetimeoffset" Nullable="false" Precision="7" />
     <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="SessionSet">
@@ -16,26 +35,81 @@
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="SessionKey" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="ExpTime" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="ExpTime" Type="datetimeoffset" Nullable="false" Precision="7" />
   </EntityType>
-  <Association Name="FK_LoginsSession">
-    <End Role="LoginsSet" Type="Self.LoginsSet" Multiplicity="1" />
-    <End Role="SessionSet" Type="Self.SessionSet" Multiplicity="*" />
+  <EntityType Name="PositionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Salary" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Schedule" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Trips" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="About" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+  </EntityType>
+  <EntityType Name="ProfileSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="BirthDate" Type="datetimeoffset" Nullable="false" />
+    <Property Name="PhoneNumer" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Sex" Type="bit" Nullable="false" />
+    <Property Name="Position" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Education" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="MaritalStatus" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Photo" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Children" Type="bit" Nullable="false" />
+    <Property Name="Сitizen" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="About" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateOff" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProfileToPositionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProfileId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="PositionId" Type="uniqueidentifier" Nullable="false" />
+  </EntityType>
+  <Association Name="LoginsSession">
+    <End Role="Logins" Type="UserDB.Store.LoginsSet" Multiplicity="1" />
+    <End Role="Session" Type="UserDB.Store.SessionSet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="LoginsSet">
+      <Principal Role="Logins">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="SessionSet">
+      <Dependent Role="Session">
         <PropertyRef Name="LoginId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <EntityContainer Name="UserDBStoreContainer">
-    <EntitySet Name="LoginsSet" EntityType="Self.LoginsSet" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SessionSet" EntityType="Self.SessionSet" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_LoginsSession" Association="Self.FK_LoginsSession">
-      <End Role="LoginsSet" EntitySet="LoginsSet" />
-      <End Role="SessionSet" EntitySet="SessionSet" />
-    </AssociationSet>
-  </EntityContainer>
+  <Association Name="ProfileProfileToPosition">
+    <End Role="Profile" Type="UserDB.Store.ProfileSet" Multiplicity="1" />
+    <End Role="ProfileToPosition" Type="UserDB.Store.ProfileToPositionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileToPosition">
+        <PropertyRef Name="ProfileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PositionProfileToPosition">
+    <End Role="Position" Type="UserDB.Store.PositionSet" Multiplicity="1" />
+    <End Role="ProfileToPosition" Type="UserDB.Store.ProfileToPositionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileToPosition">
+        <PropertyRef Name="PositionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

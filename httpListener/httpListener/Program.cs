@@ -9,7 +9,7 @@ namespace httpListener
     {
         //public static object AsyncContext { get; private set; }
         public static HttpListener regListener = new HttpListener();
-        public static HttpListener loginListener = new HttpListener();
+        public static HttpListener profilesListener = new HttpListener();
         static void Main(string[] args)
         {
             Task.Run(async () => { await Listen(); }).Wait();
@@ -23,12 +23,12 @@ namespace httpListener
         {
             string ip = "http://localhost:8888/";
             //HttpListener usersListener = new HttpListener();
-            loginListener.Prefixes.Add(ip+"login/");
+            profilesListener.Prefixes.Add(ip+"profiles/");
             regListener.Prefixes.Add(ip+"reg/");
 
             
             regListener.Start();
-            loginListener.Start();
+            profilesListener.Start();
 
             Console.WriteLine("Ожидание подключений...");
 
@@ -64,10 +64,25 @@ namespace httpListener
             HttpListenerContext context = await regListener.GetContextAsync();
             Console.WriteLine("Подключился регистрирующийся");
             DateTime BeginTime = DateTime.Now;
-            ClientReg clientObject = new ClientReg(context);
+            ClientReg clientReg = new ClientReg(context);
 
             // создаем новый поток для обслуживания нового клиента
-            Task clientTask = new Task(clientObject.Process);
+            Task clientTask = new Task(clientReg.Process);
+            clientTask.Start();
+            Task.WaitAny(clientTask);
+            TimeSpan rez = DateTime.Now - BeginTime;
+            Console.WriteLine($"Время выполнения = {rez}\n");
+        }
+
+        public static async Task AwaitProfiles()
+        {
+            HttpListenerContext context = await profilesListener.GetContextAsync();
+            Console.WriteLine("Подключился регистрирующийся");
+            DateTime BeginTime = DateTime.Now;
+            ClientProfiles clientProfiles = new ClientProfiles(context);
+
+            // создаем новый поток для обслуживания нового клиента
+            Task clientTask = new Task(clientProfiles.Process);
             clientTask.Start();
             Task.WaitAny(clientTask);
             TimeSpan rez = DateTime.Now - BeginTime;

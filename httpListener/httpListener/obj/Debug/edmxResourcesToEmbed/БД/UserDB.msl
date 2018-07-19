@@ -21,5 +21,47 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="PositionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(UserDB.Position)">
+        <MappingFragment StoreEntitySet="PositionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="Schedule" ColumnName="Schedule" />
+          <ScalarProperty Name="Trips" ColumnName="Trips" />
+          <ScalarProperty Name="About" ColumnName="About" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfileSet">
+      <EntityTypeMapping TypeName="IsTypeOf(UserDB.Profile)">
+        <MappingFragment StoreEntitySet="ProfileSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FullName" ColumnName="FullName" />
+          <ScalarProperty Name="BirthDate" ColumnName="BirthDate" />
+          <ScalarProperty Name="PhoneNumer" ColumnName="PhoneNumer" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Sex" ColumnName="Sex" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="Education" ColumnName="Education" />
+          <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="Photo" ColumnName="Photo" />
+          <ScalarProperty Name="Children" ColumnName="Children" />
+          <ScalarProperty Name="Сitizen" ColumnName="Сitizen" />
+          <ScalarProperty Name="About" ColumnName="About" />
+          <ScalarProperty Name="DateOff" ColumnName="DateOff" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProfileToPositionSet">
+      <EntityTypeMapping TypeName="IsTypeOf(UserDB.ProfileToPosition)">
+        <MappingFragment StoreEntitySet="ProfileToPositionSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+          <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

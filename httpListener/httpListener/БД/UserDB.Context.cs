@@ -9,6 +9,7 @@
 
 namespace httpListener
 {
+    using httpListener.БД;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
@@ -27,5 +28,8 @@ namespace httpListener
     
         public virtual DbSet<Logins> LoginsSet { get; set; }
         public virtual DbSet<Session> SessionSet { get; set; }
+        public virtual DbSet<Position> PositionSet { get; set; }
+        public virtual DbSet<Profile> ProfileSet { get; set; }
+        public virtual DbSet<ProfileToPosition> ProfileToPositionSet { get; set; }
     }
 }

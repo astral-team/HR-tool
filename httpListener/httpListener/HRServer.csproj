@@ -57,18 +57,28 @@
   <ItemGroup>
     <Compile Include="Classes\AuthorizedUser.cs" />
     <Compile Include="Classes\Validator.cs" />
+    <Compile Include="БД\Logins.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="БД\Position.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="БД\Profile.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="БД\ProfileToPosition.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="БД\Session.cs">
+      <DependentUpon>UserDB.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Прослушка\ClientProfiles.cs" />
     <Compile Include="Прослушка\ClientReg.cs" />
     <Compile Include="Classes\CRUD.cs" />
     <Compile Include="Interface\ILogin.cs" />
     <Compile Include="Interface\ISession.cs" />
-    <Compile Include="БД\Logins.cs">
-      <DependentUpon>UserDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="БД\Session.cs">
-      <DependentUpon>UserDB.tt</DependentUpon>
-    </Compile>
     <Compile Include="БД\UserDB.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

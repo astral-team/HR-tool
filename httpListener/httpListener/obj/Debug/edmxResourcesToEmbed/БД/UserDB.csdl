@@ -7,6 +7,17 @@
       <End Role="Logins" EntitySet="LoginsSet" />
       <End Role="Session" EntitySet="SessionSet" />
     </AssociationSet>
+    <EntitySet Name="PositionSet" EntityType="UserDB.Position" />
+    <EntitySet Name="ProfileSet" EntityType="UserDB.Profile" />
+    <EntitySet Name="ProfileToPositionSet" EntityType="UserDB.ProfileToPosition" />
+    <AssociationSet Name="ProfileProfileToPosition" Association="UserDB.ProfileProfileToPosition">
+      <End Role="Profile" EntitySet="ProfileSet" />
+      <End Role="ProfileToPosition" EntitySet="ProfileToPositionSet" />
+    </AssociationSet>
+    <AssociationSet Name="PositionProfileToPosition" Association="UserDB.PositionProfileToPosition">
+      <End Role="Position" EntitySet="PositionSet" />
+      <End Role="ProfileToPosition" EntitySet="ProfileToPositionSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Logins">
     <Key>
@@ -37,6 +48,73 @@
       </Principal>
       <Dependent Role="Session">
         <PropertyRef Name="LoginId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="Salary" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="Schedule" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="Trips" Type="Boolean" Nullable="false" DefaultValue="false" />
+    <Property Name="About" Type="String" Nullable="false" DefaultValue="" />
+    <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.PositionProfileToPosition" FromRole="Position" ToRole="ProfileToPosition" />
+  </EntityType>
+  <EntityType Name="Profile">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FullName" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="BirthDate" Type="DateTimeOffset" Nullable="false" />
+    <Property Name="PhoneNumer" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="Email" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="Sex" Type="Boolean" Nullable="false" />
+    <Property Name="Position" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="Education" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="MaritalStatus" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="City" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="Photo" Type="Binary" Nullable="false" />
+    <Property Name="Children" Type="Boolean" Nullable="false" />
+    <Property Name="Сitizen" Type="String" Nullable="false" />
+    <Property Name="About" Type="String" Nullable="false" />
+    <Property Name="DateOff" Type="String" Nullable="false" />
+    <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.ProfileProfileToPosition" FromRole="Profile" ToRole="ProfileToPosition" />
+  </EntityType>
+  <EntityType Name="ProfileToPosition">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProfileId" Type="Guid" Nullable="false" />
+    <Property Name="PositionId" Type="Guid" Nullable="false" />
+    <NavigationProperty Name="Profile" Relationship="UserDB.ProfileProfileToPosition" FromRole="ProfileToPosition" ToRole="Profile" />
+    <NavigationProperty Name="Position" Relationship="UserDB.PositionProfileToPosition" FromRole="ProfileToPosition" ToRole="Position" />
+  </EntityType>
+  <Association Name="ProfileProfileToPosition">
+    <End Type="UserDB.Profile" Role="Profile" Multiplicity="1" />
+    <End Type="UserDB.ProfileToPosition" Role="ProfileToPosition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileToPosition">
+        <PropertyRef Name="ProfileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PositionProfileToPosition">
+    <End Type="UserDB.Position" Role="Position" Multiplicity="1" />
+    <End Type="UserDB.ProfileToPosition" Role="ProfileToPosition" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileToPosition">
+        <PropertyRef Name="PositionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
