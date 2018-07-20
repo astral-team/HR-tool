@@ -24,21 +24,22 @@ namespace HRClient
             Console.Write("Регистрация - reg\nАвторизация - login\nУдаление - del\nДобавить профиль - addProfile\nЗапросить профиль - getProfile\nУдалить профиль - deleteProfile\n\nКоманда: ");
             string login = "";
             string password = "";
+            string SessionKey = "";
             while (true)
             {
                 try
                 {
                     
                     string command = "";
-                    string IP = "http://10.254.4.116:8888/";
+                    string IP = "http://localhost:8888/";
                     command = Console.ReadLine();
 
 
-
+                    
                     var request = new RestRequest();
                     request.RequestFormat = DataFormat.Json;
                     var openWith = new Person();
-
+                    IRestResponse response = null;
                     switch (command)
                     {
                         case "reg":
@@ -60,6 +61,9 @@ namespace HRClient
 
                             request = new RestRequest("resource", Method.POST);
                             request.AddHeader("login", login);
+
+                            response = client.Execute<Person>(request);
+                            Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
 
                             break;
 
@@ -83,6 +87,13 @@ namespace HRClient
                             request = new RestRequest("resource", Method.GET);
                             request.AddHeader("login", login);
 
+                            response = client.Execute<Person>(request);
+                            Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
+                            if ((response.Content!="404")&&(response.Content !=SessionKey))
+                            {
+                                SessionKey = response.Content;
+                            }
+
                             break;
                         case "logout":
 
@@ -90,6 +101,9 @@ namespace HRClient
                             login = "";
                             password = "";
                             Console.WriteLine("logout complete");
+
+                            SessionKey = "";
+
                             break;
                         case "del":
                             IP += "reg/";
@@ -107,6 +121,13 @@ namespace HRClient
                             client.Authenticator = new HttpBasicAuthenticator(login, password);
                             request = new RestRequest("resource", Method.DELETE);
                             request.AddHeader("login", login);
+                            if (SessionKey != "")
+                            {
+                                request.AddHeader("SessionKey", SessionKey);
+                            }
+
+                            response = client.Execute<Person>(request);
+                            Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
 
                             break;
 
@@ -114,104 +135,98 @@ namespace HRClient
                             IP += "profiles/";
 
                             client.BaseUrl = new Uri(IP);
-
-                            if ((login == "") && (password == ""))
-                            {
-                                Console.WriteLine("Данные для входа/регистрации/удаления");
-                                Console.Write("Login: ");
-                                login = Console.ReadLine();
-                                Console.Write("Password: ");
-                                password = Console.ReadLine();
-                            }
+                            
                             Console.WriteLine("Заполните профиль");
                             request = new RestRequest("resource", Method.POST);
 
 
-                             /*#region это дерьмо лучше скрыть (Имя великого человека)
+                             #region это дерьмо лучше скрыть (Имя великого человека)
                              //-----------------------
                              //здесь происходит заполнение профлия и заполнение им тела запроса
 
 
 
-                             Dictionary<string, string> openWith =
-                                new Dictionary<string, string>();
-                             Console.WriteLine("Введите Имя пользователя");
-                             openWith.Add("FullName", Console.ReadLine());
-                             Console.WriteLine("Введите BirthDate");
-                             openWith.Add("BirthDate", DateTimeOffset.Now.ToString());
-                             Console.WriteLine("Введите PhoneNumber");
-                             openWith.Add("PhoneNumber", Console.ReadLine());
-                             Console.WriteLine("Введите Email");
-                             openWith.Add("Email", Console.ReadLine());
-                             Console.WriteLine("Введите Sex");
-                             openWith.Add("Sex", Console.ReadLine());
-                             Console.WriteLine("Введите Position");
-                             openWith.Add("Position", Console.ReadLine());
-                             Console.WriteLine("Введите Education");
-                             openWith.Add("Education", Console.ReadLine());
-                             Console.WriteLine("Введите MaritalStatus");
-                             openWith.Add("MaritalStatus", Console.ReadLine());
-                             Console.WriteLine("Введите City");
-                             openWith.Add("City", Console.ReadLine());
-                             Console.WriteLine("Введите Photo");
-                             openWith.Add("Photo", Console.ReadLine());
-                             Console.WriteLine("Введите Citizen");
-                             openWith.Add("Citizen", Console.ReadLine());
-                             Console.WriteLine("Введите About");
-                             openWith.Add("About", Console.ReadLine());
-                             Console.WriteLine("Введите Experience");
-                             openWith.Add("Experience", Console.ReadLine());
-                             Console.WriteLine("Введите Responed");
-                             openWith.Add("Responed", Console.ReadLine());
-                             Console.WriteLine("Введите ResumeLink");
-                             openWith.Add("ResumeLink", Console.ReadLine());
-                             Console.WriteLine("Введите Interviews");
-                             openWith.Add("Interviews", Console.ReadLine());
-                             //Console.WriteLine("Введите Имя пользователя");
-                             //request.AddHeader("FullName", Console.ReadLine());
-                             //Console.WriteLine("Введите BirthDate");
-                             //request.AddHeader("BirthDate", Console.ReadLine());
-                             //Console.WriteLine("Введите PhoneNumber");
-                             //request.AddHeader("PhoneNumber", Console.ReadLine());
-                             //Console.WriteLine("Введите Email");
-                             //request.AddHeader("Email", Console.ReadLine());
-                             //Console.WriteLine("Введите Sex");
-                             //request.AddHeader("Sex", Console.ReadLine());
-                             //Console.WriteLine("Введите Position");
-                             //request.AddHeader("Position", Console.ReadLine());
-                             //Console.WriteLine("Введите Education");
-                             //request.AddHeader("Education", Console.ReadLine());
-                             //Console.WriteLine("Введите MaritalStatus");
-                             //request.AddHeader("MaritalStatus", Console.ReadLine());
-                             //Console.WriteLine("Введите City");
-                             //request.AddHeader("City", Console.ReadLine());
-                             //Console.WriteLine("Введите Photo");
-                             //request.AddHeader("Photo", Console.ReadLine());
-                             //Console.WriteLine("Введите Citizen");
-                             //request.AddHeader("Citizen", Console.ReadLine());
-                             //Console.WriteLine("Введите About");
-                             //request.AddHeader("About", Console.ReadLine());
-                             //Console.WriteLine("Введите Experience");
-                             //request.AddHeader("Experience", Console.ReadLine());
-                             //Console.WriteLine("Введите Responed");
-                             //request.AddHeader("Responed", Console.ReadLine());
-                             //Console.WriteLine("Введите ResumeLink");
-                             //request.AddHeader("ResumeLink", Console.ReadLine());
-                             //Console.WriteLine("Введите Interviews");
-                             //request.AddHeader("Interviews", Console.ReadLine());
-
-                             //-----------------------
-                             #endregion*/
                             
-                            openWith.FullName = "Ptiz";
-                            openWith.Education = "Высшее";
+                             Console.WriteLine("Введите Имя пользователя");
+                             openWith.FullName=Console.ReadLine();
+                             Console.WriteLine("Введите BirthDate");
+                             openWith.BirthDate=DateTimeOffset.Now;
+                            Console.WriteLine("Введите PhoneNumber");
+                             openWith.PhoneNumer= Console.ReadLine();
+                            Console.WriteLine("Введите Email");
+                             openWith.Email = Console.ReadLine();
+                            Console.WriteLine("Введите Sex");
+                             openWith.Sex=true;
+                            Console.WriteLine("Введите Position");
+                             openWith.Position = Console.ReadLine();
+                             Console.WriteLine("Введите Education");
+                             openWith.Education = Console.ReadLine();
+                            Console.WriteLine("Введите MaritalStatus");
+                             openWith.MaritalStatus = Console.ReadLine();
+                            Console.WriteLine("Введите City");
+                             openWith.City = Console.ReadLine();
+                            Console.WriteLine("Введите Photo");
+                            openWith.Photo = new byte[0x10];
+                             Console.WriteLine("Введите Citizen");
+                             openWith.Сitizen = Console.ReadLine();
+                            Console.WriteLine("Введите About");
+                             openWith.About = Console.ReadLine();
+                            Console.WriteLine("Введите Experience");
+                             openWith.Experience = Console.ReadLine();
+                            Console.WriteLine("Введите Responed");
+                             openWith.Responed = Console.ReadLine();
+                            Console.WriteLine("Введите ResumeLink");
+                             openWith.ResumeLink = Console.ReadLine();
+                            Console.WriteLine("Введите Interviews");
+                            openWith.Interviews = Console.ReadLine();
+
+                            //Console.WriteLine("Введите Имя пользователя");
+                            //request.AddHeader("FullName", Console.ReadLine());
+                            //Console.WriteLine("Введите BirthDate");
+                            //request.AddHeader("BirthDate", Console.ReadLine());
+                            //Console.WriteLine("Введите PhoneNumber");
+                            //request.AddHeader("PhoneNumber", Console.ReadLine());
+                            //Console.WriteLine("Введите Email");
+                            //request.AddHeader("Email", Console.ReadLine());
+                            //Console.WriteLine("Введите Sex");
+                            //request.AddHeader("Sex", Console.ReadLine());
+                            //Console.WriteLine("Введите Position");
+                            //request.AddHeader("Position", Console.ReadLine());
+                            //Console.WriteLine("Введите Education");
+                            //request.AddHeader("Education", Console.ReadLine());
+                            //Console.WriteLine("Введите MaritalStatus");
+                            //request.AddHeader("MaritalStatus", Console.ReadLine());
+                            //Console.WriteLine("Введите City");
+                            //request.AddHeader("City", Console.ReadLine());
+                            //Console.WriteLine("Введите Photo");
+                            //request.AddHeader("Photo", Console.ReadLine());
+                            //Console.WriteLine("Введите Citizen");
+                            //request.AddHeader("Citizen", Console.ReadLine());
+                            //Console.WriteLine("Введите About");
+                            //request.AddHeader("About", Console.ReadLine());
+                            //Console.WriteLine("Введите Experience");
+                            //request.AddHeader("Experience", Console.ReadLine());
+                            //Console.WriteLine("Введите Responed");
+                            //request.AddHeader("Responed", Console.ReadLine());
+                            //Console.WriteLine("Введите ResumeLink");
+                            //request.AddHeader("ResumeLink", Console.ReadLine());
+                            //Console.WriteLine("Введите Interviews");
+                            //request.AddHeader("Interviews", Console.ReadLine());
+
+                            //-----------------------
+                            #endregion
 
                             request.RequestFormat = RestSharp.DataFormat.Json;
                             request.AddBody(openWith);
 
                             client.Authenticator = new HttpBasicAuthenticator(login, password);
-                           
                             request.AddHeader("login", login);
+                            if (SessionKey != "")
+                                request.AddHeader("SessionKey", SessionKey);
+
+                            response = client.Execute<Person>(request);
+                            Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
+
 
                             break;
 
@@ -240,6 +255,11 @@ namespace HRClient
 
                             //вот сюда писать тело
                             request.AddHeader("login", login);
+                            if (SessionKey != "")
+                                request.AddHeader("SessionKey", SessionKey);
+
+                            response = client.Execute<Person>(request);
+                            Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
 
                             break;
 
@@ -266,9 +286,12 @@ namespace HRClient
                             client.Authenticator = new HttpBasicAuthenticator(login, password);
                             request = new RestRequest("resource", Method.DELETE);
                             request.AddHeader("login", login);
+                            if (SessionKey != "")
+                                request.AddHeader("SessionKey", SessionKey);
 
 
-
+                            response = client.Execute<Person>(request);
+                            Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
 
 
                             break;
@@ -280,9 +303,8 @@ namespace HRClient
                             break;
                     }
 
-                    IRestResponse<Person> response = client.Execute<Person>(request);
+                    
 
-                    Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
 
                    
 

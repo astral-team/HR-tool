@@ -92,7 +92,7 @@ namespace httpListener
                 user.Id = userDb.Id;
                 var sessionDb = CRUD.GetSession(user);
                 sessionDb.SessionKey = user.GetSessionKey();
-                sessionDb.ExpTime = DateTime.Now.AddHours(2);
+                sessionDb.ExpTime = DateTime.Now.AddMinutes(10);
                 user.ExpTime = sessionDb.ExpTime;
                 CRUD.SetSession(sessionDb);
                 responseString = $"{user.SessionKey}";

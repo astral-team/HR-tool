@@ -59,7 +59,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classes\AuthorizedUser.cs" />
+    <Compile Include="Classes\CRUD.cs" />
     <Compile Include="Classes\Validator.cs" />
+    <Compile Include="Interface\ILogin.cs" />
+    <Compile Include="Interface\ISession.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="БД\Logins.cs">
       <DependentUpon>UserDB.tt</DependentUpon>
     </Compile>
@@ -75,12 +79,6 @@
     <Compile Include="БД\Session.cs">
       <DependentUpon>UserDB.tt</DependentUpon>
     </Compile>
-    <Compile Include="Прослушка\ClientProfiles.cs" />
-    <Compile Include="Прослушка\ClientReg.cs" />
-    <Compile Include="Classes\CRUD.cs" />
-    <Compile Include="Interface\ILogin.cs" />
-    <Compile Include="Interface\ISession.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="БД\UserDB.Context.cs">
       <AutoGen>True</AutoGen>
@@ -97,6 +95,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>UserDB.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Прослушка\ClientProfiles.cs" />
+    <Compile Include="Прослушка\ClientReg.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -125,5 +125,6 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

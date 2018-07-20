@@ -45,6 +45,19 @@ namespace httpListener
             }
         }
 
+
+        public static Session GetSession(Guid key)
+        {
+            try
+            {
+                return dbContext.SessionSet.AsQueryable().Where(x => x.SessionKey == key).First();
+            }
+            catch
+            {
+                return (null);
+            }
+        }
+
         /// <summary>
         /// Занесение кэша в базу данных
         /// </summary>
@@ -107,32 +120,56 @@ namespace httpListener
 
         public static Profile GetProfile(Profile profile)
         {
-           return dbContext.ProfileSet.AsQueryable().Where(x => x.PhoneNumer == profile.PhoneNumer).First();
+            try
+            {
+                return dbContext.ProfileSet.AsQueryable().Where(x => x.PhoneNumer == profile.PhoneNumer).First();
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public static void CreateProfile(Profile profile)
         {
+
             var ProfToPos = new ProfileToPosition();
-            //profile.Id = Guid.NewGuid();
+
+            profile.Id = Guid.NewGuid();
+            ProfToPos.Id = Guid.NewGuid();
+
             ProfToPos.ProfileId = profile.Id;
+            ProfToPos.Profile = profile;
 
-            var pos = new Position();
+            var pos = GetPosition(profile.Position);
 
-            pos = GetPosition(profile.Position);
+            if (pos == null)
+            {
+                pos = new Position();
+                pos.FullName = profile.Position;
+                CreatePosition(pos);
+            }
 
             ProfToPos.PositionId = pos.Id;
 
-            dbContext.ProfileToPositionSet.Add(ProfToPos);
+            ProfToPos.Position = pos;
+
             dbContext.ProfileSet.Add(profile);
+            dbContext.ProfileToPositionSet.Add(ProfToPos);
+            dbContext.SaveChanges();
+        }
+
+        public static void CreatePosition(Position pos)
+        {
+            pos.Id = Guid.NewGuid();
+            dbContext.PositionSet.Add(pos);
             dbContext.SaveChanges();
         }
 
         public static Position GetPosition(string positionName)
         {
-            return dbContext.PositionSet.AsQueryable().Where(x => x.FullName == positionName).First();
+            return dbContext.PositionSet.AsQueryable().Where(x => x.FullName == positionName).FirstOrDefault();
         }
 
     }
-
-        
 }

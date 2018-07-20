@@ -7,14 +7,18 @@ namespace httpListener.Classes
     {
         public static bool CheckTimeOfSession(Session session)
         {
-            if (session.ExpTime <= DateTime.Now)
+            if (session == null)
+            {
+                return false;
+            }
+            else if ((session != null) && (session.ExpTime <= DateTime.Now))
             {
                 session.SessionKey = Guid.Empty;
-                return true;
+                return false;
             }
             else
             {
-                return false;
+                return true;
             }
         }
     }

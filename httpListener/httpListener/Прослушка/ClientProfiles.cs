@@ -4,7 +4,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using Newtonsoft.Json;
-using RestSharp.Deserializers;
+using httpListener.Classes;
 
 namespace httpListener
 {
@@ -27,31 +27,56 @@ namespace httpListener
             StreamReader streamReader = new StreamReader(streamBody, encoding);
             var sRequest = streamReader.ReadToEnd();
 
-            Profile vacNewtonsoft = JsonConvert.DeserializeObject<Profile>(sRequest);
+            Profile profile = JsonConvert.DeserializeObject<Profile>(sRequest);
 
-            Console.WriteLine(vacNewtonsoft);
+            //Console.WriteLine(vacNewtonsoft);
+
 
             AuthorizedUser user = new AuthorizedUser(request.Headers["login"], request.Headers["Authorization"]);
             var userDb = CRUD.GetUser(user);
             string responseString = "";
             string stateString = "";
+            user.Id = userDb.Id;
+
+            var sessionDb = CRUD.GetSession(user);
 
             switch (request.HttpMethod)
             {
                 case "GET":
-                    Login(userDb, user, out responseString);
+                    if (Validator.CheckTimeOfSession(sessionDb))
+                    {
+                        //Login(userDb, user, out responseString);
+                    }
+                    else
+                    {
+                        responseString = $"Ошибка, неверный сессионный ключ, Логин={user.Login}, Hash={user.Hash}";
+                    }
                     break;
                 case "POST":
-                    Reg(userDb, user, out responseString);
+                    if (Validator.CheckTimeOfSession(sessionDb))
+                    {
+                        AddProfile(profile, out responseString);
+                    }
+                    else
+                    {
+                        responseString = $"Ошибка, неверный сессионный ключ, Логин={user.Login}, Hash={user.Hash}";
+                    }
                     break;
                 case "DELETE":
-                    Delete(userDb, user, out responseString);
+                    if (Validator.CheckTimeOfSession(sessionDb))
+                    {
+                       // Delete(userDb, user, out responseString);
+                    }
+                    else
+                    {
+                        responseString = $"Ошибка, неверный сессионный ключ, Логин={user.Login}, Hash={user.Hash}";
+                    }
                     break;
                 default:
                     responseString = $"Ошибка, не распознан HTTP метод, Логин={user.Login}, Hash={user.Hash}";
                     break;
             }
-            stateString = $"Login = {user.Login}\nHash = {user.Hash}\nSession = {user.SessionKey}\nDateOff = {user.DateOff}\nSessionExpTime = {user.ExpTime}\n\n";
+            stateString = $"Login = {user.Login}\nHash = {user.Hash}\n\n";
             Console.WriteLine(stateString);
             
             byte[] buffer = Encoding.UTF8.GetBytes(responseString);
@@ -61,16 +86,16 @@ namespace httpListener
             output.Close();
         }
 
-        private static void Reg(Logins userDb, AuthorizedUser user, out string responseString)
+        private static void AddProfile(Profile user, out string responseString)
         {
-            if (userDb == null)
+            if (CRUD.GetProfile(user) == null)
             {
-                //CRUD.CreateUser(user);
-                responseString = "200";
+                CRUD.CreateProfile(user);
+                responseString = "Профиль добавлен в базу данных";
             }
             else
             {
-                responseString = "404";
+                responseString = "Профиль найден в базе данных";
             }
         }
 

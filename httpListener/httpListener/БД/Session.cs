@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace httpListener
+namespace httpListener.БД
 {
     using System;
     using System.Collections.Generic;

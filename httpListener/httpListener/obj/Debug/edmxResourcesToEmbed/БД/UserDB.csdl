@@ -55,43 +55,43 @@
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FullName" Type="String" Nullable="false" DefaultValue="" />
-    <Property Name="Salary" Type="String" Nullable="false" DefaultValue="" />
-    <Property Name="Schedule" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="FullName" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Salary" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Schedule" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="Trips" Type="Boolean" Nullable="false" DefaultValue="false" />
-    <Property Name="About" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="About" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
     <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.PositionProfileToPosition" FromRole="Position" ToRole="ProfileToPosition" />
   </EntityType>
   <EntityType Name="Profile">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="FullName" Type="String" Nullable="false" DefaultValue="" />
-    <Property Name="BirthDate" Type="DateTimeOffset" Nullable="false" />
-    <Property Name="PhoneNumer" Type="String" Nullable="false" DefaultValue="" />
-    <Property Name="Email" Type="String" Nullable="false" DefaultValue="" />
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="FullName" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="BirthDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+    <Property Name="PhoneNumer" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Email" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="Sex" Type="Boolean" Nullable="false" />
-    <Property Name="Position" Type="String" Nullable="false" DefaultValue="" />
-    <Property Name="Education" Type="String" Nullable="false" DefaultValue="" />
-    <Property Name="MaritalStatus" Type="String" Nullable="false" DefaultValue="" />
-    <Property Name="City" Type="String" Nullable="false" DefaultValue="" />
-    <Property Name="Photo" Type="Binary" Nullable="true" />
-    <Property Name="Сitizen" Type="String" Nullable="false" />
-    <Property Name="About" Type="String" Nullable="false" />
-    <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" />
+    <Property Name="Position" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Education" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="MaritalStatus" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Photo" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <Property Name="Сitizen" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="About" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
     <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.ProfileProfileToPosition" FromRole="Profile" ToRole="ProfileToPosition" />
-    <Property Name="Experience" Type="String" Nullable="false" />
-    <Property Name="Responed" Type="String" Nullable="false" />
-    <Property Name="ResumeLink" Type="String" Nullable="false" />
-    <Property Name="Interviews" Type="String" Nullable="false" />
+    <Property Name="Experience" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Responed" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ResumeLink" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Interviews" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
   </EntityType>
   <EntityType Name="ProfileToPosition">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
-    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
     <Property Name="ProfileId" Type="Guid" Nullable="false" />
     <Property Name="PositionId" Type="Guid" Nullable="false" />
     <NavigationProperty Name="Profile" Relationship="UserDB.ProfileProfileToPosition" FromRole="ProfileToPosition" ToRole="Profile" />
