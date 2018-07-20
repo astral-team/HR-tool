@@ -38,10 +38,13 @@ namespace httpListener.БД
         public string MaritalStatus { get; set; }
         public string City { get; set; }
         public byte[] Photo { get; set; }
-        public bool Children { get; set; }
         public string Сitizen { get; set; }
         public string About { get; set; }
-        public string DateOff { get; set; }
+        public System.DateTimeOffset DateOff { get; set; }
+        public string Experience { get; set; }
+        public string Responed { get; set; }
+        public string ResumeLink { get; set; }
+        public string Interviews { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfileToPosition> ProfileToPosition { get; set; }

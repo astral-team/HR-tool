@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/19/2018 10:11:26
--- Generated from EDMX file: C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\БД\UserDB.edmx
+-- Date Created: 07/19/2018 11:09:30
+-- Generated from EDMX file: C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\БД\UserDB.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -20,6 +20,12 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_LoginsSession]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[SessionSet] DROP CONSTRAINT [FK_LoginsSession];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ProfileProfileToPosition]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProfileToPositionSet] DROP CONSTRAINT [FK_ProfileProfileToPosition];
+GO
+IF OBJECT_ID(N'[dbo].[FK_PositionProfileToPosition]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ProfileToPositionSet] DROP CONSTRAINT [FK_PositionProfileToPosition];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -30,6 +36,15 @@ IF OBJECT_ID(N'[dbo].[LoginsSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[SessionSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[SessionSet];
+GO
+IF OBJECT_ID(N'[dbo].[PositionSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[PositionSet];
+GO
+IF OBJECT_ID(N'[dbo].[ProfileSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProfileSet];
+GO
+IF OBJECT_ID(N'[dbo].[ProfileToPositionSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ProfileToPositionSet];
 GO
 
 -- --------------------------------------------------
@@ -78,10 +93,13 @@ CREATE TABLE [dbo].[ProfileSet] (
     [MaritalStatus] nvarchar(max)  NOT NULL,
     [City] nvarchar(max)  NOT NULL,
     [Photo] varbinary(max)  NOT NULL,
-    [Children] bit  NOT NULL,
     [Сitizen] nvarchar(max)  NOT NULL,
     [About] nvarchar(max)  NOT NULL,
-    [DateOff] nvarchar(max)  NOT NULL
+    [DateOff] datetimeoffset  NOT NULL,
+    [Experience] nvarchar(max)  NOT NULL,
+    [Responed] nvarchar(max)  NOT NULL,
+    [ResumeLink] nvarchar(max)  NOT NULL,
+    [Interviews] nvarchar(max)  NOT NULL
 );
 GO
 

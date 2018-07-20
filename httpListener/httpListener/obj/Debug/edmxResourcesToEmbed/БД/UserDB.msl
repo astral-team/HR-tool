@@ -47,10 +47,13 @@
           <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
           <ScalarProperty Name="City" ColumnName="City" />
           <ScalarProperty Name="Photo" ColumnName="Photo" />
-          <ScalarProperty Name="Children" ColumnName="Children" />
           <ScalarProperty Name="Сitizen" ColumnName="Сitizen" />
           <ScalarProperty Name="About" ColumnName="About" />
           <ScalarProperty Name="DateOff" ColumnName="DateOff" />
+          <ScalarProperty Name="Experience" ColumnName="Experience" />
+          <ScalarProperty Name="Responed" ColumnName="Responed" />
+          <ScalarProperty Name="ResumeLink" ColumnName="ResumeLink" />
+          <ScalarProperty Name="Interviews" ColumnName="Interviews" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using httpListener.БД;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -12,6 +13,7 @@ namespace httpListener
         // В этом поле хранится информация о базе данных
         static UserDBContainer dbContext = new UserDBContainer();
 
+        #region LoginsReg
         /// <summary>
         /// Получение пользователя из базы данных, если его нет возвращается null
         /// </summary>
@@ -100,5 +102,37 @@ namespace httpListener
             dbContext.Database.ExecuteSqlCommand("TRUNCATE TABLE [UserDBSet]");
             dbContext.SaveChanges();
         }
+
+        #endregion
+
+        public static Profile GetProfile(Profile profile)
+        {
+           return dbContext.ProfileSet.AsQueryable().Where(x => x.PhoneNumer == profile.PhoneNumer).First();
+        }
+
+        public static void CreateProfile(Profile profile)
+        {
+            var ProfToPos = new ProfileToPosition();
+            //profile.Id = Guid.NewGuid();
+            ProfToPos.ProfileId = profile.Id;
+
+            var pos = new Position();
+
+            pos = GetPosition(profile.Position);
+
+            ProfToPos.PositionId = pos.Id;
+
+            dbContext.ProfileToPositionSet.Add(ProfToPos);
+            dbContext.ProfileSet.Add(profile);
+            dbContext.SaveChanges();
+        }
+
+        public static Position GetPosition(string positionName)
+        {
+            return dbContext.PositionSet.AsQueryable().Where(x => x.FullName == positionName).First();
+        }
+
     }
+
+        
 }

@@ -68,10 +68,13 @@
     <Property Name="MaritalStatus" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
     <Property Name="City" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
     <Property Name="Photo" Type="varbinary(max)" Nullable="false" />
-    <Property Name="Children" Type="bit" Nullable="false" />
     <Property Name="Сitizen" Type="nvarchar(max)" Nullable="false" />
     <Property Name="About" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateOff" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateOff" Type="datetimeoffset" Nullable="false" />
+    <Property Name="Experience" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Responed" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ResumeLink" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Interviews" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ProfileToPositionSet">
     <Key>
@@ -198,12 +201,15 @@
           <Property Name="Education" Type="String" Nullable="false" DefaultValue="" />
           <Property Name="MaritalStatus" Type="String" Nullable="false" DefaultValue="" />
           <Property Name="City" Type="String" Nullable="false" DefaultValue="" />
-          <Property Name="Photo" Type="Binary" Nullable="false" />
-          <Property Name="Children" Type="Boolean" Nullable="false" />
+          <Property Name="Photo" Type="Binary" Nullable="true" />
           <Property Name="Сitizen" Type="String" Nullable="false" />
           <Property Name="About" Type="String" Nullable="false" />
-          <Property Name="DateOff" Type="String" Nullable="false" />
+          <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" />
           <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.ProfileProfileToPosition" FromRole="Profile" ToRole="ProfileToPosition" />
+          <Property Name="Experience" Type="String" Nullable="false" />
+          <Property Name="Responed" Type="String" Nullable="false" />
+          <Property Name="ResumeLink" Type="String" Nullable="false" />
+          <Property Name="Interviews" Type="String" Nullable="false" />
         </EntityType>
         <EntityType Name="ProfileToPosition">
           <Key>
@@ -291,10 +297,13 @@
           <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
           <ScalarProperty Name="City" ColumnName="City" />
           <ScalarProperty Name="Photo" ColumnName="Photo" />
-          <ScalarProperty Name="Children" ColumnName="Children" />
           <ScalarProperty Name="Сitizen" ColumnName="Сitizen" />
           <ScalarProperty Name="About" ColumnName="About" />
           <ScalarProperty Name="DateOff" ColumnName="DateOff" />
+          <ScalarProperty Name="Experience" ColumnName="Experience" />
+          <ScalarProperty Name="Responed" ColumnName="Responed" />
+          <ScalarProperty Name="ResumeLink" ColumnName="ResumeLink" />
+          <ScalarProperty Name="Interviews" ColumnName="Interviews" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

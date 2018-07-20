@@ -77,12 +77,15 @@
     <Property Name="Education" Type="String" Nullable="false" DefaultValue="" />
     <Property Name="MaritalStatus" Type="String" Nullable="false" DefaultValue="" />
     <Property Name="City" Type="String" Nullable="false" DefaultValue="" />
-    <Property Name="Photo" Type="Binary" Nullable="false" />
-    <Property Name="Children" Type="Boolean" Nullable="false" />
+    <Property Name="Photo" Type="Binary" Nullable="true" />
     <Property Name="Сitizen" Type="String" Nullable="false" />
     <Property Name="About" Type="String" Nullable="false" />
-    <Property Name="DateOff" Type="String" Nullable="false" />
+    <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" />
     <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.ProfileProfileToPosition" FromRole="Profile" ToRole="ProfileToPosition" />
+    <Property Name="Experience" Type="String" Nullable="false" />
+    <Property Name="Responed" Type="String" Nullable="false" />
+    <Property Name="ResumeLink" Type="String" Nullable="false" />
+    <Property Name="Interviews" Type="String" Nullable="false" />
   </EntityType>
   <EntityType Name="ProfileToPosition">
     <Key>
