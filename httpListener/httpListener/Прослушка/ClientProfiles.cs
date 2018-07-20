@@ -36,7 +36,10 @@ namespace httpListener
             var userDb = CRUD.GetUser(user);
             string responseString = "";
             string stateString = "";
-            user.Id = userDb.Id;
+            if(userDb != null)
+            {
+                user.Id = userDb.Id;
+            }
 
             var sessionDb = CRUD.GetSession(user);
 
