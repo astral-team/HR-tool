@@ -62,7 +62,7 @@
     <Property Name="Education" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
     <Property Name="MaritalStatus" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
     <Property Name="City" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
-    <Property Name="Photo" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Photo" Type="varbinary(max)" Nullable="true" />
     <Property Name="Сitizen" Type="nvarchar(max)" Nullable="false" />
     <Property Name="About" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DateOff" Type="datetimeoffset" Nullable="false" />

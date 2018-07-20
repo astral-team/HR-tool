@@ -7,8 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace httpListener.БД
+namespace httpListener
 {
+    using httpListener.БД;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;

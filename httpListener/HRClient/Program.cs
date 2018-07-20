@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using RestSharp;
 using RestSharp.Authenticators;
+using RestSharp.Serializers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,6 +36,8 @@ namespace HRClient
 
 
                     var request = new RestRequest();
+                    request.RequestFormat = DataFormat.Json;
+                    var openWith = new Person();
 
                     switch (command)
                     {
@@ -123,84 +126,88 @@ namespace HRClient
                             Console.WriteLine("Заполните профиль");
                             request = new RestRequest("resource", Method.POST);
 
-                            #region это дерьмо лучше скрыть (Имя великого человека)
-                            //-----------------------
-                            //здесь происходит заполнение профлия и заполнение им тела запроса
+
+                             /*#region это дерьмо лучше скрыть (Имя великого человека)
+                             //-----------------------
+                             //здесь происходит заполнение профлия и заполнение им тела запроса
 
 
 
-                            Dictionary<string, string> openWith =
-                               new Dictionary<string, string>();
-                            Console.WriteLine("Введите Имя пользователя");
-                            openWith.Add("FullName", Console.ReadLine());
-                            Console.WriteLine("Введите BirthDate");
-                            openWith.Add("BirthDate", DateTimeOffset.Now.ToString());
-                            Console.WriteLine("Введите PhoneNumber");
-                            openWith.Add("PhoneNumber", Console.ReadLine());
-                            Console.WriteLine("Введите Email");
-                            openWith.Add("Email", Console.ReadLine());
-                            Console.WriteLine("Введите Sex");
-                            openWith.Add("Sex", Console.ReadLine());
-                            Console.WriteLine("Введите Position");
-                            openWith.Add("Position", Console.ReadLine());
-                            Console.WriteLine("Введите Education");
-                            openWith.Add("Education", Console.ReadLine());
-                            Console.WriteLine("Введите MaritalStatus");
-                            openWith.Add("MaritalStatus", Console.ReadLine());
-                            Console.WriteLine("Введите City");
-                            openWith.Add("City", Console.ReadLine());
-                            Console.WriteLine("Введите Photo");
-                            openWith.Add("Photo", Console.ReadLine());
-                            Console.WriteLine("Введите Citizen");
-                            openWith.Add("Citizen", Console.ReadLine());
-                            Console.WriteLine("Введите About");
-                            openWith.Add("About", Console.ReadLine());
-                            Console.WriteLine("Введите Experience");
-                            openWith.Add("Experience", Console.ReadLine());
-                            Console.WriteLine("Введите Responed");
-                            openWith.Add("Responed", Console.ReadLine());
-                            Console.WriteLine("Введите ResumeLink");
-                            openWith.Add("ResumeLink", Console.ReadLine());
-                            Console.WriteLine("Введите Interviews");
-                            openWith.Add("Interviews", Console.ReadLine());
-                            //Console.WriteLine("Введите Имя пользователя");
-                            //request.AddHeader("FullName", Console.ReadLine());
-                            //Console.WriteLine("Введите BirthDate");
-                            //request.AddHeader("BirthDate", Console.ReadLine());
-                            //Console.WriteLine("Введите PhoneNumber");
-                            //request.AddHeader("PhoneNumber", Console.ReadLine());
-                            //Console.WriteLine("Введите Email");
-                            //request.AddHeader("Email", Console.ReadLine());
-                            //Console.WriteLine("Введите Sex");
-                            //request.AddHeader("Sex", Console.ReadLine());
-                            //Console.WriteLine("Введите Position");
-                            //request.AddHeader("Position", Console.ReadLine());
-                            //Console.WriteLine("Введите Education");
-                            //request.AddHeader("Education", Console.ReadLine());
-                            //Console.WriteLine("Введите MaritalStatus");
-                            //request.AddHeader("MaritalStatus", Console.ReadLine());
-                            //Console.WriteLine("Введите City");
-                            //request.AddHeader("City", Console.ReadLine());
-                            //Console.WriteLine("Введите Photo");
-                            //request.AddHeader("Photo", Console.ReadLine());
-                            //Console.WriteLine("Введите Citizen");
-                            //request.AddHeader("Citizen", Console.ReadLine());
-                            //Console.WriteLine("Введите About");
-                            //request.AddHeader("About", Console.ReadLine());
-                            //Console.WriteLine("Введите Experience");
-                            //request.AddHeader("Experience", Console.ReadLine());
-                            //Console.WriteLine("Введите Responed");
-                            //request.AddHeader("Responed", Console.ReadLine());
-                            //Console.WriteLine("Введите ResumeLink");
-                            //request.AddHeader("ResumeLink", Console.ReadLine());
-                            //Console.WriteLine("Введите Interviews");
-                            //request.AddHeader("Interviews", Console.ReadLine());
+                             Dictionary<string, string> openWith =
+                                new Dictionary<string, string>();
+                             Console.WriteLine("Введите Имя пользователя");
+                             openWith.Add("FullName", Console.ReadLine());
+                             Console.WriteLine("Введите BirthDate");
+                             openWith.Add("BirthDate", DateTimeOffset.Now.ToString());
+                             Console.WriteLine("Введите PhoneNumber");
+                             openWith.Add("PhoneNumber", Console.ReadLine());
+                             Console.WriteLine("Введите Email");
+                             openWith.Add("Email", Console.ReadLine());
+                             Console.WriteLine("Введите Sex");
+                             openWith.Add("Sex", Console.ReadLine());
+                             Console.WriteLine("Введите Position");
+                             openWith.Add("Position", Console.ReadLine());
+                             Console.WriteLine("Введите Education");
+                             openWith.Add("Education", Console.ReadLine());
+                             Console.WriteLine("Введите MaritalStatus");
+                             openWith.Add("MaritalStatus", Console.ReadLine());
+                             Console.WriteLine("Введите City");
+                             openWith.Add("City", Console.ReadLine());
+                             Console.WriteLine("Введите Photo");
+                             openWith.Add("Photo", Console.ReadLine());
+                             Console.WriteLine("Введите Citizen");
+                             openWith.Add("Citizen", Console.ReadLine());
+                             Console.WriteLine("Введите About");
+                             openWith.Add("About", Console.ReadLine());
+                             Console.WriteLine("Введите Experience");
+                             openWith.Add("Experience", Console.ReadLine());
+                             Console.WriteLine("Введите Responed");
+                             openWith.Add("Responed", Console.ReadLine());
+                             Console.WriteLine("Введите ResumeLink");
+                             openWith.Add("ResumeLink", Console.ReadLine());
+                             Console.WriteLine("Введите Interviews");
+                             openWith.Add("Interviews", Console.ReadLine());
+                             //Console.WriteLine("Введите Имя пользователя");
+                             //request.AddHeader("FullName", Console.ReadLine());
+                             //Console.WriteLine("Введите BirthDate");
+                             //request.AddHeader("BirthDate", Console.ReadLine());
+                             //Console.WriteLine("Введите PhoneNumber");
+                             //request.AddHeader("PhoneNumber", Console.ReadLine());
+                             //Console.WriteLine("Введите Email");
+                             //request.AddHeader("Email", Console.ReadLine());
+                             //Console.WriteLine("Введите Sex");
+                             //request.AddHeader("Sex", Console.ReadLine());
+                             //Console.WriteLine("Введите Position");
+                             //request.AddHeader("Position", Console.ReadLine());
+                             //Console.WriteLine("Введите Education");
+                             //request.AddHeader("Education", Console.ReadLine());
+                             //Console.WriteLine("Введите MaritalStatus");
+                             //request.AddHeader("MaritalStatus", Console.ReadLine());
+                             //Console.WriteLine("Введите City");
+                             //request.AddHeader("City", Console.ReadLine());
+                             //Console.WriteLine("Введите Photo");
+                             //request.AddHeader("Photo", Console.ReadLine());
+                             //Console.WriteLine("Введите Citizen");
+                             //request.AddHeader("Citizen", Console.ReadLine());
+                             //Console.WriteLine("Введите About");
+                             //request.AddHeader("About", Console.ReadLine());
+                             //Console.WriteLine("Введите Experience");
+                             //request.AddHeader("Experience", Console.ReadLine());
+                             //Console.WriteLine("Введите Responed");
+                             //request.AddHeader("Responed", Console.ReadLine());
+                             //Console.WriteLine("Введите ResumeLink");
+                             //request.AddHeader("ResumeLink", Console.ReadLine());
+                             //Console.WriteLine("Введите Interviews");
+                             //request.AddHeader("Interviews", Console.ReadLine());
 
-                            //-----------------------
-                            #endregion
+                             //-----------------------
+                             #endregion*/
+                            
+                            openWith.FullName = "Ptiz";
+                            openWith.Education = "Высшее";
 
                             request.RequestFormat = RestSharp.DataFormat.Json;
-                            request.AddBody(JsonConvert.SerializeObject(openWith));
+                            request.AddBody(openWith);
 
                             client.Authenticator = new HttpBasicAuthenticator(login, password);
                            
@@ -273,7 +280,7 @@ namespace HRClient
                             break;
                     }
 
-                    var response = client.Execute(request);
+                    IRestResponse<Person> response = client.Execute<Person>(request);
 
                     Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
 

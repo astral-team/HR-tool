@@ -42,3 +42,6 @@ C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\ru\EntityFramework.resources.dll
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\obj\Debug\httpListener.exe
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\Newtonsoft.Json.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\Newtonsoft.Json.xml

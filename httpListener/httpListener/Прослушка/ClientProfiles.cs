@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using httpListener.БД;
+using System;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
+using Newtonsoft.Json;
+using RestSharp.Deserializers;
 
 namespace httpListener
 {
@@ -16,16 +16,20 @@ namespace httpListener
         {
             this.context = context;
         }
-
+        
         public void Process()
         {
             HttpListenerRequest request = context.Request;
             HttpListenerResponse response = context.Response;
-
+            
             Stream streamBody = request.InputStream;
-            Encoding encoding = request.ContentEncoding;
+            Encoding encoding = Encoding.UTF8;
             StreamReader streamReader = new StreamReader(streamBody, encoding);
             var sRequest = streamReader.ReadToEnd();
+
+            Profile vacNewtonsoft = JsonConvert.DeserializeObject<Profile>(sRequest);
+
+            Console.WriteLine(vacNewtonsoft);
 
             AuthorizedUser user = new AuthorizedUser(request.Headers["login"], request.Headers["Authorization"]);
             var userDb = CRUD.GetUser(user);

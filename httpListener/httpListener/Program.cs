@@ -21,7 +21,7 @@ namespace httpListener
 
         private static Task Listen()
         {
-            string ip = "http://localhost:8888/";
+            string ip = "http://10.254.4.116:8888/";
             //HttpListener usersListener = new HttpListener();
             profilesListener.Prefixes.Add(ip+"profiles/");
             regListener.Prefixes.Add(ip+"reg/");
@@ -35,7 +35,7 @@ namespace httpListener
             while (true)
             {
 
-                Task.WaitAny(AwaitReg());
+                Task.WaitAny(AwaitReg(), AwaitProfiles());
                 //HttpListenerContext context = await usersListener.GetContextAsync();
                 //Task.Run(async () => { await Program.AwaitUsers(); }).Wait();
                 //Task.Run(async () => { await Program.AwaitLogin(); }).Wait();
