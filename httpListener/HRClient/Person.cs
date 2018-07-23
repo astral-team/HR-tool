@@ -29,7 +29,7 @@ namespace HRClient
         public long SalaryFrom { get; set; }
         public string Position { get; set; }
 
-        public List<Experience> Exp;
+        public List<Experience> Exp = new List<Experience>();
     }
 
     public class Experience

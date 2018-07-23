@@ -23,6 +23,7 @@ namespace httpListener
             HttpListenerResponse response = context.Response;
             
             Stream streamBody = request.InputStream;
+
             Encoding encoding = Encoding.UTF8;
             StreamReader streamReader = new StreamReader(streamBody, encoding);
             var sRequest = streamReader.ReadToEnd();

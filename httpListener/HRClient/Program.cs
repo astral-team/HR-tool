@@ -171,9 +171,20 @@ namespace HRClient
                              openWith.Сitizen = Console.ReadLine();
                             Console.WriteLine("Введите About");
                              openWith.About = Console.ReadLine();
+
+
+                            //Console.WriteLine("Введите Experience");
+                            Experience ex = new Experience();
+                            ex.CompanyName = "";
+                            ex.Position = "asd";
+                            ex.FromDate = DateTimeOffset.Now;
+                            ex.ToDate = DateTimeOffset.Now;
+                            ex.About = "";
+                            ex.City = "";
+                            openWith.Exp.Add(ex);
+
                             /*Console.WriteLine("Введите Experience");
-                             openWith.Experience = Console.ReadLine();
-                            Console.WriteLine("Введите Responed");*/
+                             openWith.Experience = Console.ReadLine();*/
                              openWith.Responed = false;
                             Console.WriteLine("Введите ResumeLink");
                              openWith.ResumeLink = Console.ReadLine();

@@ -138,28 +138,39 @@ namespace httpListener
             p = (Profile)profile;
             var ProfToPos = new ProfileToPosition();
 
-            profile.Id = Guid.NewGuid();
+            p.Id = Guid.NewGuid();
             ProfToPos.Id = Guid.NewGuid();
 
-            ProfToPos.ProfileId = profile.Id;
+            ProfToPos.ProfileId = p.Id;
             ProfToPos.Profile = p;
 
-            var pos = GetPosition(profile.Position);
+            var pos = GetPosition(p.Position);
 
             if (pos == null)
             {
                 pos = new Position();
-                pos.FullName = profile.Position;
+                pos.FullName = p.Position;
                 CreatePosition(pos);
             }
 
+            
+            CreateExperience(profile.Exp, p);
+            
             ProfToPos.PositionId = pos.Id;
 
             ProfToPos.Position = pos;
 
-            dbContext.ProfileSet.Add(p);
             dbContext.ProfileToPositionSet.Add(ProfToPos);
-            dbContext.SaveChanges();
+            dbContext.ProfileSet.Add(p);
+
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch
+            {
+
+            }
         }
 
         public static void CreatePosition(Position pos)
@@ -174,9 +185,20 @@ namespace httpListener
             return dbContext.PositionSet.AsQueryable().Where(x => x.FullName == positionName).FirstOrDefault();
         }
 
-        public static void CreateExperience()
+        public static void CreateExperience(List<Experience> exList, Profile profile)
         {
+            var exp = new Experience();
+            foreach(var ex in exList)
+            {
+                ex.Profile = profile;
+                ex.Id = Guid.NewGuid();
+                ex.ProfileId = profile.Id;
+                ex.DateOff = DateTimeOffset.MinValue;
+                exp = ex;
+                dbContext.ExperienceSet.Add(exp);
+            }
 
+            dbContext.SaveChanges();
         }
 
     }
