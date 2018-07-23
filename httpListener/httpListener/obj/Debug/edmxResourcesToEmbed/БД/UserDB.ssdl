@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="UserDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ExperienceSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ProfileId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FromDate" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="ToDate" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="About" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
+  </EntityType>
   <EntityType Name="LoginsSet">
     <Key>
       <PropertyRef Name="Id" />
@@ -15,10 +29,14 @@
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Salary" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="SalaryFrom" Type="bigint" Nullable="false" />
     <Property Name="Schedule" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Trips" Type="bit" Nullable="false" />
     <Property Name="About" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Rate" Type="float" Nullable="false" />
+    <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="SalaryTo" Type="bigint" Nullable="false" />
+    <Property Name="IsOwn" Type="bit" Nullable="false" />
   </EntityType>
   <EntityType Name="ProfileSet">
     <Key>
@@ -30,7 +48,6 @@
     <Property Name="PhoneNumer" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Sex" Type="bit" Nullable="false" />
-    <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Education" Type="nvarchar(max)" Nullable="false" />
     <Property Name="MaritalStatus" Type="nvarchar(max)" Nullable="false" />
     <Property Name="City" Type="nvarchar(max)" Nullable="false" />
@@ -38,10 +55,13 @@
     <Property Name="Сitizen" Type="nvarchar(max)" Nullable="false" />
     <Property Name="About" Type="nvarchar(max)" Nullable="false" />
     <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
-    <Property Name="Experience" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Responed" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Responed" Type="bit" Nullable="false" />
     <Property Name="ResumeLink" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Interviews" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="IsReadyToTrips" Type="bit" Nullable="false" />
+    <Property Name="SalaryTo" Type="bigint" Nullable="false" />
+    <Property Name="SalaryFrom" Type="bigint" Nullable="false" />
+    <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ProfileToPositionSet">
     <Key>
@@ -50,6 +70,7 @@
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="ProfileId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="PositionId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
   </EntityType>
   <EntityType Name="SessionSet">
     <Key>
@@ -84,6 +105,18 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_ProfileExperience">
+    <End Role="ProfileSet" Type="Self.ProfileSet" Multiplicity="1" />
+    <End Role="ExperienceSet" Type="Self.ExperienceSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProfileSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ExperienceSet">
+        <PropertyRef Name="ProfileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_ProfileProfileToPosition">
     <End Role="ProfileSet" Type="Self.ProfileSet" Multiplicity="1" />
     <End Role="ProfileToPositionSet" Type="Self.ProfileToPositionSet" Multiplicity="*" />
@@ -97,6 +130,7 @@
     </ReferentialConstraint>
   </Association>
   <EntityContainer Name="UserDBStoreContainer">
+    <EntitySet Name="ExperienceSet" EntityType="Self.ExperienceSet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="LoginsSet" EntityType="Self.LoginsSet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PositionSet" EntityType="Self.PositionSet" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="ProfileSet" EntityType="Self.ProfileSet" Schema="dbo" store:Type="Tables" />
@@ -109,6 +143,10 @@
     <AssociationSet Name="FK_PositionProfileToPosition" Association="Self.FK_PositionProfileToPosition">
       <End Role="PositionSet" EntitySet="PositionSet" />
       <End Role="ProfileToPositionSet" EntitySet="ProfileToPositionSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProfileExperience" Association="Self.FK_ProfileExperience">
+      <End Role="ProfileSet" EntitySet="ProfileSet" />
+      <End Role="ExperienceSet" EntitySet="ExperienceSet" />
     </AssociationSet>
     <AssociationSet Name="FK_ProfileProfileToPosition" Association="Self.FK_ProfileProfileToPosition">
       <End Role="ProfileSet" EntitySet="ProfileSet" />

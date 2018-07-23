@@ -30,5 +30,6 @@ namespace httpListener.БД
         public virtual DbSet<Position> PositionSet { get; set; }
         public virtual DbSet<Profile> ProfileSet { get; set; }
         public virtual DbSet<ProfileToPosition> ProfileToPositionSet { get; set; }
+        public virtual DbSet<Experience> ExperienceSet { get; set; }
     }
 }

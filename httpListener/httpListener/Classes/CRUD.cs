@@ -1,4 +1,6 @@
-﻿using httpListener.БД;
+﻿using httpListener.Classes;
+using httpListener.Interface;
+using httpListener.БД;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -130,16 +132,17 @@ namespace httpListener
             }
         }
 
-        public static void CreateProfile(Profile profile)
+        public static void CreateProfile(ProfileData profile)
         {
-
+            Profile p = new Profile();
+            p = (Profile)profile;
             var ProfToPos = new ProfileToPosition();
 
             profile.Id = Guid.NewGuid();
             ProfToPos.Id = Guid.NewGuid();
 
             ProfToPos.ProfileId = profile.Id;
-            ProfToPos.Profile = profile;
+            ProfToPos.Profile = p;
 
             var pos = GetPosition(profile.Position);
 
@@ -154,7 +157,7 @@ namespace httpListener
 
             ProfToPos.Position = pos;
 
-            dbContext.ProfileSet.Add(profile);
+            dbContext.ProfileSet.Add(p);
             dbContext.ProfileToPositionSet.Add(ProfToPos);
             dbContext.SaveChanges();
         }
@@ -169,6 +172,11 @@ namespace httpListener
         public static Position GetPosition(string positionName)
         {
             return dbContext.PositionSet.AsQueryable().Where(x => x.FullName == positionName).FirstOrDefault();
+        }
+
+        public static void CreateExperience()
+        {
+
         }
 
     }

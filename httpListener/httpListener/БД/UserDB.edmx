@@ -5,6 +5,20 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="UserDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ExperienceSet">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="ProfileId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="FromDate" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="ToDate" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="About" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
+        </EntityType>
         <EntityType Name="LoginsSet">
           <Key>
             <PropertyRef Name="Id" />
@@ -20,10 +34,14 @@
           </Key>
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Salary" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="SalaryFrom" Type="bigint" Nullable="false" />
           <Property Name="Schedule" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Trips" Type="bit" Nullable="false" />
           <Property Name="About" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Rate" Type="float" Nullable="false" />
+          <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
+          <Property Name="SalaryTo" Type="bigint" Nullable="false" />
+          <Property Name="IsOwn" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="ProfileSet">
           <Key>
@@ -35,7 +53,6 @@
           <Property Name="PhoneNumer" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Sex" Type="bit" Nullable="false" />
-          <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Education" Type="nvarchar(max)" Nullable="false" />
           <Property Name="MaritalStatus" Type="nvarchar(max)" Nullable="false" />
           <Property Name="City" Type="nvarchar(max)" Nullable="false" />
@@ -43,10 +60,13 @@
           <Property Name="Сitizen" Type="nvarchar(max)" Nullable="false" />
           <Property Name="About" Type="nvarchar(max)" Nullable="false" />
           <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
-          <Property Name="Experience" Type="nvarchar(max)" Nullable="false" />
-          <Property Name="Responed" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Responed" Type="bit" Nullable="false" />
           <Property Name="ResumeLink" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Interviews" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="IsReadyToTrips" Type="bit" Nullable="false" />
+          <Property Name="SalaryTo" Type="bigint" Nullable="false" />
+          <Property Name="SalaryFrom" Type="bigint" Nullable="false" />
+          <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="ProfileToPositionSet">
           <Key>
@@ -55,6 +75,7 @@
           <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
           <Property Name="ProfileId" Type="uniqueidentifier" Nullable="false" />
           <Property Name="PositionId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
         </EntityType>
         <EntityType Name="SessionSet">
           <Key>
@@ -89,6 +110,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ProfileExperience">
+          <End Role="ProfileSet" Type="Self.ProfileSet" Multiplicity="1" />
+          <End Role="ExperienceSet" Type="Self.ExperienceSet" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProfileSet">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ExperienceSet">
+              <PropertyRef Name="ProfileId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProfileProfileToPosition">
           <End Role="ProfileSet" Type="Self.ProfileSet" Multiplicity="1" />
           <End Role="ProfileToPositionSet" Type="Self.ProfileToPositionSet" Multiplicity="*" />
@@ -102,6 +135,7 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="UserDBStoreContainer">
+          <EntitySet Name="ExperienceSet" EntityType="Self.ExperienceSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="LoginsSet" EntityType="Self.LoginsSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PositionSet" EntityType="Self.PositionSet" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProfileSet" EntityType="Self.ProfileSet" Schema="dbo" store:Type="Tables" />
@@ -114,6 +148,10 @@
           <AssociationSet Name="FK_PositionProfileToPosition" Association="Self.FK_PositionProfileToPosition">
             <End Role="PositionSet" EntitySet="PositionSet" />
             <End Role="ProfileToPositionSet" EntitySet="ProfileToPositionSet" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProfileExperience" Association="Self.FK_ProfileExperience">
+            <End Role="ProfileSet" EntitySet="ProfileSet" />
+            <End Role="ExperienceSet" EntitySet="ExperienceSet" />
           </AssociationSet>
           <AssociationSet Name="FK_ProfileProfileToPosition" Association="Self.FK_ProfileProfileToPosition">
             <End Role="ProfileSet" EntitySet="ProfileSet" />
@@ -141,6 +179,11 @@
           <AssociationSet Name="PositionProfileToPosition" Association="UserDB.PositionProfileToPosition">
             <End Role="Position" EntitySet="PositionSet" />
             <End Role="ProfileToPosition" EntitySet="ProfileToPositionSet" />
+          </AssociationSet>
+          <EntitySet Name="ExperienceSet" EntityType="UserDB.Experience" />
+          <AssociationSet Name="ProfileExperience" Association="UserDB.ProfileExperience">
+            <End Role="Profile" EntitySet="ProfileSet" />
+            <End Role="Experience" EntitySet="ExperienceSet" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Logins">
@@ -180,12 +223,16 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-          <Property Name="FullName" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Salary" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="FullName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
+          <Property Name="SalaryFrom" Type="Int64" Nullable="false" DefaultValue="0" />
           <Property Name="Schedule" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Trips" Type="Boolean" Nullable="false" DefaultValue="false" />
-          <Property Name="About" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Trips" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <Property Name="About" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
           <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.PositionProfileToPosition" FromRole="Position" ToRole="ProfileToPosition" />
+          <Property Name="Rate" Type="Double" Nullable="false" DefaultValue="0" />
+          <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="SalaryTo" Type="Int64" Nullable="false" DefaultValue="0" />
+          <Property Name="IsOwn" Type="Boolean" Nullable="false" DefaultValue="False" />
         </EntityType>
         <EntityType Name="Profile">
           <Key>
@@ -196,20 +243,23 @@
           <Property Name="BirthDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
           <Property Name="PhoneNumer" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Email" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Sex" Type="Boolean" Nullable="false" />
-          <Property Name="Position" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Sex" Type="Boolean" Nullable="false" DefaultValue="False" />
           <Property Name="Education" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="MaritalStatus" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="City" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
           <Property Name="Photo" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="Сitizen" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="About" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Сitizen" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
+          <Property Name="About" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
           <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
           <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.ProfileProfileToPosition" FromRole="Profile" ToRole="ProfileToPosition" />
-          <Property Name="Experience" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Responed" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="ResumeLink" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-          <Property Name="Interviews" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Responed" Type="Boolean" Nullable="false" />
+          <Property Name="ResumeLink" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
+          <Property Name="Interviews" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
+          <Property Name="IsReadyToTrips" Type="Boolean" Nullable="false" DefaultValue="False" />
+          <NavigationProperty Name="Experience" Relationship="UserDB.ProfileExperience" FromRole="Profile" ToRole="Experience" />
+          <Property Name="SalaryTo" Type="Int64" Nullable="false" DefaultValue="0" />
+          <Property Name="SalaryFrom" Type="Int64" Nullable="false" DefaultValue="0" />
+          <Property Name="Position" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
         </EntityType>
         <EntityType Name="ProfileToPosition">
           <Key>
@@ -220,6 +270,7 @@
           <Property Name="PositionId" Type="Guid" Nullable="false" />
           <NavigationProperty Name="Profile" Relationship="UserDB.ProfileProfileToPosition" FromRole="ProfileToPosition" ToRole="Profile" />
           <NavigationProperty Name="Position" Relationship="UserDB.PositionProfileToPosition" FromRole="ProfileToPosition" ToRole="Position" />
+          <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
         </EntityType>
         <Association Name="ProfileProfileToPosition">
           <End Type="UserDB.Profile" Role="Profile" Multiplicity="1" />
@@ -242,6 +293,33 @@
             </Principal>
             <Dependent Role="ProfileToPosition">
               <PropertyRef Name="PositionId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Experience">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+          <Property Name="CompanyName" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="Position" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="ProfileId" Type="Guid" Nullable="false" />
+          <Property Name="FromDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="ToDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+          <Property Name="About" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <Property Name="City" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+          <NavigationProperty Name="Profile" Relationship="UserDB.ProfileExperience" FromRole="Experience" ToRole="Profile" />
+          <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
+        </EntityType>
+        <Association Name="ProfileExperience">
+          <End Type="UserDB.Profile" Role="Profile" Multiplicity="1" />
+          <End Type="UserDB.Experience" Role="Experience" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Profile">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Experience">
+              <PropertyRef Name="ProfileId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -276,10 +354,14 @@
         <MappingFragment StoreEntitySet="PositionSet">
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="FullName" ColumnName="FullName" />
-          <ScalarProperty Name="Salary" ColumnName="Salary" />
+          <ScalarProperty Name="SalaryFrom" ColumnName="SalaryFrom" />
           <ScalarProperty Name="Schedule" ColumnName="Schedule" />
           <ScalarProperty Name="Trips" ColumnName="Trips" />
           <ScalarProperty Name="About" ColumnName="About" />
+          <ScalarProperty Name="Rate" ColumnName="Rate" />
+          <ScalarProperty Name="DateOff" ColumnName="DateOff" />
+          <ScalarProperty Name="SalaryTo" ColumnName="SalaryTo" />
+          <ScalarProperty Name="IsOwn" ColumnName="IsOwn" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -292,7 +374,6 @@
           <ScalarProperty Name="PhoneNumer" ColumnName="PhoneNumer" />
           <ScalarProperty Name="Email" ColumnName="Email" />
           <ScalarProperty Name="Sex" ColumnName="Sex" />
-          <ScalarProperty Name="Position" ColumnName="Position" />
           <ScalarProperty Name="Education" ColumnName="Education" />
           <ScalarProperty Name="MaritalStatus" ColumnName="MaritalStatus" />
           <ScalarProperty Name="City" ColumnName="City" />
@@ -300,10 +381,13 @@
           <ScalarProperty Name="Сitizen" ColumnName="Сitizen" />
           <ScalarProperty Name="About" ColumnName="About" />
           <ScalarProperty Name="DateOff" ColumnName="DateOff" />
-          <ScalarProperty Name="Experience" ColumnName="Experience" />
           <ScalarProperty Name="Responed" ColumnName="Responed" />
           <ScalarProperty Name="ResumeLink" ColumnName="ResumeLink" />
           <ScalarProperty Name="Interviews" ColumnName="Interviews" />
+          <ScalarProperty Name="IsReadyToTrips" ColumnName="IsReadyToTrips" />
+          <ScalarProperty Name="SalaryTo" ColumnName="SalaryTo" />
+          <ScalarProperty Name="SalaryFrom" ColumnName="SalaryFrom" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -313,6 +397,22 @@
           <ScalarProperty Name="Id" ColumnName="Id" />
           <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
           <ScalarProperty Name="PositionId" ColumnName="PositionId" />
+          <ScalarProperty Name="DateOff" ColumnName="DateOff" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExperienceSet">
+      <EntityTypeMapping TypeName="IsTypeOf(UserDB.Experience)">
+        <MappingFragment StoreEntitySet="ExperienceSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+          <ScalarProperty Name="Position" ColumnName="Position" />
+          <ScalarProperty Name="ProfileId" ColumnName="ProfileId" />
+          <ScalarProperty Name="FromDate" ColumnName="FromDate" />
+          <ScalarProperty Name="ToDate" ColumnName="ToDate" />
+          <ScalarProperty Name="About" ColumnName="About" />
+          <ScalarProperty Name="City" ColumnName="City" />
+          <ScalarProperty Name="DateOff" ColumnName="DateOff" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

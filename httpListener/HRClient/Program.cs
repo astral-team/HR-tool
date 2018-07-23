@@ -171,10 +171,10 @@ namespace HRClient
                              openWith.Сitizen = Console.ReadLine();
                             Console.WriteLine("Введите About");
                              openWith.About = Console.ReadLine();
-                            Console.WriteLine("Введите Experience");
+                            /*Console.WriteLine("Введите Experience");
                              openWith.Experience = Console.ReadLine();
-                            Console.WriteLine("Введите Responed");
-                             openWith.Responed = Console.ReadLine();
+                            Console.WriteLine("Введите Responed");*/
+                             openWith.Responed = false;
                             Console.WriteLine("Введите ResumeLink");
                              openWith.ResumeLink = Console.ReadLine();
                             Console.WriteLine("Введите Interviews");

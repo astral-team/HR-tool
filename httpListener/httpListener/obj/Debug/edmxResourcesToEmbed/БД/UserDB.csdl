@@ -18,6 +18,11 @@
       <End Role="Position" EntitySet="PositionSet" />
       <End Role="ProfileToPosition" EntitySet="ProfileToPositionSet" />
     </AssociationSet>
+    <EntitySet Name="ExperienceSet" EntityType="UserDB.Experience" />
+    <AssociationSet Name="ProfileExperience" Association="UserDB.ProfileExperience">
+      <End Role="Profile" EntitySet="ProfileSet" />
+      <End Role="Experience" EntitySet="ExperienceSet" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Logins">
     <Key>
@@ -56,12 +61,16 @@
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
-    <Property Name="FullName" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
-    <Property Name="Salary" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="FullName" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
+    <Property Name="SalaryFrom" Type="Int64" Nullable="false" DefaultValue="0" />
     <Property Name="Schedule" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
-    <Property Name="Trips" Type="Boolean" Nullable="false" DefaultValue="false" />
-    <Property Name="About" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Trips" Type="Boolean" Nullable="false" DefaultValue="False" />
+    <Property Name="About" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
     <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.PositionProfileToPosition" FromRole="Position" ToRole="ProfileToPosition" />
+    <Property Name="Rate" Type="Double" Nullable="false" DefaultValue="0" />
+    <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
+    <Property Name="SalaryTo" Type="Int64" Nullable="false" DefaultValue="0" />
+    <Property Name="IsOwn" Type="Boolean" Nullable="false" DefaultValue="False" />
   </EntityType>
   <EntityType Name="Profile">
     <Key>
@@ -72,20 +81,23 @@
     <Property Name="BirthDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
     <Property Name="PhoneNumer" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="Email" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
-    <Property Name="Sex" Type="Boolean" Nullable="false" />
-    <Property Name="Position" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Sex" Type="Boolean" Nullable="false" DefaultValue="False" />
     <Property Name="Education" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="MaritalStatus" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="City" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
     <Property Name="Photo" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-    <Property Name="Сitizen" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-    <Property Name="About" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Сitizen" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
+    <Property Name="About" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
     <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
     <NavigationProperty Name="ProfileToPosition" Relationship="UserDB.ProfileProfileToPosition" FromRole="Profile" ToRole="ProfileToPosition" />
-    <Property Name="Experience" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-    <Property Name="Responed" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-    <Property Name="ResumeLink" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
-    <Property Name="Interviews" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Responed" Type="Boolean" Nullable="false" />
+    <Property Name="ResumeLink" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
+    <Property Name="Interviews" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" DefaultValue="" />
+    <Property Name="IsReadyToTrips" Type="Boolean" Nullable="false" DefaultValue="False" />
+    <NavigationProperty Name="Experience" Relationship="UserDB.ProfileExperience" FromRole="Profile" ToRole="Experience" />
+    <Property Name="SalaryTo" Type="Int64" Nullable="false" DefaultValue="0" />
+    <Property Name="SalaryFrom" Type="Int64" Nullable="false" DefaultValue="0" />
+    <Property Name="Position" Type="String" Nullable="false" MaxLength="Max" Unicode="true" FixedLength="false" />
   </EntityType>
   <EntityType Name="ProfileToPosition">
     <Key>
@@ -96,6 +108,7 @@
     <Property Name="PositionId" Type="Guid" Nullable="false" />
     <NavigationProperty Name="Profile" Relationship="UserDB.ProfileProfileToPosition" FromRole="ProfileToPosition" ToRole="Profile" />
     <NavigationProperty Name="Position" Relationship="UserDB.PositionProfileToPosition" FromRole="ProfileToPosition" ToRole="Position" />
+    <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
   </EntityType>
   <Association Name="ProfileProfileToPosition">
     <End Type="UserDB.Profile" Role="Profile" Multiplicity="1" />
@@ -118,6 +131,33 @@
       </Principal>
       <Dependent Role="ProfileToPosition">
         <PropertyRef Name="PositionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Experience">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Guid" Nullable="false" annotation:StoreGeneratedPattern="None" />
+    <Property Name="CompanyName" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="Position" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="ProfileId" Type="Guid" Nullable="false" />
+    <Property Name="FromDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+    <Property Name="ToDate" Type="DateTimeOffset" Nullable="false" Precision="7" />
+    <Property Name="About" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <Property Name="City" Type="String" Nullable="false" DefaultValue="" MaxLength="Max" Unicode="true" FixedLength="false" />
+    <NavigationProperty Name="Profile" Relationship="UserDB.ProfileExperience" FromRole="Experience" ToRole="Profile" />
+    <Property Name="DateOff" Type="DateTimeOffset" Nullable="false" Precision="7" />
+  </EntityType>
+  <Association Name="ProfileExperience">
+    <End Type="UserDB.Profile" Role="Profile" Multiplicity="1" />
+    <End Type="UserDB.Experience" Role="Experience" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Profile">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Experience">
+        <PropertyRef Name="ProfileId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

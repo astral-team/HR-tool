@@ -27,7 +27,7 @@ namespace httpListener
             StreamReader streamReader = new StreamReader(streamBody, encoding);
             var sRequest = streamReader.ReadToEnd();
 
-            Profile profile = JsonConvert.DeserializeObject<Profile>(sRequest);
+            ProfileData profile = JsonConvert.DeserializeObject<ProfileData>(sRequest);
 
             //Console.WriteLine(vacNewtonsoft);
 
@@ -89,9 +89,9 @@ namespace httpListener
             output.Close();
         }
 
-        private static void AddProfile(Profile user, out string responseString)
+        private static void AddProfile(ProfileData user, out string responseString)
         {
-            if (CRUD.GetProfile(user) == null)
+            if (CRUD.GetProfile((Profile)user) == null)
             {
                 CRUD.CreateProfile(user);
                 responseString = "Профиль добавлен в базу данных";

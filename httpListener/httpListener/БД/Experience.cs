@@ -12,14 +12,27 @@ namespace httpListener.БД
     using System;
     using System.Collections.Generic;
     
-    public partial class ProfileToPosition
+    public partial class Experience
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Experience()
+        {
+            this.CompanyName = "";
+            this.Position = "";
+            this.About = "";
+            this.City = "";
+        }
+    
         public System.Guid Id { get; set; }
+        public string CompanyName { get; set; }
+        public string Position { get; set; }
         public System.Guid ProfileId { get; set; }
-        public System.Guid PositionId { get; set; }
+        public System.DateTimeOffset FromDate { get; set; }
+        public System.DateTimeOffset ToDate { get; set; }
+        public string About { get; set; }
+        public string City { get; set; }
         public System.DateTimeOffset DateOff { get; set; }
     
         public virtual Profile Profile { get; set; }
-        public virtual Position Position { get; set; }
     }
 }

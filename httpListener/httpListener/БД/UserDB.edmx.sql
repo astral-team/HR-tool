@@ -2,7 +2,7 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 07/19/2018 11:09:30
+-- Date Created: 07/23/2018 10:50:00
 -- Generated from EDMX file: C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\БД\UserDB.edmx
 -- --------------------------------------------------
 
@@ -26,6 +26,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_PositionProfileToPosition]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[ProfileToPositionSet] DROP CONSTRAINT [FK_PositionProfileToPosition];
 GO
+IF OBJECT_ID(N'[dbo].[FK_ProfileExperience]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[ExperienceSet] DROP CONSTRAINT [FK_ProfileExperience];
+GO
 
 -- --------------------------------------------------
 -- Dropping existing tables
@@ -45,6 +48,9 @@ IF OBJECT_ID(N'[dbo].[ProfileSet]', 'U') IS NOT NULL
 GO
 IF OBJECT_ID(N'[dbo].[ProfileToPositionSet]', 'U') IS NOT NULL
     DROP TABLE [dbo].[ProfileToPositionSet];
+GO
+IF OBJECT_ID(N'[dbo].[ExperienceSet]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[ExperienceSet];
 GO
 
 -- --------------------------------------------------
@@ -73,10 +79,14 @@ GO
 CREATE TABLE [dbo].[PositionSet] (
     [Id] uniqueidentifier  NOT NULL,
     [FullName] nvarchar(max)  NOT NULL,
-    [Salary] nvarchar(max)  NOT NULL,
+    [SalaryFrom] bigint  NOT NULL,
     [Schedule] nvarchar(max)  NOT NULL,
     [Trips] bit  NOT NULL,
-    [About] nvarchar(max)  NOT NULL
+    [About] nvarchar(max)  NOT NULL,
+    [Rate] float  NOT NULL,
+    [DateOff] datetimeoffset  NOT NULL,
+    [SalaryTo] bigint  NOT NULL,
+    [IsOwn] bit  NOT NULL
 );
 GO
 
@@ -88,7 +98,6 @@ CREATE TABLE [dbo].[ProfileSet] (
     [PhoneNumer] nvarchar(max)  NOT NULL,
     [Email] nvarchar(max)  NOT NULL,
     [Sex] bit  NOT NULL,
-    [Position] nvarchar(max)  NOT NULL,
     [Education] nvarchar(max)  NOT NULL,
     [MaritalStatus] nvarchar(max)  NOT NULL,
     [City] nvarchar(max)  NOT NULL,
@@ -96,10 +105,13 @@ CREATE TABLE [dbo].[ProfileSet] (
     [Сitizen] nvarchar(max)  NOT NULL,
     [About] nvarchar(max)  NOT NULL,
     [DateOff] datetimeoffset  NOT NULL,
-    [Experience] nvarchar(max)  NOT NULL,
-    [Responed] nvarchar(max)  NOT NULL,
+    [Responed] bit  NOT NULL,
     [ResumeLink] nvarchar(max)  NOT NULL,
-    [Interviews] nvarchar(max)  NOT NULL
+    [Interviews] nvarchar(max)  NOT NULL,
+    [IsReadyToTrips] bit  NOT NULL,
+    [SalaryTo] bigint  NOT NULL,
+    [SalaryFrom] bigint  NOT NULL,
+    [Position] nvarchar(max)  NOT NULL
 );
 GO
 
@@ -107,7 +119,22 @@ GO
 CREATE TABLE [dbo].[ProfileToPositionSet] (
     [Id] uniqueidentifier  NOT NULL,
     [ProfileId] uniqueidentifier  NOT NULL,
-    [PositionId] uniqueidentifier  NOT NULL
+    [PositionId] uniqueidentifier  NOT NULL,
+    [DateOff] datetimeoffset  NOT NULL
+);
+GO
+
+-- Creating table 'ExperienceSet'
+CREATE TABLE [dbo].[ExperienceSet] (
+    [Id] uniqueidentifier  NOT NULL,
+    [CompanyName] nvarchar(max)  NOT NULL,
+    [Position] nvarchar(max)  NOT NULL,
+    [ProfileId] uniqueidentifier  NOT NULL,
+    [FromDate] datetimeoffset  NOT NULL,
+    [ToDate] datetimeoffset  NOT NULL,
+    [About] nvarchar(max)  NOT NULL,
+    [City] nvarchar(max)  NOT NULL,
+    [DateOff] datetimeoffset  NOT NULL
 );
 GO
 
@@ -142,6 +169,12 @@ GO
 -- Creating primary key on [Id] in table 'ProfileToPositionSet'
 ALTER TABLE [dbo].[ProfileToPositionSet]
 ADD CONSTRAINT [PK_ProfileToPositionSet]
+    PRIMARY KEY CLUSTERED ([Id] ASC);
+GO
+
+-- Creating primary key on [Id] in table 'ExperienceSet'
+ALTER TABLE [dbo].[ExperienceSet]
+ADD CONSTRAINT [PK_ExperienceSet]
     PRIMARY KEY CLUSTERED ([Id] ASC);
 GO
 
@@ -192,6 +225,21 @@ GO
 CREATE INDEX [IX_FK_PositionProfileToPosition]
 ON [dbo].[ProfileToPositionSet]
     ([PositionId]);
+GO
+
+-- Creating foreign key on [ProfileId] in table 'ExperienceSet'
+ALTER TABLE [dbo].[ExperienceSet]
+ADD CONSTRAINT [FK_ProfileExperience]
+    FOREIGN KEY ([ProfileId])
+    REFERENCES [dbo].[ProfileSet]
+        ([Id])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK_ProfileExperience'
+CREATE INDEX [IX_FK_ProfileExperience]
+ON [dbo].[ExperienceSet]
+    ([ProfileId]);
 GO
 
 -- --------------------------------------------------
