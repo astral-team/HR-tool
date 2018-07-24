@@ -167,9 +167,9 @@ namespace httpListener
             {
                 dbContext.SaveChanges();
             }
-            catch
+            catch(Exception ex)
             {
-
+                Console.WriteLine(ex);
             }
         }
 
@@ -204,5 +204,19 @@ namespace httpListener
             catch { };
         }
 
+        public static List<ProfileData> GetProfiles()
+        {
+            var profileDataList = new List<ProfileData>();
+            var profileList = dbContext.ProfileSet.AsQueryable().ToList();
+            var profToPosList = dbContext.ProfileToPositionSet.AsQueryable().ToList();
+            foreach (var p in profToPosList)
+            {
+                ProfileData r = new ProfileData();
+                r.Pos = p.Position;
+                r.Prof = p.Profile;
+                r.Exp = dbContext.ExperienceSet.AsQueryable().Where(x => x.Id == p.ProfileId).ToList();
+            }
+            return profileDataList;
+        }
     }
 }

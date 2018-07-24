@@ -49,7 +49,7 @@ namespace httpListener
                 case "GET":
                     if (Validator.CheckTimeOfSession(sessionDb))
                     {
-                        //
+                        GetProf(out responseString);
                     }
                     else
                     {
@@ -98,32 +98,19 @@ namespace httpListener
                 if (CRUD.GetProfile(u) == null)
                 {
                     CRUD.CreateProfile(u);
-                    responseString += $"Профиль {u.FullName} добавлен в базу данных\n";
+                    responseString += $"Профиль {u.Prof.FullName} добавлен в базу данных\n";
                 }
                 else
                 {
-                    responseString += $"Профиль {u.FullName} найден в базе данных\n";
+                    responseString += $"Профиль {u.Prof.FullName} найден в базе данных\n";
                 }
             }
         }
 
-        private static void Login(Logins userDb, AuthorizedUser user, out string responseString)
+        private static void GetProf(out string responseString)
         {
-            if (userDb != null)
-            {
-                //user.Id = userDb.Id;
-                //var sessionDb = CRUD.GetSession(user);
-                //sessionDb.SessionKey = user.GetSessionKey();
-                //sessionDb.ExpTime = DateTime.Now.AddHours(2);
-                //user.ExpTime = sessionDb.ExpTime;
-                //CRUD.SetSession(sessionDb);
-                //responseString = $"{user.SessionKey}";
+            CRUD.GetProfiles();
                 responseString = "200";
-            }
-            else
-            {
-                responseString = "404";
-            }
         }
 
         private static void Delete(Logins userDb, AuthorizedUser user, out string responseString)

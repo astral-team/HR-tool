@@ -57,7 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClientHelper.cs" />
+    <Compile Include="Experience.cs" />
     <Compile Include="Person.cs" />
+    <Compile Include="Position.cs" />
+    <Compile Include="Profile.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

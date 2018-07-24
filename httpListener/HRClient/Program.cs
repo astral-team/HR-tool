@@ -1,14 +1,7 @@
-﻿using Newtonsoft.Json;
-using RestSharp;
+﻿using RestSharp;
 using RestSharp.Authenticators;
-using RestSharp.Serializers;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HRClient
 {
@@ -149,29 +142,29 @@ namespace HRClient
 
                             
                              Console.WriteLine("Введите Имя пользователя");
-                             openWith.FullName=Console.ReadLine();
+                             openWith.Prof.FullName=Console.ReadLine();
                              Console.WriteLine("Введите BirthDate");
-                             openWith.BirthDate=DateTimeOffset.Now;
+                             openWith.Prof.BirthDate =DateTimeOffset.Now;
                             Console.WriteLine("Введите PhoneNumber");
-                             openWith.PhoneNumer= Console.ReadLine();
+                             openWith.Prof.PhoneNumer = Console.ReadLine();
                             Console.WriteLine("Введите Email");
-                             openWith.Email = Console.ReadLine();
+                             openWith.Prof.Email = Console.ReadLine();
                             Console.WriteLine("Введите Sex");
-                             openWith.Sex=true;
+                             openWith.Prof.Sex =true;
                             Console.WriteLine("Введите Position");
-                             openWith.Position = Console.ReadLine();
+                             openWith.Prof.Position = Console.ReadLine();
                              Console.WriteLine("Введите Education");
-                             openWith.Education = Console.ReadLine();
+                             openWith.Prof.Education = Console.ReadLine();
                             Console.WriteLine("Введите MaritalStatus");
-                             openWith.MaritalStatus = Console.ReadLine();
+                             openWith.Prof.MaritalStatus = Console.ReadLine();
                             Console.WriteLine("Введите City");
-                             openWith.City = Console.ReadLine();
+                             openWith.Prof.City = Console.ReadLine();
                             Console.WriteLine("Введите Photo");
-                            openWith.Photo = new byte[0x10];
+                            openWith.Prof.Photo = new byte[0x10];
                              Console.WriteLine("Введите Citizen");
-                             openWith.Сitizen = Console.ReadLine();
+                             openWith.Prof.Сitizen = Console.ReadLine();
                             Console.WriteLine("Введите About");
-                             openWith.About = Console.ReadLine();
+                             openWith.Prof.About = Console.ReadLine();
 
 
                             //Console.WriteLine("Введите Experience");
@@ -186,11 +179,11 @@ namespace HRClient
 
                             /*Console.WriteLine("Введите Experience");
                              openWith.Experience = Console.ReadLine();*/
-                             openWith.Responed = false;
+                             openWith.Prof.Responed = false;
                             Console.WriteLine("Введите ResumeLink");
-                             openWith.ResumeLink = Console.ReadLine();
+                             openWith.Prof.ResumeLink = Console.ReadLine();
                             Console.WriteLine("Введите Interviews");
-                            openWith.Interviews = Console.ReadLine();
+                            openWith.Prof.Interviews = Console.ReadLine();
 
                             //Console.WriteLine("Введите Имя пользователя");
                             //request.AddHeader("FullName", Console.ReadLine());
@@ -229,8 +222,8 @@ namespace HRClient
                             #endregion
                             closeWith.Add(openWith);
                             openWith = new Person();
-                            openWith.FullName = "sdfbd";
-                            openWith.Position = "sdfbd";
+                            openWith.Prof.FullName = "sdfbd";
+                            openWith.Prof.Position = "sdfbd";
                             closeWith.Add(openWith);
 
                             request.RequestFormat = RestSharp.DataFormat.Json;
