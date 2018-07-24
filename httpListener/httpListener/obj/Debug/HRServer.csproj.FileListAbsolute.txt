@@ -48,3 +48,6 @@ C:\Users\Student\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\ru
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\Newtonsoft.Json.dll
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\Newtonsoft.Json.xml
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\Александр\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Александр\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\Newtonsoft.Json.xml
+C:\Users\Александр\Documents\GitHub\HR-tool\httpListener\httpListener\bin\Debug\ru\EntityFramework.SqlServer.resources.dll

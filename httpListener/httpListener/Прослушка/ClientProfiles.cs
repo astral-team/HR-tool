@@ -109,8 +109,13 @@ namespace httpListener
 
         private static void GetProf(out string responseString)
         {
-            CRUD.GetProfiles();
-                responseString = "200";
+            var list = CRUD.GetProfiles();
+            var JsonList = new List<TrueProfile>();
+            foreach(var c in list)
+            {
+                JsonList.Add(c.Json());
+            }
+            responseString = JsonConvert.SerializeObject(JsonList, Formatting.Indented);
         }
 
         private static void Delete(Logins userDb, AuthorizedUser user, out string responseString)

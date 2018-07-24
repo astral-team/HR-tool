@@ -24,7 +24,7 @@ namespace HRClient
                 {
                     
                     string command = "";
-                    string IP = "http://10.254.4.116:8888/";
+                    string IP = "http://localhost:8888/";
                     command = Console.ReadLine();
 
 
@@ -223,7 +223,7 @@ namespace HRClient
                             closeWith.Add(openWith);
                             openWith = new Person();
                             openWith.Prof.FullName = "sdfbd";
-                            openWith.Prof.Position = "sdfbd";
+                            openWith.Prof.Position = "c#";
                             closeWith.Add(openWith);
 
                             request.RequestFormat = RestSharp.DataFormat.Json;

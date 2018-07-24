@@ -160,17 +160,18 @@ namespace httpListener
 
             ProfToPos.Position = pos;
 
-            dbContext.ProfileToPositionSet.Add(ProfToPos);
-            dbContext.ProfileSet.Add(p);
+            /*dbContext.ProfileToPositionSet.Add(ProfToPos);
+            dbContext.SaveChanges();*/
+            //dbContext.ProfileSet.Add(ProfToPos.Profile);
 
-            try
+            /*try
             {
                 dbContext.SaveChanges();
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex);
-            }
+            }*/
         }
 
         public static void CreatePosition(Position pos)
@@ -215,6 +216,7 @@ namespace httpListener
                 r.Pos = p.Position;
                 r.Prof = p.Profile;
                 r.Exp = dbContext.ExperienceSet.AsQueryable().Where(x => x.Id == p.ProfileId).ToList();
+                profileDataList.Add(r);
             }
             return profileDataList;
         }
