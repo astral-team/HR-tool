@@ -31,7 +31,7 @@ namespace HRClient
                 {
                     
                     string command = "";
-                    string IP = "http://localhost:8888/";
+                    string IP = "http://10.254.4.116:8888/";
                     command = Console.ReadLine();
 
 
@@ -138,6 +138,7 @@ namespace HRClient
                             
                             Console.WriteLine("Заполните профиль");
                             request = new RestRequest("resource", Method.POST);
+                            List<Person> closeWith = new List<Person>();
 
 
                              #region это дерьмо лучше скрыть (Имя великого человека)
@@ -226,16 +227,22 @@ namespace HRClient
 
                             //-----------------------
                             #endregion
+                            closeWith.Add(openWith);
+                            openWith = new Person();
+                            openWith.FullName = "sdfbd";
+                            openWith.Position = "sdfbd";
+                            closeWith.Add(openWith);
 
                             request.RequestFormat = RestSharp.DataFormat.Json;
-                            request.AddBody(openWith);
+                            request.AddBody(closeWith);
+
 
                             client.Authenticator = new HttpBasicAuthenticator(login, password);
                             request.AddHeader("login", login);
                             if (SessionKey != "")
                                 request.AddHeader("SessionKey", SessionKey);
 
-                            response = client.Execute<Person>(request);
+                            response = client.Execute<List<Person>>(request);
                             Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
 
 

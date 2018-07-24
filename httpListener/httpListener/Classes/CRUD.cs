@@ -197,8 +197,11 @@ namespace httpListener
                 exp = ex;
                 dbContext.ExperienceSet.Add(exp);
             }
-
-            dbContext.SaveChanges();
+            try
+            {
+                dbContext.SaveChanges();
+            }
+            catch { };
         }
 
     }

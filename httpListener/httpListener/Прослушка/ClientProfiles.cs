@@ -5,6 +5,7 @@ using System.Net;
 using System.Text;
 using Newtonsoft.Json;
 using httpListener.Classes;
+using System.Collections.Generic;
 
 namespace httpListener
 {
@@ -28,7 +29,7 @@ namespace httpListener
             StreamReader streamReader = new StreamReader(streamBody, encoding);
             var sRequest = streamReader.ReadToEnd();
 
-            ProfileData profile = JsonConvert.DeserializeObject<ProfileData>(sRequest);
+            var profile = JsonConvert.DeserializeObject<List<ProfileData>>(sRequest);
 
             //Console.WriteLine(vacNewtonsoft);
 
@@ -43,13 +44,12 @@ namespace httpListener
             }
 
             var sessionDb = CRUD.GetSession(user);
-
             switch (request.HttpMethod)
             {
                 case "GET":
                     if (Validator.CheckTimeOfSession(sessionDb))
                     {
-                        //Login(userDb, user, out responseString);
+                        //
                     }
                     else
                     {
@@ -90,16 +90,20 @@ namespace httpListener
             output.Close();
         }
 
-        private static void AddProfile(ProfileData user, out string responseString)
+        private static void AddProfile(List<ProfileData> profile, out string responseString)
         {
-            if (CRUD.GetProfile((Profile)user) == null)
+            responseString = "";
+            foreach (var u in profile)
             {
-                CRUD.CreateProfile(user);
-                responseString = "Профиль добавлен в базу данных";
-            }
-            else
-            {
-                responseString = "Профиль найден в базе данных";
+                if (CRUD.GetProfile(u) == null)
+                {
+                    CRUD.CreateProfile(u);
+                    responseString += $"Профиль {u.FullName} добавлен в базу данных\n";
+                }
+                else
+                {
+                    responseString += $"Профиль {u.FullName} найден в базе данных\n";
+                }
             }
         }
 

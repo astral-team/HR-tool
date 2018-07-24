@@ -9,16 +9,15 @@
 
 namespace httpListener.БД
 {
-    using httpListener.Classes;
     using System;
     using System.Collections.Generic;
     
-    public partial class ProfileToPosition : Father
+    public partial class ProfileToPosition
     {
         public System.Guid Id { get; set; }
         public System.Guid ProfileId { get; set; }
         public System.Guid PositionId { get; set; }
-        public new System.DateTimeOffset DateOff { get; set; }
+        public System.DateTimeOffset DateOff { get; set; }
     
         public virtual Profile Profile { get; set; }
         public virtual Position Position { get; set; }

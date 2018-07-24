@@ -9,11 +9,10 @@
 
 namespace httpListener.БД
 {
-    using httpListener.Classes;
     using System;
     using System.Collections.Generic;
     
-    public partial class Profile : Father
+    public partial class Profile
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Profile()
@@ -46,8 +45,9 @@ namespace httpListener.БД
         public string MaritalStatus { get; set; }
         public string City { get; set; }
         public byte[] Photo { get; set; }
+        public string Сitizen { get; set; }
         public string About { get; set; }
-        public new System.DateTimeOffset DateOff { get; set; }
+        public System.DateTimeOffset DateOff { get; set; }
         public bool Responed { get; set; }
         public string ResumeLink { get; set; }
         public string Interviews { get; set; }
@@ -55,8 +55,7 @@ namespace httpListener.БД
         public long SalaryTo { get; set; }
         public long SalaryFrom { get; set; }
         public string Position { get; set; }
-        public string Сitizen { get; set; }
-
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProfileToPosition> ProfileToPosition { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -1,66 +1,85 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="UserDB.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityType Name="ExperienceSet">
-    <Key>
-      <PropertyRef Name="Id" />
-    </Key>
-    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="CompanyName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="ProfileId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="FromDate" Type="datetimeoffset" Precision="7" Nullable="false" />
-    <Property Name="ToDate" Type="datetimeoffset" Precision="7" Nullable="false" />
-    <Property Name="About" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
-  </EntityType>
+<Schema Namespace="UserDB.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="UserDBStoreContainer">
+    <EntitySet Name="LoginsSet" EntityType="UserDB.Store.LoginsSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="SessionSet" EntityType="UserDB.Store.SessionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PositionSet" EntityType="UserDB.Store.PositionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProfileSet" EntityType="UserDB.Store.ProfileSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProfileToPositionSet" EntityType="UserDB.Store.ProfileToPositionSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ExperienceSet" EntityType="UserDB.Store.ExperienceSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="LoginsSession" Association="UserDB.Store.LoginsSession">
+      <End Role="Logins" EntitySet="LoginsSet" />
+      <End Role="Session" EntitySet="SessionSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProfileProfileToPosition" Association="UserDB.Store.ProfileProfileToPosition">
+      <End Role="Profile" EntitySet="ProfileSet" />
+      <End Role="ProfileToPosition" EntitySet="ProfileToPositionSet" />
+    </AssociationSet>
+    <AssociationSet Name="PositionProfileToPosition" Association="UserDB.Store.PositionProfileToPosition">
+      <End Role="Position" EntitySet="PositionSet" />
+      <End Role="ProfileToPosition" EntitySet="ProfileToPositionSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProfileExperience" Association="UserDB.Store.ProfileExperience">
+      <End Role="Profile" EntitySet="ProfileSet" />
+      <End Role="Experience" EntitySet="ExperienceSet" />
+    </AssociationSet>
+  </EntityContainer>
   <EntityType Name="LoginsSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="Login" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="DateOff" Type="datetimeoffset" Nullable="false" Precision="7" />
     <Property Name="Hash" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SessionSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="SessionKey" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="ExpTime" Type="datetimeoffset" Nullable="false" Precision="7" />
   </EntityType>
   <EntityType Name="PositionSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="SalaryFrom" Type="bigint" Nullable="false" />
-    <Property Name="Schedule" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Trips" Type="bit" Nullable="false" />
-    <Property Name="About" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Rate" Type="float" Nullable="false" />
-    <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
-    <Property Name="SalaryTo" Type="bigint" Nullable="false" />
-    <Property Name="IsOwn" Type="bit" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="SalaryFrom" Type="bigint" Nullable="false" DefaultValue="0" />
+    <Property Name="Schedule" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Trips" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="About" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Rate" Type="float" Nullable="false" DefaultValue="0" />
+    <Property Name="DateOff" Type="datetimeoffset" Nullable="false" Precision="7" />
+    <Property Name="SalaryTo" Type="bigint" Nullable="false" DefaultValue="0" />
+    <Property Name="IsOwn" Type="bit" Nullable="false" DefaultValue="false" />
   </EntityType>
   <EntityType Name="ProfileSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="BirthDate" Type="datetimeoffset" Precision="7" Nullable="false" />
-    <Property Name="PhoneNumer" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Sex" Type="bit" Nullable="false" />
-    <Property Name="Education" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="MaritalStatus" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="FullName" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="BirthDate" Type="datetimeoffset" Nullable="false" Precision="7" />
+    <Property Name="PhoneNumer" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Sex" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="Education" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="MaritalStatus" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
     <Property Name="Photo" Type="varbinary(max)" Nullable="false" />
-    <Property Name="Сitizen" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="About" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="Сitizen" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="About" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="DateOff" Type="datetimeoffset" Nullable="false" Precision="7" />
     <Property Name="Responed" Type="bit" Nullable="false" />
-    <Property Name="ResumeLink" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Interviews" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="IsReadyToTrips" Type="bit" Nullable="false" />
-    <Property Name="SalaryTo" Type="bigint" Nullable="false" />
-    <Property Name="SalaryFrom" Type="bigint" Nullable="false" />
+    <Property Name="ResumeLink" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Interviews" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="IsReadyToTrips" Type="bit" Nullable="false" DefaultValue="false" />
+    <Property Name="SalaryTo" Type="bigint" Nullable="false" DefaultValue="0" />
+    <Property Name="SalaryFrom" Type="bigint" Nullable="false" DefaultValue="0" />
     <Property Name="Position" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="ProfileToPositionSet">
@@ -70,87 +89,68 @@
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
     <Property Name="ProfileId" Type="uniqueidentifier" Nullable="false" />
     <Property Name="PositionId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="DateOff" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="DateOff" Type="datetimeoffset" Nullable="false" Precision="7" />
   </EntityType>
-  <EntityType Name="SessionSet">
+  <EntityType Name="ExperienceSet">
     <Key>
       <PropertyRef Name="Id" />
     </Key>
     <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="LoginId" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="SessionKey" Type="uniqueidentifier" Nullable="false" />
-    <Property Name="ExpTime" Type="datetimeoffset" Precision="7" Nullable="false" />
+    <Property Name="CompanyName" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="Position" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="ProfileId" Type="uniqueidentifier" Nullable="false" />
+    <Property Name="FromDate" Type="datetimeoffset" Nullable="false" Precision="7" />
+    <Property Name="ToDate" Type="datetimeoffset" Nullable="false" Precision="7" />
+    <Property Name="About" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" DefaultValue="" />
+    <Property Name="DateOff" Type="datetimeoffset" Nullable="false" Precision="7" />
   </EntityType>
-  <Association Name="FK_LoginsSession">
-    <End Role="LoginsSet" Type="Self.LoginsSet" Multiplicity="1" />
-    <End Role="SessionSet" Type="Self.SessionSet" Multiplicity="*" />
+  <Association Name="LoginsSession">
+    <End Role="Logins" Type="UserDB.Store.LoginsSet" Multiplicity="1" />
+    <End Role="Session" Type="UserDB.Store.SessionSet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="LoginsSet">
+      <Principal Role="Logins">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="SessionSet">
+      <Dependent Role="Session">
         <PropertyRef Name="LoginId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_PositionProfileToPosition">
-    <End Role="PositionSet" Type="Self.PositionSet" Multiplicity="1" />
-    <End Role="ProfileToPositionSet" Type="Self.ProfileToPositionSet" Multiplicity="*" />
+  <Association Name="ProfileProfileToPosition">
+    <End Role="Profile" Type="UserDB.Store.ProfileSet" Multiplicity="1" />
+    <End Role="ProfileToPosition" Type="UserDB.Store.ProfileToPositionSet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="PositionSet">
+      <Principal Role="Profile">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="ProfileToPositionSet">
+      <Dependent Role="ProfileToPosition">
+        <PropertyRef Name="ProfileId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PositionProfileToPosition">
+    <End Role="Position" Type="UserDB.Store.PositionSet" Multiplicity="1" />
+    <End Role="ProfileToPosition" Type="UserDB.Store.ProfileToPositionSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProfileToPosition">
         <PropertyRef Name="PositionId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ProfileExperience">
-    <End Role="ProfileSet" Type="Self.ProfileSet" Multiplicity="1" />
-    <End Role="ExperienceSet" Type="Self.ExperienceSet" Multiplicity="*" />
+  <Association Name="ProfileExperience">
+    <End Role="Profile" Type="UserDB.Store.ProfileSet" Multiplicity="1" />
+    <End Role="Experience" Type="UserDB.Store.ExperienceSet" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="ProfileSet">
+      <Principal Role="Profile">
         <PropertyRef Name="Id" />
       </Principal>
-      <Dependent Role="ExperienceSet">
+      <Dependent Role="Experience">
         <PropertyRef Name="ProfileId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_ProfileProfileToPosition">
-    <End Role="ProfileSet" Type="Self.ProfileSet" Multiplicity="1" />
-    <End Role="ProfileToPositionSet" Type="Self.ProfileToPositionSet" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="ProfileSet">
-        <PropertyRef Name="Id" />
-      </Principal>
-      <Dependent Role="ProfileToPositionSet">
-        <PropertyRef Name="ProfileId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <EntityContainer Name="UserDBStoreContainer">
-    <EntitySet Name="ExperienceSet" EntityType="Self.ExperienceSet" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="LoginsSet" EntityType="Self.LoginsSet" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="PositionSet" EntityType="Self.PositionSet" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ProfileSet" EntityType="Self.ProfileSet" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="ProfileToPositionSet" EntityType="Self.ProfileToPositionSet" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="SessionSet" EntityType="Self.SessionSet" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK_LoginsSession" Association="Self.FK_LoginsSession">
-      <End Role="LoginsSet" EntitySet="LoginsSet" />
-      <End Role="SessionSet" EntitySet="SessionSet" />
-    </AssociationSet>
-    <AssociationSet Name="FK_PositionProfileToPosition" Association="Self.FK_PositionProfileToPosition">
-      <End Role="PositionSet" EntitySet="PositionSet" />
-      <End Role="ProfileToPositionSet" EntitySet="ProfileToPositionSet" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProfileExperience" Association="Self.FK_ProfileExperience">
-      <End Role="ProfileSet" EntitySet="ProfileSet" />
-      <End Role="ExperienceSet" EntitySet="ExperienceSet" />
-    </AssociationSet>
-    <AssociationSet Name="FK_ProfileProfileToPosition" Association="Self.FK_ProfileProfileToPosition">
-      <End Role="ProfileSet" EntitySet="ProfileSet" />
-      <End Role="ProfileToPositionSet" EntitySet="ProfileToPositionSet" />
-    </AssociationSet>
-  </EntityContainer>
 </Schema>

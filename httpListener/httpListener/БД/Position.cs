@@ -9,11 +9,10 @@
 
 namespace httpListener.БД
 {
-    using httpListener.Classes;
     using System;
     using System.Collections.Generic;
     
-    public partial class Position : Father
+    public partial class Position
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Position()
@@ -36,7 +35,7 @@ namespace httpListener.БД
         public bool Trips { get; set; }
         public string About { get; set; }
         public double Rate { get; set; }
-        public new System.DateTimeOffset DateOff { get; set; }
+        public System.DateTimeOffset DateOff { get; set; }
         public long SalaryTo { get; set; }
         public bool IsOwn { get; set; }
     

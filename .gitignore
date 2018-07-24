@@ -9,3 +9,5 @@ httpListener/httpListener/bin/Debug/httpListener.exe
 *.exe
 *.exe
 *.pdb
+*.exe
+*.pdb
