@@ -21,5 +21,18 @@ namespace httpListener.Classes
                 return true;
             }
         }
+
+        public static bool CheckDateOff<T>(T father)
+            where T : Father
+        {
+            if (father.DateOff == null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

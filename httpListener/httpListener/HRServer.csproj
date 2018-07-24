@@ -60,6 +60,7 @@
   <ItemGroup>
     <Compile Include="Classes\AuthorizedUser.cs" />
     <Compile Include="Classes\CRUD.cs" />
+    <Compile Include="Classes\Father.cs" />
     <Compile Include="Classes\ProfileData.cs" />
     <Compile Include="Classes\Validator.cs" />
     <Compile Include="Interface\IExperience.cs" />

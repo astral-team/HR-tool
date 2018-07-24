@@ -31,3 +31,5 @@ C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\HRClient\obj\Debug\HRCl
 C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\HRClient\obj\Debug\HRClient.pdb
 C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Student\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\Newtonsoft.Json.xml
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\Newtonsoft.Json.dll
+C:\Users\home.PTIZ\Documents\GitHub\HR-tool\httpListener\HRClient\bin\Debug\Newtonsoft.Json.xml

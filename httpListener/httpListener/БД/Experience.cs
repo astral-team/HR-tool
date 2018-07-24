@@ -9,10 +9,11 @@
 
 namespace httpListener.БД
 {
+    using httpListener.Classes;
     using System;
     using System.Collections.Generic;
     
-    public partial class Experience
+    public partial class Experience : Father
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Experience()
@@ -31,7 +32,7 @@ namespace httpListener.БД
         public System.DateTimeOffset ToDate { get; set; }
         public string About { get; set; }
         public string City { get; set; }
-        public System.DateTimeOffset DateOff { get; set; }
+        public new System.DateTimeOffset DateOff { get; set; }
     
         public virtual Profile Profile { get; set; }
     }
