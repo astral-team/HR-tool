@@ -60,8 +60,13 @@
   <ItemGroup>
     <Compile Include="Classes\AuthorizedUser.cs" />
     <Compile Include="Classes\CRUD.cs" />
+    <Compile Include="Classes\ExperienceMov.cs" />
     <Compile Include="Classes\Father.cs" />
+    <Compile Include="Classes\PositionMov.cs" />
     <Compile Include="Classes\ProfileData.cs" />
+    <Compile Include="Classes\ProfileDataMov.cs" />
+    <Compile Include="Classes\ProfileMov.cs" />
+    <Compile Include="Classes\ProfileToPositionMov.cs" />
     <Compile Include="Classes\Validator.cs" />
     <Compile Include="Interface\IExperience.cs" />
     <Compile Include="Interface\ILogin.cs" />

@@ -1,10 +1,5 @@
-﻿using httpListener.Interface;
-using httpListener.БД;
-using System;
+﻿using httpListener.БД;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace httpListener.Classes
 {
@@ -12,7 +7,7 @@ namespace httpListener.Classes
     {
         public Profile Prof;
         public Position Pos;
-
+        public List<ProfileToPosition> profToPos;
         public List<Experience> Exp;
 
         public ProfileData()
@@ -20,33 +15,7 @@ namespace httpListener.Classes
             Exp = new List<Experience>();
             this.Prof = new Profile();
             this.Pos = new Position();
-            
-        }
-
-        public TrueProfile Json()
-        {
-            var t = new TrueProfile();
-            t.FullName = Prof.FullName;
-            t.About = Prof.About;
-            t.BirthDate = Prof.BirthDate;
-            t.City = Prof.City;
-            t.DateOff = Prof.DateOff;
-            t.Education = Prof.Education;
-            t.Email = Prof.Email;
-            t.Id = Prof.Id;
-            t.Interviews = Prof.Interviews;
-            t.IsReadyToTrips = Prof.IsReadyToTrips;
-            t.MaritalStatus = Prof.MaritalStatus;
-            t.PhoneNumer = Prof.PhoneNumer;
-            t.Photo = Prof.Photo;
-            t.Position = Prof.Position;
-            t.Responed = Prof.Responed;
-            t.ResumeLink = Prof.ResumeLink;
-            t.SalaryFrom = Prof.SalaryFrom;
-            t.SalaryTo = Prof.SalaryTo;
-            t.Sex = Prof.Sex;
-            t.Сitizen = Prof.Сitizen;
-            return t;
+            this.profToPos = new List<ProfileToPosition>();
         }
 
         public static implicit operator Profile(ProfileData p)
@@ -54,51 +23,81 @@ namespace httpListener.Classes
             return p.Prof;
         }
 
+        public static implicit operator ProfileMov(ProfileData p)
+        {
+            var t = new ProfileMov();
+            t.FullName = p.Prof.FullName;
+            t.About = p.Prof.About;
+            t.BirthDate = p.Prof.BirthDate;
+            t.City = p.Prof.City;
+            t.DateOff = p.Prof.DateOff;
+            t.Education = p.Prof.Education;
+            t.Email = p.Prof.Email;
+            t.Id = p.Prof.Id;
+            t.Interviews = p.Prof.Interviews;
+            t.IsReadyToTrips = p.Prof.IsReadyToTrips;
+            t.MaritalStatus = p.Prof.MaritalStatus;
+            t.PhoneNumer = p.Prof.PhoneNumer;
+            t.Photo = p.Prof.Photo;
+            t.Position = p.Prof.Position;
+            t.Responed = p.Prof.Responed;
+            t.ResumeLink = p.Prof.ResumeLink;
+            t.SalaryFrom = p.Prof.SalaryFrom;
+            t.SalaryTo = p.Prof.SalaryTo;
+            t.Sex = p.Prof.Sex;
+            t.Сitizen = p.Prof.Сitizen;
+            return t;
+        }
+
         public static implicit operator Position(ProfileData p)
         {
             return p.Pos;
         }
-    }
-    public class TrueProfile
-    {
-        public System.Guid Id { get; set; }
 
-        public string FullName { get; set; }
+        public static implicit operator PositionMov(ProfileData p)
+        {
+            var t = new PositionMov();
+            t.FullName = p.Pos.FullName;
+            t.About = p.Pos.About;
+            t.DateOff = p.Pos.DateOff;
+            t.Id = p.Pos.Id;
+            t.SalaryFrom = p.Pos.SalaryFrom;
+            t.SalaryTo = p.Pos.SalaryTo;
+            t.IsOwn = p.Pos.IsOwn;
+            t.Rate = p.Pos.Rate;
+            t.Schedule = p.Pos.Schedule;
+            t.Trips = p.Pos.Trips;
+            return t;
+        }
 
-        public System.DateTimeOffset BirthDate { get; set; }
+        public static implicit operator List<ExperienceMov>(ProfileData p)
+        {
+            var t = new List<ExperienceMov>();
+            foreach(var l in p.Exp)
+            {
+                var exp = new ExperienceMov();
+                exp.About = l.About;
+                exp.City = l.City;
+                exp.CompanyName = l.CompanyName;
+                exp.DateOff = l.DateOff;
+                exp.FromDate = l.FromDate;
+                exp.Id = l.Id;
+                exp.Position = l.Position;
+                exp.ProfileId = l.ProfileId;
+                exp.ToDate = l.ToDate;
+                t.Add(exp);
+            }
+           
+            return t;
+        }
 
-        public string PhoneNumer { get; set; }
-
-        public string Email { get; set; }
-
-        public bool Sex { get; set; }
-
-        public string Education { get; set; }
-
-        public string MaritalStatus { get; set; }
-
-        public string City { get; set; }
-
-        public byte[] Photo { get; set; }
-
-        public string Сitizen { get; set; }
-
-        public string About { get; set; }
-
-        public System.DateTimeOffset DateOff { get; set; }
-
-        public bool Responed { get; set; }
-
-        public string ResumeLink { get; set; }
-
-        public string Interviews { get; set; }
-
-        public bool IsReadyToTrips { get; set; }
-
-        public long SalaryTo { get; set; }
-
-        public long SalaryFrom { get; set; }
-
-        public string Position { get; set; }
+        public static implicit operator ProfileDataMov(ProfileData p)
+        {
+            var t = new ProfileDataMov();
+            t.Prof = p;
+            t.Pos = p;
+            t.Exp = p;
+            return t;
+        }
     }
 }

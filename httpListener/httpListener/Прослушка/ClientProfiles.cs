@@ -76,6 +76,16 @@ namespace httpListener
                         responseString = $"Ошибка, неверный сессионный ключ, Логин={user.Login}, Hash={user.Hash}";
                     }
                     break;
+                case "UPDATE":
+                    if (Validator.CheckTimeOfSession(sessionDb))
+                    {
+                        // Delete(userDb, user, out responseString);
+                    }
+                    else
+                    {
+                        responseString = $"Ошибка, неверный сессионный ключ, Логин={user.Login}, Hash={user.Hash}";
+                    }
+                    break;
                 default:
                     responseString = $"Ошибка, не распознан HTTP метод, Логин={user.Login}, Hash={user.Hash}";
                     break;
@@ -110,12 +120,12 @@ namespace httpListener
         private static void GetProf(out string responseString)
         {
             var list = CRUD.GetProfiles();
-            var JsonList = new List<TrueProfile>();
-            foreach(var c in list)
+            var newList = new List<ProfileDataMov>();
+            foreach(var l in list)
             {
-                JsonList.Add(c.Json());
+                newList.Add(l);
             }
-            responseString = JsonConvert.SerializeObject(JsonList, Formatting.Indented);
+            responseString = JsonConvert.SerializeObject(newList, Formatting.Indented);
         }
 
         private static void Delete(Logins userDb, AuthorizedUser user, out string responseString)
@@ -130,6 +140,16 @@ namespace httpListener
             {
                 responseString = "404";
             }
+        }
+
+        private static void Update(List<ProfileData> list, out string responseString)
+        {
+            foreach(var l in list)
+            {
+                CRUD.UpdateProfile(l);
+                responseString = "200";
+            }
+                responseString = "404";
         }
     }
 }

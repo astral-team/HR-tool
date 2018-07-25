@@ -15,3 +15,5 @@ httpListener/httpListener/bin/Debug/httpListener.exe
 *.exe
 httpListener/httpListener/bin/Debug/httpListener.exe.config
 *.pdb
+*.pdb
+*.exe

@@ -16,6 +16,4 @@ namespace HRClient
             this.Pos = new Position();
     }
     }
-
-    
 }
