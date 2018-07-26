@@ -1,12 +1,9 @@
 ﻿using httpListener.Classes;
-using httpListener.Interface;
 using httpListener.БД;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace httpListener
 {
@@ -25,7 +22,7 @@ namespace httpListener
             // Используем LINQ-запрос для извлечения данных
             try
             {
-                return dbContext.LoginsSet.AsQueryable().Where(x => x.DateOff == DateTimeOffset.MinValue).Where(x => x.Login == user.Login).Where(x => x.Hash == user.Hash).First();
+                return dbContext.LoginsSet.AsQueryable().Where(x => x.DateOff == DateTimeOffset.MinValue).Where(x => x.Login == user.Login).First();
             }
             catch
             {
@@ -47,7 +44,9 @@ namespace httpListener
             }
         }
 
-
+        /// <summary>
+        /// Получить сессию по ключу
+        /// </summary>
         public static Session GetSession(Guid key)
         {
             try
@@ -89,6 +88,9 @@ namespace httpListener
             return true;
         }
 
+        /// <summary>
+        /// Начало сессии
+        /// </summary>
         public static void CreateSession(Guid logId)
         {
             Session session = new Session()
@@ -98,6 +100,19 @@ namespace httpListener
             };
             dbContext.SessionSet.Add(session);
             //dbContext.SaveChanges();
+        }
+
+        /// <summary>
+        /// Смена пароля
+        /// </summary>
+        public static void ChangePassword(AuthorizedUser user)
+        {
+            var userDB = GetUser(user);
+            if (userDB != null)
+            {
+                dbContext.Entry(userDB).State = EntityState.Modified;
+                dbContext.SaveChanges();
+            }
         }
 
         /// <summary>
@@ -202,6 +217,16 @@ namespace httpListener
             return dbContext.PositionSet.AsQueryable().Where(x => x.Id == Id).FirstOrDefault();
         }
 
+        public static ProfileToPosition GetProfileToPosition(Guid Id)
+        {
+            return dbContext.ProfileToPositionSet.AsQueryable().Where(x => x.Id == Id).FirstOrDefault();
+        }
+
+        public static Experience GetExperience(Guid Id)
+        {
+            return dbContext.ExperienceSet.AsQueryable().Where(x => x.Id == Id).FirstOrDefault();
+        }
+
         public static void CreateExperience(List<Experience> exList, Profile profile)
         {
             var exp = new Experience();
@@ -250,7 +275,7 @@ namespace httpListener
 
         public static void UpdatePosition(Position pd)
         {
-            var pos = GetPosition(pd.FullName);
+            var pos = GetPosition(pd.Id);
             if (pos != null)
             {
                 dbContext.Entry(pos).State = EntityState.Modified;
@@ -258,9 +283,20 @@ namespace httpListener
             }
         }
 
-        public static void UpdateProfToPos(Profile prof, Position pos)
+        public static void UpdateExperience(Experience pd)
+        {
+            var exp = GetExperience(pd.Id);
+            if (exp != null)
+            {
+                dbContext.Entry(exp).State = EntityState.Modified;
+                dbContext.SaveChanges();
+            }
+        }
+
+        public static void UpdateProfToPos(Profile prof, Position pos, ProfileToPosition PToP)
         {
             var profDB = GetProfile(prof.Id);
+
             var posDB = GetPosition(pos.Id);
 
             if (profDB != null)
@@ -271,39 +307,57 @@ namespace httpListener
                     posDB = new Position();
                     posDB.FullName = pos.FullName;
                     CreatePosition(posDB);
+
+
+                    var ProfToPos = new ProfileToPosition();
+                    ProfToPos.Id = Guid.NewGuid();
+
+                    ProfToPos.ProfileId = profDB.Id;
+                    ProfToPos.Profile = profDB;
+
+                    ProfToPos.PositionId = posDB.Id;
+
+                    ProfToPos.Position = posDB;
+
+                    dbContext.ProfileToPositionSet.Add(ProfToPos);
                 }
-
-                var ProfToPos = new ProfileToPosition();
-                ProfToPos.Id = Guid.NewGuid();
-
-                ProfToPos.ProfileId = profDB.Id;
-                ProfToPos.Profile = profDB;
-
-                ProfToPos.PositionId = posDB.Id;
-
-                ProfToPos.Position = posDB;
-
-                dbContext.ProfileToPositionSet.Add(ProfToPos);
+                else
+                {
+                    var Ptp = GetProfileToPosition(PToP.Id);
+                    Ptp.PositionId = posDB.Id;
+                    Ptp.Position = posDB;
+                    dbContext.Entry(Ptp).State = EntityState.Modified;
+                    dbContext.SaveChanges();
+                }
             }
-            else
-            {
-                var profToPos = dbContext.ProfileToPositionSet.AsQueryable().Where(x => x.PositionId == posDB.Id).Where(y => y.ProfileId == profDB.Id).FirstOrDefault();
-            }
-        }
-
-        public static void UpdateExperience(Experience pd)
-        {
-
         }
 
         public static void UpdateProfileData(ProfileData pd)
         {
             UpdateProfile(pd.Prof);
             UpdatePosition(pd.Pos);
+            foreach (var ptp in pd.profToPos)
+            {
+                UpdateProfToPos(pd.Prof, pd.Pos, ptp);
+            }
             foreach (var exp in pd.Exp)
             {
                 UpdateExperience(exp);
             }
+        }
+
+        public static void RemoveProfile(ProfileData pd)
+        {
+            var profDB = GetProfile(pd.Prof.Id);
+            foreach (var exp in profDB.Experience) 
+            {
+                exp.DateOff = DateTime.Now;
+            }
+            foreach (var pToP in profDB.ProfileToPosition)
+            {
+                pToP.DateOff = DateTime.Now;
+            }
+            profDB.DateOff = DateTime.Now;
         }
     }
 }

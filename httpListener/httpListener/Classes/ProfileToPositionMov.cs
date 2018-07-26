@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace httpListener.Classes
+﻿namespace httpListener.Classes
 {
-    class ProfileToPositionMov
+    class ProfileToPositionMov:Father
     {
         public System.Guid Id { get; set; }
         public System.Guid ProfileId { get; set; }
         public System.Guid PositionId { get; set; }
-        public System.DateTimeOffset DateOff { get; set; }
+        public new System.DateTimeOffset DateOff { get; set; }
     }
 }

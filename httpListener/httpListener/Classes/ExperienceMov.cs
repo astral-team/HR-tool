@@ -18,6 +18,6 @@
 
         public string City { get; set; }
 
-        public System.DateTimeOffset DateOff { get; set; }
+        public new System.DateTimeOffset DateOff { get; set; }
     }
 }

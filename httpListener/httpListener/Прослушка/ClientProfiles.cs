@@ -31,9 +31,6 @@ namespace httpListener
 
             var profile = JsonConvert.DeserializeObject<List<ProfileData>>(sRequest);
 
-            //Console.WriteLine(vacNewtonsoft);
-
-
             AuthorizedUser user = new AuthorizedUser(request.Headers["login"], request.Headers["Authorization"]);
             var userDb = CRUD.GetUser(user);
             string responseString = "";
@@ -69,17 +66,17 @@ namespace httpListener
                 case "DELETE":
                     if (Validator.CheckTimeOfSession(sessionDb))
                     {
-                       // Delete(userDb, user, out responseString);
+                       Delete(profile, out responseString);
                     }
                     else
                     {
                         responseString = $"Ошибка, неверный сессионный ключ, Логин={user.Login}, Hash={user.Hash}";
                     }
                     break;
-                case "UPDATE":
+                case "PUT":
                     if (Validator.CheckTimeOfSession(sessionDb))
                     {
-                        // Delete(userDb, user, out responseString);
+                        Update(profile, out responseString);
                     }
                     else
                     {
@@ -128,15 +125,18 @@ namespace httpListener
             responseString = JsonConvert.SerializeObject(newList, Formatting.Indented);
         }
 
-        private static void Delete(Logins userDb, AuthorizedUser user, out string responseString)
+        private static void Delete(List<ProfileData> list, out string responseString)
         {
-            if (userDb != null)
+            responseString = "";
+            try
             {
-                //userDb.DateOff = DateTime.Now;
-                //CRUD.RemoveUser(userDb);
+                foreach (var l in list)
+                {
+                    CRUD.RemoveProfile(l);
+                }
                 responseString = "200";
             }
-            else
+            catch
             {
                 responseString = "404";
             }
@@ -144,12 +144,19 @@ namespace httpListener
 
         private static void Update(List<ProfileData> list, out string responseString)
         {
-            foreach(var l in list)
+            responseString = "";
+            try
             {
-                CRUD.UpdateProfile(l);
+                foreach (var l in list)
+                {
+                    CRUD.UpdateProfileData(l);
+                }
                 responseString = "200";
             }
+            catch
+            {
                 responseString = "404";
+            }
         }
     }
 }

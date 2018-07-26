@@ -16,7 +16,7 @@
 
         public double Rate { get; set; }
 
-        public System.DateTimeOffset DateOff { get; set; }
+        public new System.DateTimeOffset DateOff { get; set; }
 
         public long SalaryTo { get; set; }
 
