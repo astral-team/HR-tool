@@ -267,6 +267,27 @@ namespace httpListener
             var prof = GetProfile(pd);
             if (prof!=null)
             {
+                prof.FullName = pd.FullName;
+                prof.About = pd.About;
+                prof.BirthDate = pd.BirthDate;
+                prof.Email = pd.Email;
+                prof.City = pd.City;
+                prof.DateOff = pd.DateOff;
+                prof.Education = pd.Education;
+                prof.Experience = pd.Experience;
+                prof.Interviews = pd.Interviews;
+                prof.IsReadyToTrips = pd.IsReadyToTrips;
+                prof.MaritalStatus = pd.MaritalStatus;
+                prof.PhoneNumer = pd.PhoneNumer;
+                prof.Photo = pd.Photo;
+                prof.Position = pd.Position;
+                prof.ProfileToPosition = pd.ProfileToPosition;
+                prof.Responed = pd.Responed;
+                prof.ResumeLink = pd.ResumeLink;
+                prof.SalaryFrom = pd.SalaryFrom;
+                prof.SalaryTo = pd.SalaryTo;
+                prof.Sex = pd.Sex;
+                prof.Сitizen = pd.Сitizen;
                 dbContext.Entry(prof).State = EntityState.Modified;
                 dbContext.SaveChanges();
             }
@@ -278,6 +299,16 @@ namespace httpListener
             var pos = GetPosition(pd.Id);
             if (pos != null)
             {
+                pos.About = pd.About;
+                pos.DateOff = pd.DateOff;
+                pos.FullName = pd.FullName;
+                pos.IsOwn = pd.IsOwn;
+                pos.ProfileToPosition = pd.ProfileToPosition;
+                pos.Rate = pd.Rate;
+                pos.SalaryFrom = pd.SalaryFrom;
+                pos.SalaryTo = pd.SalaryTo;
+                pos.Schedule = pd.Schedule;
+                pos.Trips = pd.Trips;
                 dbContext.Entry(pos).State = EntityState.Modified;
                 dbContext.SaveChanges();
             }
@@ -288,6 +319,15 @@ namespace httpListener
             var exp = GetExperience(pd.Id);
             if (exp != null)
             {
+                exp.About = pd.About;
+                exp.City = pd.City;
+                exp.CompanyName = pd.CompanyName;
+                exp.DateOff = pd.DateOff;
+                exp.FromDate = pd.FromDate;
+                exp.Position = pd.Position;
+                exp.Profile = pd.Profile;
+                exp.ProfileId = pd.ProfileId;
+                exp.ToDate = pd.ToDate;
                 dbContext.Entry(exp).State = EntityState.Modified;
                 dbContext.SaveChanges();
             }

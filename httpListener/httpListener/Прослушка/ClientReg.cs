@@ -56,7 +56,7 @@ namespace httpListener
                     Delete(userDb, user, out responseString);
                     break;
                 default:
-                    responseString = $"Ошибка, не распознан HTTP метод, Логин={user.Login}, Hash={user.Hash}";
+                    responseString = $"Ошибка, не распознан HTTP метод";
                     break;
             }
             stateString = $"Login = {user.Login}\nHash = {user.Hash}\nSession = {user.SessionKey}\nDateOff = {user.DateOff}\nSessionExpTime = {user.ExpTime}\n\n";

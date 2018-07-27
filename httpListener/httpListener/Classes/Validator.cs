@@ -25,7 +25,7 @@ namespace httpListener.Classes
         public static bool CheckDateOff<T>(T father)
             where T : Father
         {
-            if (father.DateOff != DateTime.MinValue)
+            if (father.DateOff == DateTimeOffset.MinValue)
             {
                 return true;
             }

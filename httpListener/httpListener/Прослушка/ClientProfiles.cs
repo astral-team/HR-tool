@@ -70,21 +70,22 @@ namespace httpListener
                     }
                     else
                     {
-                        responseString = $"Ошибка, неверный сессионный ключ, Логин={user.Login}, Hash={user.Hash}";
+                        responseString = $"Ошибка, неверный сессионный ключ";
                     }
                     break;
                 case "PUT":
+
                     if (Validator.CheckTimeOfSession(sessionDb))
                     {
                         Update(profile, out responseString);
                     }
                     else
                     {
-                        responseString = $"Ошибка, неверный сессионный ключ, Логин={user.Login}, Hash={user.Hash}";
+                        responseString = $"Ошибка, неверный сессионный ключ";
                     }
                     break;
                 default:
-                    responseString = $"Ошибка, не распознан HTTP метод, Логин={user.Login}, Hash={user.Hash}";
+                    responseString = $"Ошибка, не распознан HTTP метод";
                     break;
             }
             stateString = $"Login = {user.Login}\nHash = {user.Hash}\n\n";
@@ -132,7 +133,14 @@ namespace httpListener
             {
                 foreach (var l in list)
                 {
-                    CRUD.RemoveProfile(l);
+                    if (Validator.CheckDateOff<ProfileMov>(l))
+                    {
+                        CRUD.RemoveProfile(l);
+                    }
+                    else
+                    {
+                        responseString = "Резюме уже удалено";
+                    }
                 }
                 responseString = "200";
             }
@@ -149,7 +157,14 @@ namespace httpListener
             {
                 foreach (var l in list)
                 {
-                    CRUD.UpdateProfileData(l);
+                    if (Validator.CheckDateOff<ProfileMov>(l))
+                    {
+                        CRUD.UpdateProfileData(l);
+                    }
+                    else
+                    {
+                        responseString = "Резюме уже удалено";
+                    }
                 }
                 responseString = "200";
             }

@@ -123,6 +123,7 @@ namespace HRClient
                             Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
 
                             break;
+                        
 
                         case "addProfile":
                             IP += "profiles/";
@@ -221,10 +222,6 @@ namespace HRClient
                             //-----------------------
                             #endregion
                             closeWith.Add(openWith);
-                            openWith = new Person();
-                            openWith.Prof.FullName = "sdfbd";
-                            openWith.Prof.Position = "c#";
-                            closeWith.Add(openWith);
 
                             request.RequestFormat = RestSharp.DataFormat.Json;
                             request.AddBody(closeWith);
@@ -306,6 +303,121 @@ namespace HRClient
 
 
                             break;
+                        case "updateProfile":
+                            IP += "profiles/";
+
+                            client.BaseUrl = new Uri(IP);
+
+                            Console.WriteLine("Заполните профиль");
+                            request = new RestRequest("resource", Method.PUT);
+                            closeWith = new List<Person>();
+
+
+                            #region это дерьмо лучше скрыть (Имя великого человека)
+                            //-----------------------
+                            //здесь происходит заполнение профлия и заполнение им тела запроса
+
+
+
+
+                            Console.WriteLine("Введите Имя пользователя");
+                            openWith.Prof.FullName = Console.ReadLine();
+                            Console.WriteLine("Введите BirthDate");
+                            openWith.Prof.BirthDate = DateTimeOffset.Now;
+                            Console.WriteLine("Введите PhoneNumber");
+                            openWith.Prof.PhoneNumer = Console.ReadLine();
+                            Console.WriteLine("Введите Email");
+                            openWith.Prof.Email = Console.ReadLine();
+                            Console.WriteLine("Введите Sex");
+                            openWith.Prof.Sex = true;
+                            Console.WriteLine("Введите Position");
+                            openWith.Prof.Position = Console.ReadLine();
+                            Console.WriteLine("Введите Education");
+                            openWith.Prof.Education = Console.ReadLine();
+                            Console.WriteLine("Введите MaritalStatus");
+                            openWith.Prof.MaritalStatus = Console.ReadLine();
+                            Console.WriteLine("Введите City");
+                            openWith.Prof.City = Console.ReadLine();
+                            Console.WriteLine("Введите Photo");
+                            openWith.Prof.Photo = new byte[0x10];
+                            Console.WriteLine("Введите Citizen");
+                            openWith.Prof.Сitizen = Console.ReadLine();
+                            Console.WriteLine("Введите About");
+                            openWith.Prof.About = Console.ReadLine();
+
+
+                            //Console.WriteLine("Введите Experience");
+                            ex = new Experience();
+                            ex.CompanyName = "";
+                            ex.Position = "asd";
+                            ex.FromDate = DateTimeOffset.Now;
+                            ex.ToDate = DateTimeOffset.Now;
+                            ex.About = "";
+                            ex.City = "";
+                            openWith.Exp.Add(ex);
+
+                            /*Console.WriteLine("Введите Experience");
+                             openWith.Experience = Console.ReadLine();*/
+                            openWith.Prof.Responed = false;
+                            Console.WriteLine("Введите ResumeLink");
+                            openWith.Prof.ResumeLink = Console.ReadLine();
+                            Console.WriteLine("Введите Interviews");
+                            openWith.Prof.Interviews = Console.ReadLine();
+
+                            //Console.WriteLine("Введите Имя пользователя");
+                            //request.AddHeader("FullName", Console.ReadLine());
+                            //Console.WriteLine("Введите BirthDate");
+                            //request.AddHeader("BirthDate", Console.ReadLine());
+                            //Console.WriteLine("Введите PhoneNumber");
+                            //request.AddHeader("PhoneNumber", Console.ReadLine());
+                            //Console.WriteLine("Введите Email");
+                            //request.AddHeader("Email", Console.ReadLine());
+                            //Console.WriteLine("Введите Sex");
+                            //request.AddHeader("Sex", Console.ReadLine());
+                            //Console.WriteLine("Введите Position");
+                            //request.AddHeader("Position", Console.ReadLine());
+                            //Console.WriteLine("Введите Education");
+                            //request.AddHeader("Education", Console.ReadLine());
+                            //Console.WriteLine("Введите MaritalStatus");
+                            //request.AddHeader("MaritalStatus", Console.ReadLine());
+                            //Console.WriteLine("Введите City");
+                            //request.AddHeader("City", Console.ReadLine());
+                            //Console.WriteLine("Введите Photo");
+                            //request.AddHeader("Photo", Console.ReadLine());
+                            //Console.WriteLine("Введите Citizen");
+                            //request.AddHeader("Citizen", Console.ReadLine());
+                            //Console.WriteLine("Введите About");
+                            //request.AddHeader("About", Console.ReadLine());
+                            //Console.WriteLine("Введите Experience");
+                            //request.AddHeader("Experience", Console.ReadLine());
+                            //Console.WriteLine("Введите Responed");
+                            //request.AddHeader("Responed", Console.ReadLine());
+                            //Console.WriteLine("Введите ResumeLink");
+                            //request.AddHeader("ResumeLink", Console.ReadLine());
+                            //Console.WriteLine("Введите Interviews");
+                            //request.AddHeader("Interviews", Console.ReadLine());
+
+                            //-----------------------
+                            #endregion
+                            closeWith.Add(openWith);
+
+                            request.RequestFormat = RestSharp.DataFormat.Json;
+                            request.AddBody(closeWith);
+
+
+                            client.Authenticator = new HttpBasicAuthenticator(login, password);
+                            request.AddHeader("login", login);
+                            if (SessionKey != "")
+                                request.AddHeader("SessionKey", SessionKey);
+
+                            response = client.Execute<List<Person>>(request);
+                            Console.Write($"Ответ сервера: {response.Content}\n\n\nКоманда: ");
+
+
+                            break;
+
+
+
                         default:
 
 
